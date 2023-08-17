@@ -1,12 +1,14 @@
 import "./App.css";
+import Navbar from "./components/Navbar";
 import ProgressStepsProgressIcon from "./locofy/ProgressStepsProgressIcon";
 // import ProgressSteps from "./components/ProgressSteps";
 
 function App() {
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
+    <div className="h-screen">
       {/* <ProgressSteps /> */}
-      <ProgressStepsProgressIcon />
+      {/* <ProgressStepsProgressIcon /> */}
+      <Navbar />
     </div>
   );
 }
