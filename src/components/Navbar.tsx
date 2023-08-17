@@ -3,7 +3,7 @@ import { LuSearch, LuSettings } from 'react-icons/lu'
 import { IoNotificationsOutline } from 'react-icons/io5'
 const Navbar = () => {
     return (
-        <div className="transition-all ease-in-out duration-400 flex justify-between items-center px-[20px] md:px-[100px] py-[10px] relative w-full h-[75px]">
+        <div className="transition-all ease-in-out duration-400 flex justify-between items-center px-[20px] md:px-[100px] py-[10px] relative w-full h-[65px]">
             <div>
                 <img
                     src={logo}

@@ -1,6 +1,7 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
 import ProgressStepsProgressIcon from "./locofy/ProgressStepsProgressIcon";
+import BusinessPlanMenu from "./locofy/screens/BusinessPlanMenu";
 // import ProgressSteps from "./components/ProgressSteps";
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       {/* <ProgressSteps /> */}
       {/* <ProgressStepsProgressIcon /> */}
       <Navbar />
+      <BusinessPlanMenu />
     </div>
   );
 }
