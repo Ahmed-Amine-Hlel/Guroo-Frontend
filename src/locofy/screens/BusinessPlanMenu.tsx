@@ -12,9 +12,9 @@ import editIcon from '../../assets/icons/edit-icon.svg'
 const BusinessPlanMenu = () => {
     return (
         <div
-            className='flex gap-[16px] min-h-[calc(100%_-_65px)] bg-[#f4edfb] px-[20px] md:px-[100px] py-[40px] font-plus-jakarta-sans '
+            className='flex flex-col md:flex-row gap-[16px] min-h-[calc(100%_-_65px)] bg-[#f4edfb] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans '
         >
-            <div className='flex flex-col w-[450px] rounded-[16px] py-[16px] bg-white max-h-screen'>
+            <div className='flex flex-col md:w-[450px] rounded-[16px] py-[16px] bg-white max-h-screen'>
                 <div className="flex flex-col gap-[10px] text-white mx-[16px] p-[16px] rounded-[8px] mb-[16px] bg-gradient-to-r from-[#6441A5] from-0% to-[#914FD2] to-100%">
                     <div className='flex items-center gap-[5px] bg-[#914FD2] w-max py-[5px] px-[8px] rounded-full'>
                         <div>
@@ -112,13 +112,13 @@ const BusinessPlanMenu = () => {
 
             </div>
             <div className='w-full'>
-                <div className='flex justify-between items-center rounded-[16px] px-[18px] py-[22px] bg-white mb-[22px]'>
-                    <div className='text-[26px]'>
+                <div className='flex flex-col gap-4 lg:gap-0 lg:flex-row  justify-between lg:items-center rounded-[16px] px-[18px] py-[22px] bg-white mb-[22px]'>
+                    <div className='text-[16px] md:text-[18px] lg:text-[26px]'>
                         Voici vos business-plan, <span className='text-foundation-purple-normal'>Victor</span>
                     </div>
-                    <button className='flex gap-2 text-[14px] px-[30px] py-[15px] bg-[#914FD2] rounded-[8px] text-white font-medium hover:bg-[#8347bd]'>
+                    <button className='flex justify-center items-center gap-2 text-[14px] px-[20px] py-[15px] bg-[#914FD2] rounded-[8px] text-white font-medium hover:bg-[#8347bd]'>
                         <BsFillPlusCircleFill
-                            size={20}
+                            className="text-[20px]"
                         />
                         <span>
                             Démarrer un autre business plan
@@ -149,7 +149,7 @@ const BusinessPlanMenu = () => {
                     </div>
 
                 </div>
-                <div className='grid grid-cols-3 gap-[20px]'>
+                <div className='grid grid-cols-1 lg:grid-cols-3 gap-[20px]'>
                     <div className='flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]'>
                         <div>
                             <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
