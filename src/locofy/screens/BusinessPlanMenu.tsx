@@ -8,10 +8,20 @@ import downloadIcon from "../../assets/icons/download-icon.svg";
 import notificationIcon from "../../assets/icons/notification-icon.svg";
 import questionMark from "../../assets/icons/question-mark-icon.svg";
 import editIcon from "../../assets/icons/edit-icon.svg";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useEffect } from "react";
+import { getBusinessPlanAsync } from "../../store/businessPlan/businessPlanSlice";
 
 const BusinessPlanMenu = () => {
+  const dispatch = useAppDispatch();
   const { loading, user } = useAppSelector((state) => state.auth);
+  const { businessPlan } = useAppSelector((state) => state.businessPlan);
+
+  console.log(businessPlan);
+
+  useEffect(() => {
+    dispatch(getBusinessPlanAsync());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col md:flex-row gap-[16px] min-h-[calc(100%_-_65px)] bg-[#f4edfb] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans ">
