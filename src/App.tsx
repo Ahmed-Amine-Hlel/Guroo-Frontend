@@ -38,10 +38,9 @@ function App() {
       </div> */}
 
       {/* <AuthScreen /> */}
-      {/* <LoadingScreen /> */}
-      {/* <PayementScreen /> */}
-      <div className="flex py-10 flex-col gap-10 items-center justify-center">
-        {/* <InputCheckBox />
+      {/*  <LoadingScreen /> */}
+      <PayementScreen />
+      {/* <InputCheckBox />
         <InputGooglePlaces />
         
         <InputPercentage />
@@ -51,9 +50,9 @@ function App() {
         <StringInput />
         <InputCalendar />
         <MultiInput /> */}
-        {/* <Stepper /> */}
-        <InputListBox />
-      </div>
+      {/* <Stepper /> */}
+      {/*    <InputListBox /> */}
+
     </div>
   );
 }
