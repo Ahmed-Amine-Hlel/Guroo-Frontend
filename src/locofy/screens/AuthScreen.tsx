@@ -3,6 +3,13 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import { loginAsync } from "../../store/auth/authSlice";
+import { FadeLoader } from "react-spinners";
+
+const loaderOverride: React.CSSProperties = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
 
 const AuthScreen = () => {
   const [codeToken, setCodeToken] = useState("");
@@ -115,7 +122,21 @@ const AuthScreen = () => {
               <span>Inscrivez vous avec Google</span>
             </button>
           </div>
-
+          {loading && (
+            <div className="flex justify-center items-center mt-4">
+              <FadeLoader
+                color={"#914FD2"}
+                loading={true}
+                radius={16}
+                margin={5}
+                height={16}
+                width={6}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                cssOverride={loaderOverride}
+              />
+            </div>
+          )}
           <div className="text-[#475467] text-[14px] text-center">
             Vous avez déjà un compte{" "}
             <span className="text-[#914FD2]">Connectez-vous</span>
