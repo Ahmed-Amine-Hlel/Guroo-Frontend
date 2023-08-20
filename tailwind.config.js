@@ -27,6 +27,9 @@ export default {
       borderRadius: {
         "29xl": "48px",
       },
+      boxShadow: {
+        custom: "0px 0px 0px 4px rgba(248.46, 241.19, 255, 0.58)",
+      },
     },
     fontSize: {
       xs: "0.75rem",
