@@ -8,20 +8,13 @@ import BusinessPlanMenu from "./locofy/screens/BusinessPlanMenu";
 function App() {
   return (
     <div className="h-screen">
-      <Navbar />
-      <Routes>
-        <Route
-          path={"/"}
-          element={
-            <GoogleOAuthProvider
-              clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID!}
-            >
-              <AuthScreen />
-            </GoogleOAuthProvider>
-          }
-        />
-        <Route path={"/business-plan"} element={<BusinessPlanMenu />} />
-      </Routes>
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID!}>
+        <Navbar />
+        <Routes>
+          <Route path={"/"} element={<AuthScreen />} />
+          <Route path={"/business-plan"} element={<BusinessPlanMenu />} />
+        </Routes>
+      </GoogleOAuthProvider>
     </div>
   );
 }

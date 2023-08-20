@@ -112,7 +112,7 @@ const AuthScreen = () => {
               className="w-full px-[16px] py-[10px] rounded-[76px] text-[16px] text-[#344054] shadow-sm border border-[#D0D5DD] flex gap-[12px] justify-center items-center"
             >
               <img src="/google-icon.svg" />
-              <span>Inscrivez vous avez Google</span>
+              <span>Inscrivez vous avec Google</span>
             </button>
           </div>
 
