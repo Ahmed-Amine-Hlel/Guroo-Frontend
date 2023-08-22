@@ -2,7 +2,7 @@ import { HiMiniArrowLeft, HiMiniArrowRight } from 'react-icons/hi2'
 import InputListBox from './InputListBox'
 const Questions = () => {
     return (
-        <div className='py-6 h-full w-[470px]'>
+        <div className='py-6 h-full'>
             <div className='flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]'>
                 <div>
                     <HiMiniArrowLeft
@@ -21,7 +21,7 @@ const Questions = () => {
             </div>
 
 
-            <div className='mb-10'>
+            <div className='mb-10 w-full'>
                 <div className='mb-6'>
                     <div className='px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active'>
                         Selectionner le metier que vous excercez

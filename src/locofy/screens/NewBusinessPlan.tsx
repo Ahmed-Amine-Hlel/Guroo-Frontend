@@ -4,12 +4,12 @@ import Questions from '../../components/Questions'
 
 const NewBusinessPlan = () => {
     return (
-        <div className='bg-purple-light min-h-[calc(100%_-_65px)] px-[20px] py-[40px] font-plus-jakarta-sans'>
-            <div className='px-[10px] xl:px-[100px] grid grid-cols-1 lg:grid-cols-2'>
-                <div className='flex justify-center'>
+        <div className='flex items-center justify-center bg-purple-light min-h-[calc(100%_-_65px)] px-[20px] py-[40px] font-plus-jakarta-sans'>
+            <div className='px-[10px] xl:px-[100px] grid grid-cols-1 lg:grid-cols-2 gap-[10%]'>
+                <div className=''>
                     <Stepper />
                 </div>
-                <div className='flex justify-center'>
+                <div className=''>
                     <Questions />
                 </div>
             </div>

@@ -13,7 +13,7 @@ export default function InputListBox() {
     const [selected, setSelected] = useState(options[0]);
 
     return (
-        <div className="bg[#f4edfb w-[470px]">
+        <div className="bg[#f4edfb] w-full">
             <Listbox value={selected} onChange={setSelected}>
                 <div className="relative">
                     <Listbox.Button className="relative w-full cursor-default rounded-[76px] bg-white pt-4 pb-4 pl-6 pr-6 text-left border-[0.50px] border-[#E7E5E4] focus:outline-none hover:shadow-custom sm:text-sm">
