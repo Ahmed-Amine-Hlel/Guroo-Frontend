@@ -11,6 +11,7 @@ export default {
         "success-50": "#ecfdf3",
         "success-700": "#027a48",
         white: "#fff",
+        "purple-light":"#F4EDFB",
         "foundation-purple-light-hover": "#efe5f8",
         "foundation-purple-normal": "#914fd2",
         lightslategray: "#a08fb1",

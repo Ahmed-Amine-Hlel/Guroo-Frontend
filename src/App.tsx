@@ -6,6 +6,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import BusinessPlanMenu from "./locofy/screens/BusinessPlanMenu";
 import CreateBusinessPlan from "./locofy/screens/CreateBusinessPlan";
 import EditBusinessPlan from "./locofy/screens/EditBusinessPlan";
+import NewBusinessPlan from "./locofy/screens/NewBusinessPlan";
 // import InputAmount from "./components/InputAmount";
 // import InputCalendar from "./components/InputCalendar";
 // import InputCheckBox from "./components/InputCheckBox";
@@ -33,8 +34,8 @@ function App() {
               element={<CreateBusinessPlan />}
             />
             <Route
-              path={"/edit-business-plan"}
-              element={<EditBusinessPlan />}
+              path={"/new-business-plan"}
+              element={<NewBusinessPlan />}
             />
           </Routes>
         </GoogleOAuthProvider>

@@ -1,6 +1,8 @@
 import { HiMiniArrowLeft, HiMiniArrowRight } from 'react-icons/hi2'
 import { FiEdit2, FiSave } from 'react-icons/fi'
 import { VscTriangleRight } from 'react-icons/vsc'
+import Stepper from '../../components/Stepper'
+import Questions from '../../components/Questions'
 const EditBusinessPlan = () => {
     return (
         <div className='bg-[#E9E9E9] min-h-[calc(100%_-_65px)] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans'>
@@ -52,40 +54,12 @@ const EditBusinessPlan = () => {
                     </div>
 
                 </div>
-                <div className='flex ietms-center gap-[70px] p-[35px]'>
+                <div className='flex ietms-center gap-[20px] p-[35px]'>
                     <div className='h-full p-5 w-full'>
-
+                        <Stepper />
                     </div>
                     <div className='w-full'>
-                        <div className='flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]'>
-                            <div>
-                                <HiMiniArrowLeft
-                                    className="text-[24px]"
-                                />
-                            </div>
-                            <div className='text-[24px]'>
-                                Commencer maintenant
-                            </div>
-                        </div>
-
-                        <div className='text-[#A08FB1] text-[16px] ps-[38px] mb-20'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Phasellus ultrices, justo non feugiat imperdiet.
-                            Lorem ipsum dolor sit amet.
-                        </div>
-
-                        <div className='flex justify-end'>
-                            <button className='flex items-center gap-[10px] bg-gradient-to-r from-[#914FD2] from-0% to-[#946CBB] to-100% rounded-[45px] px-[35px] py-[15px] text-white hover:cursor-pointer'>
-                                <span className='text-[15px]'>
-                                    Continuer
-                                </span>
-                                <span className=''>
-                                    <HiMiniArrowRight
-                                        className="text-[20px]"
-                                    />
-                                </span>
-                            </button>
-                        </div>
+                        <Questions />
                     </div>
                 </div>
             </div>
