@@ -14,11 +14,13 @@ export default {
         "foundation-purple-light-hover": "#efe5f8",
         "foundation-purple-normal": "#914fd2",
         lightslategray: "#a08fb1",
+        "foundation-purple-darker": "#331C4A",
         "foundation-purple-dark-active": "#41245e",
         gainsboro: "#e7e5e4",
         "foundation-purple-white-hover": "#faf6fd",
         "foundation-purple-normal-hover": "#8347bd",
         limegreen: "#16cc3e",
+        'light-gray': 'rgba(255, 255, 255, 0.64)',
       },
       fontFamily: {
         "text-xs-medium": "Inter",
