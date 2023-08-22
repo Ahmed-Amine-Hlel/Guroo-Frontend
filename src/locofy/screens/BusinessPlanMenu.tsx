@@ -8,20 +8,42 @@ import downloadIcon from "../../assets/icons/download-icon.svg";
 import notificationIcon from "../../assets/icons/notification-icon.svg";
 import questionMark from "../../assets/icons/question-mark-icon.svg";
 import editIcon from "../../assets/icons/edit-icon.svg";
+import { AiOutlineDelete } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useEffect } from "react";
-import { getBusinessPlanAsync } from "../../store/businessPlan/businessPlanSlice";
+import {
+  deleteBusinessPlanAsync,
+  getBusinessPlanAsync,
+} from "../../store/businessPlan/businessPlanSlice";
+import { useNavigate } from "react-router-dom";
+import { Modal } from "antd";
 
 const BusinessPlanMenu = () => {
   const dispatch = useAppDispatch();
   const { loading, user } = useAppSelector((state) => state.auth);
   const { businessPlan } = useAppSelector((state) => state.businessPlan);
-
-  console.log(businessPlan);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getBusinessPlanAsync());
   }, [dispatch]);
+
+  const handleDeleteBp = (id: string) => {
+    Modal.confirm({
+      title: "Are you sure you want to delete this business plan?",
+      content: "This action cannot be undone.",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        console.log("delete id ", id);
+        dispatch(deleteBusinessPlanAsync(id));
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
 
   return (
     <div className="flex flex-col md:flex-row gap-[16px] min-h-[calc(100%_-_65px)] bg-[#f4edfb] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans ">
@@ -34,7 +56,7 @@ const BusinessPlanMenu = () => {
             <div className="text-[10px] text-[#FFD259]">Your Credits</div>
           </div>
           <div className="text-[32px] text-[#f2e8ff]">
-            100 <span className="text-[#f2e8ff80]">TTC</span>
+            3 <span className="text-[#f2e8ff80]">TTC</span>
           </div>
           <div className="opacity-90 text-[11px]">
             Acheter des nouveaux crédits de modification
@@ -117,7 +139,10 @@ const BusinessPlanMenu = () => {
               {loading ? ".." : user?.givenName}
             </span>
           </div>
-          <button className="flex justify-center items-center gap-2 text-[14px] px-[20px] py-[15px] bg-[#914FD2] rounded-[8px] text-white font-medium hover:bg-[#8347bd]">
+          <button
+            onClick={() => navigate("/create-business-plan")}
+            className="flex justify-center items-center gap-2 text-[14px] px-[20px] py-[15px] bg-[#914FD2] rounded-[8px] text-white font-medium hover:bg-[#8347bd]"
+          >
             <BsFillPlusCircleFill className="text-[20px]" />
             <span>Démarrer un autre business plan</span>
           </button>
@@ -144,7 +169,7 @@ const BusinessPlanMenu = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px]">
-          <div className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
+          {/* 1<div className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
             <div>
               <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
                 LB
@@ -159,9 +184,9 @@ const BusinessPlanMenu = () => {
             <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
               3 modifications restantes
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
+          {/* <div className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
             <div>
               <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
                 LF
@@ -176,9 +201,9 @@ const BusinessPlanMenu = () => {
             <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
               3 modifications restantes
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
+          {/* <div className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
             <div>
               <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
                 LB
@@ -193,7 +218,34 @@ const BusinessPlanMenu = () => {
             <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
               3 modifications restantes
             </div>
-          </div>
+          </div> */}
+          {businessPlan?.map((plan) => (
+            <div
+              key={plan.id}
+              className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]"
+            >
+              <div>
+                <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
+                  {plan.title.slice(0, 2).toUpperCase()}
+                </div>
+              </div>
+              <div className="flex justify-between items-center text-[#5C3C7C]">
+                <div className="text-[20px]">{plan.title}</div>
+                <div className="relative flex flex-col-reverse items-center space-y-reverse space-y-2">
+                  <AiOutlineDelete
+                    size={20}
+                    color="#c5b1d8"
+                    onClick={() => plan.id && handleDeleteBp(plan.id)}
+                    className="absolute top-[-1.75rem] cursor-pointer"
+                  />
+                  <img src={editIcon} alt="edit-icon" />
+                </div>
+              </div>
+              <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
+                {plan.revisions} modifications restantes
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

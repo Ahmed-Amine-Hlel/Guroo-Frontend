@@ -1,0 +1,44 @@
+.fab {
+  position: fixed;
+  bottom: 35px;
+  right: 25px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #331c4a;
+  color: white;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.fab:hover {
+  background-color: #41245e;
+}
+
+.chatbot-content {
+  width: 300px;
+  min-height: 400px;
+  border-radius: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.ant-popover-inner {
+  background-color: #f4edfb !important;
+  padding: 22px !important;
+  border-radius: 25px !important;
+}
+
+.ant-popover-title {
+  text-align: center;
+  color: #41245e;
+  font-size: 16px !important;
+  font-family: "Quicksand", sans-serif;
+}
