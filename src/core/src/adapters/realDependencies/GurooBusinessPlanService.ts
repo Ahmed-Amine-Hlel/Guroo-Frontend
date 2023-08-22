@@ -19,4 +19,24 @@ export class GurooBusinessPlanService implements BusinessPlanService {
       throw Error("fetching BusinessPlan failed");
     }
   }
+
+  async createBusinessPlan(businessPlan: BusinessPlan): Promise<BusinessPlan> {
+    try {
+      const response = await api.post("/business-plan/create", businessPlan);
+      return response.data;
+    } catch (e) {
+      console.log(e);
+      throw Error("Creating BusinessPlan failed");
+    }
+  }
+
+  async deleteBusinessPlans(id: string): Promise<string> {
+    try {
+      const response = await api.delete(`/business-plan/${id}`);
+      return response.data.message;
+    } catch (e) {
+      console.log(e);
+      throw Error("deleting BusinessPlan failed");
+    }
+  }
 }

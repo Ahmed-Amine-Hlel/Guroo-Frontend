@@ -7,7 +7,7 @@ const Navbar = () => {
   const { loading, user } = useAppSelector((state) => state.auth);
 
   const isAuthenticated = !!user;
-
+  console.log(user);
   return (
     <div className="transition-all ease-in-out duration-400 flex justify-between items-center px-[20px] md:px-[100px] py-[10px] relative w-full h-[65px]">
       <div>
