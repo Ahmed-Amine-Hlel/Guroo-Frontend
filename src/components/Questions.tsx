@@ -123,14 +123,14 @@ const Questions = () => {
     return currentBlock?.label || "Commencer maintenant";
   };
   return (
-    <div className="py-6 h-full">
+    <div className="py-6 w-full sm:w-[470px] h-full lg:w-[470px]">
       <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
         <div>
           <HiMiniArrowLeft className="text-[24px]" />
         </div>
         <div className="text-[24px]">{renderBlockLabel()}</div>
       </div>
-      <div className="text-[#A08FB1] text-[16px] ps-[38px] mb-[48px]">
+      <div className="text-[#A08FB1] text-[16px] ps-[38px] mb-[28px]">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
         ultrices, justo non feugiat imperdiet. Lorem ipsum dolor sit amet.
       </div>

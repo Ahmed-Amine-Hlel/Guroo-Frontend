@@ -19,7 +19,7 @@ const NumberInput: React.FC<NumberInputProps> = ({ reducedwidth = false }) => {
   }, [value]);
 
   const baseClasses = `${
-    reducedwidth ? "w-[140px]" : "w-[470px]"
+    reducedwidth ? "w-[140px]" : "w-full"
   } font-medium font-plus-jakarta-sans text-base leading-6 break-words bg-base-white relative rounded-[76px] shadow-[0px_1px_2px_rgba(16,_24,_40,_0.05)] box-border h-14 overflow-hidden flex flex-row py-4 px-6 items-center justify-start focus:outline-none`;
 
   const validClasses =
@@ -27,7 +27,7 @@ const NumberInput: React.FC<NumberInputProps> = ({ reducedwidth = false }) => {
   const invalidClasses =
     "ring-[4px] ring-[#f6dee8] border-[0.50px] border-solid border-[#FDA29B] bg-[#fef3f2] box-shadow-0px-0px-0px-4px-rgba(253,162,155,0.20) text-[#7A271A]";
   return (
-    <div className="relative flex items-center w-max">
+    <div className="relative flex items-center w-full">
       <input
         value={value === null ? "" : value}
         onChange={(e) => setValue(e.target.value)}
