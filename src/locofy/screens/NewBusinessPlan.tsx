@@ -1,6 +1,5 @@
-import React from 'react'
-import Stepper from '../../components/Stepper'
-import Questions from '../../components/Questions'
+import Stepper from "../../components/Stepper";
+import Questions from "../../components/Questions";
 
 const NewBusinessPlan = () => {
     return (
@@ -17,4 +16,4 @@ const NewBusinessPlan = () => {
     )
 }
 
-export default NewBusinessPlan
+export default NewBusinessPlan;

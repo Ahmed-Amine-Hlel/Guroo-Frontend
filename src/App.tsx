@@ -5,7 +5,7 @@ import AuthScreen from "./locofy/screens/AuthScreen";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import BusinessPlanMenu from "./locofy/screens/BusinessPlanMenu";
 import CreateBusinessPlan from "./locofy/screens/CreateBusinessPlan";
-import EditBusinessPlan from "./locofy/screens/EditBusinessPlan";
+// import EditBusinessPlan from "./locofy/screens/EditBusinessPlan";
 import NewBusinessPlan from "./locofy/screens/NewBusinessPlan";
 // import InputAmount from "./components/InputAmount";
 // import InputCalendar from "./components/InputCalendar";
@@ -33,10 +33,7 @@ function App() {
               path={"/create-business-plan"}
               element={<CreateBusinessPlan />}
             />
-            <Route
-              path={"/new-business-plan"}
-              element={<NewBusinessPlan />}
-            />
+            <Route path={"/new-business-plan"} element={<NewBusinessPlan />} />
           </Routes>
         </GoogleOAuthProvider>
         {/* <Navbar /> */}
