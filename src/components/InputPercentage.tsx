@@ -1,6 +1,11 @@
 import { InputNumber } from "antd";
 import styled from "styled-components";
 
+type InputPercentageProps = {
+  onChange: (value: string) => void;
+  value?: string;
+};
+
 const Wrapper = styled.div`
   .ant-input-number {
     border-start-start-radius: 76px !important;
@@ -35,22 +40,28 @@ const StyledInputNumber = styled(InputNumber)`
   }
 `;
 
-const InputPercentage = () => {
-    return (
-        <div className="relative flex items-center w-max">
-            <Wrapper>
-                <StyledInputNumber
-                    parser={(value) => (value ? value.replace("%", "") : "")}
-                    className="w-[470px]"
-                />
-            </Wrapper>
-            <img
-                src="/Percent.svg"
-                alt="Percent Icon"
-                className="hover:cursor-pointer absolute right-[20px]"
-            />
-        </div>
-    );
+const InputPercentage = ({ onChange, value = "0%" }: InputPercentageProps) => {
+  return (
+    <div className="relative flex items-center w-max">
+      <Wrapper>
+        <StyledInputNumber
+          parser={(value) => (value ? value.replace("%", "") : "")}
+          className="w-[470px]"
+          value={parseFloat(value)}
+          onChange={(numValue) => {
+            if (typeof numValue === "number") {
+              onChange(`${numValue}%`);
+            }
+          }}
+        />
+      </Wrapper>
+      <img
+        src="/Percent.svg"
+        alt="Percent Icon"
+        className="hover:cursor-pointer absolute right-[20px]"
+      />
+    </div>
+  );
 };
 
 export default InputPercentage;

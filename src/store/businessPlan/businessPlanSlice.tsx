@@ -9,12 +9,14 @@ import { DeleteBusinessPlan } from "../../core/src/usecases/DeleteBusinessPlanUs
 
 interface businessPlanState {
   businessPlan: BusinessPlan[] | null;
+  currentBusinessPlan: BusinessPlan | null;
   loadingBusinessPlan: boolean;
   error: string | null;
 }
 
 const initialState: businessPlanState = {
   businessPlan: [],
+  currentBusinessPlan: null,
   loadingBusinessPlan: false,
   error: null,
 };
@@ -48,7 +50,9 @@ export const createBusinessPlanAsync = createAsyncThunk(
   "businessPlan/create",
   async (businessPlan: BusinessPlan) => {
     try {
-      return await createBusinessPlanUseCase.execute(businessPlan);
+      const response = await createBusinessPlanUseCase.execute(businessPlan);
+      console.log("Backend Response:", response);
+      return response;
     } catch (error) {
       throw new Error(`Create BusinessPlan Failed: ${error}`);
     }
@@ -102,6 +106,24 @@ const businessPlanSlice = createSlice({
         state.error =
           action.error.message ||
           "An error occurred while fetching the BusinessPlans.";
+      })
+      .addCase(createBusinessPlanAsync.pending, (state) => {
+        state.loadingBusinessPlan = true;
+        state.error = null;
+      })
+      // Handle the fulfilled state for createBusinessPlanAsync
+      .addCase(
+        createBusinessPlanAsync.fulfilled,
+        (state, action: PayloadAction<BusinessPlan>) => {
+          state.currentBusinessPlan = action.payload;
+        }
+      )
+      // Handle the rejected state for createBusinessPlanAsync
+      .addCase(createBusinessPlanAsync.rejected, (state, action) => {
+        state.loadingBusinessPlan = false;
+        state.error =
+          action.error.message ||
+          "An error occurred while creating the BusinessPlan.";
       })
       .addCase(deleteBusinessPlanAsync.pending, (state) => {
         state.loadingBusinessPlan = true;

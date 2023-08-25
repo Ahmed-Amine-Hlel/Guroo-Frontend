@@ -1,24 +1,45 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 
-const options = [
-  { name: "Restaurant" },
-  { name: "BTP" },
-  { name: "SAAS" },
-  { name: "E-commerce" },
-  { name: "Chaine de restaurants" },
-];
+type OptionType = {
+  name: string;
+};
 
-export default function InputListBox() {
-  const [selected, setSelected] = useState(options[0]);
+type InputListBoxProps = {
+  options: OptionType[];
+  onChange: (selectedOption: OptionType) => void;
+  value?: OptionType;
+};
+
+export default function InputListBox({
+  value,
+  options,
+  onChange,
+}: InputListBoxProps) {
+  const [selected, setSelected] = useState<OptionType>({
+    name: (value && value.name) || options[0]?.name || "",
+  });
+
+  useEffect(() => {
+    setSelected(value || options[0] || null);
+  }, [value, options]);
+
+  // console.log("Value prop passed to InputListBox:", value);
+  // console.log("Options passed to InputListBox:", options);
 
   return (
     <div className="bg[#f4edfb] w-full">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox
+        value={selected}
+        onChange={(newSelected) => {
+          setSelected(newSelected);
+          onChange(newSelected);
+        }}
+      >
         <div className="relative">
           <Listbox.Button className="relative w-full cursor-default rounded-[76px] bg-white pt-4 pb-4 pl-6 pr-6 text-left border-[0.50px] border-[#E7E5E4] focus:outline-none hover:shadow-custom sm:text-sm">
             <span className="block truncate text-base text-[#6D3B9E] font-[500] font-plus-jakarta-sans leading-6 break-words pl-[14px]">
-              {selected.name}
+              {selected && selected.name}
             </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-[24px]">
               <svg

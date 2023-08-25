@@ -5,9 +5,15 @@ import "dayjs/locale/fr";
 import locale from "antd/es/date-picker/locale/fr_FR";
 import dayjs from "dayjs";
 import { IoCloseSharp } from "react-icons/io5";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+
+dayjs.extend(localizedFormat);
+dayjs.locale("fr");
 
 interface InputCalendarProps {
   reducedwidth?: boolean;
+  onChange?: (date: dayjs.Dayjs | null) => void;
+  value?: dayjs.Dayjs | null;
 }
 
 const StyledDatePicker = styled(DatePicker)<InputCalendarProps>`
@@ -362,12 +368,20 @@ const datePresets = [
 
 const InputCalendar: React.FC<InputCalendarProps> = ({
   reducedwidth = false,
+  onChange,
+  value = null,
 }) => {
-  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(null);
+  const initialDate =
+    typeof value === "string" ? dayjs(value, "D/M/YYYY") : value;
+
+  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(
+    initialDate
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [tempSelectedDate, setTempSelectedDate] = useState<dayjs.Dayjs | null>(
     null
   );
+
   const handleDateChange = (date: dayjs.Dayjs | null) => {
     setTempSelectedDate(date);
     setIsOpen(true);
@@ -383,6 +397,9 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
 
   const handleApply = () => {
     setSelectedDate(tempSelectedDate);
+    if (onChange) {
+      onChange(tempSelectedDate);
+    }
     setIsOpen(false);
   };
 
@@ -403,6 +420,9 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
   );
   const placeholderText = reducedwidth ? "Date" : "Sélectionner une date";
 
+  // console.log(selectedDate);
+  // console.log("InputCalendar prop value:", value);
+
   return (
     <>
       <GlobalStyles />
@@ -411,7 +431,7 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
         reducedwidth={reducedwidth}
         open={isOpen}
         onOpenChange={handleDropdownVisibility}
-        value={tempSelectedDate}
+        value={selectedDate}
         dropdownAlign={{ points: ["tl", "bl"], offset: [0, 14] }}
         onChange={handleDateChange}
         locale={locale}

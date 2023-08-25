@@ -1,11 +1,18 @@
 import { Checkbox } from "antd";
 import styled from "styled-components";
+import { CheckboxChangeEvent } from "antd/lib/checkbox";
+
+interface InputCheckBoxProps {
+  onChange: (value: boolean) => void;
+  value?: boolean;
+}
 
 export const StyledCheckbox = styled(Checkbox)`
   .ant-checkbox-inner {
     border-color: #6d3b9e !important;
     width: 28px;
     height: 28px;
+    margin-left: 30px;
 
     &::after {
       left: 30% !important;
@@ -34,8 +41,18 @@ export const StyledCheckbox = styled(Checkbox)`
   }
 `;
 
-const InputCheckBox = () => {
-    return <StyledCheckbox>Toggle</StyledCheckbox>;
+const InputCheckBox: React.FC<InputCheckBoxProps> = ({
+  onChange,
+  value = false,
+}) => {
+  const handleCheckboxChange = (e: CheckboxChangeEvent) => {
+    onChange(e.target.checked);
+  };
+  return (
+    <StyledCheckbox checked={value} onChange={handleCheckboxChange}>
+      Toggle
+    </StyledCheckbox>
+  );
 };
 
 export default InputCheckBox;

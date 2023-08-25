@@ -3,11 +3,15 @@ import styled from "styled-components";
 import { InputNumberProps } from "antd/lib/input-number";
 
 type StyledInputAmountProps = InputNumberProps & {
-    reducedwidth?: boolean;
+  reducedwidth?: boolean;
+  value?: number;
+  onChange?: (value: number) => void;
 };
 
 interface InputAmountProps {
-    reducedwidth?: boolean;
+  reducedwidth?: boolean;
+  value?: number;
+  onChange?: (value: number) => void;
 }
 
 const Wrapper = styled.div`
@@ -27,9 +31,9 @@ const Wrapper = styled.div`
 `;
 
 const StyledInputAmount = styled(
-    ({ reducedwidth, ...props }: StyledInputAmountProps) => (
-        <InputNumber {...props} />
-    )
+  ({ reducedwidth, ...props }: StyledInputAmountProps) => (
+    <InputNumber {...props} />
+  )
 )`
   width: ${(props) => (props.reducedwidth ? "140px" : "470px")};
 
@@ -51,16 +55,26 @@ const StyledInputAmount = styled(
   }
 `;
 
-const InputAmount: React.FC<InputAmountProps> = ({ reducedwidth = false }) => {
-    return (
-        <Wrapper>
-            <StyledInputAmount
-                addonAfter="€"
-                defaultValue={0}
-                reducedwidth={reducedwidth}
-            />
-        </Wrapper>
-    );
+const InputAmount: React.FC<InputAmountProps> = ({
+  reducedwidth = false,
+  value,
+  onChange,
+}) => {
+  return (
+    <Wrapper>
+      <StyledInputAmount
+        addonAfter="€"
+        defaultValue={0}
+        reducedwidth={reducedwidth}
+        value={value}
+        onChange={(value) => {
+          if (onChange && typeof value === "number") {
+            onChange(value);
+          }
+        }}
+      />
+    </Wrapper>
+  );
 };
 
 export default InputAmount;

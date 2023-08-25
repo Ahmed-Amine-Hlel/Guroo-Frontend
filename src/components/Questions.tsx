@@ -10,9 +10,12 @@ import InputCalendar from "./InputCalendar";
 import InputListBox from "./InputListBox";
 import InputPercentage from "./InputPercentage";
 import MultiInput from "./MultiInput";
-import InputGooglePlaces from "./InputGooglePlaces";
+// import InputGooglePlaces from "./InputGooglePlaces";
 import InputAmount from "./InputAmount";
 import InputMultiUnitNumber from "./InputMultiUnitNumber";
+import { Question } from "../core/src/domain/entities/Question";
+import { FadeLoader } from "react-spinners";
+import { setAnswer } from "../store/answersSlice";
 
 type InputType =
   | "number"
@@ -26,33 +29,6 @@ type InputType =
   | "amount"
   | "MultiUnitNumber";
 
-const renderInputComponent = (inputType: InputType) => {
-  switch (inputType) {
-    case "number":
-      return <NumberInput />;
-    case "string":
-      return <StringInput />;
-    case "boolean":
-      return <InputCheckBox />;
-    case "date":
-      return <InputCalendar />;
-    case "list":
-      return <InputListBox />;
-    case "percent":
-      return <InputPercentage />;
-    case "MultiInput":
-      return <MultiInput />;
-    case "GooglePlaces":
-      return <InputGooglePlaces />;
-    case "amount":
-      return <InputAmount />;
-    case "MultiUnitNumber":
-      return <InputMultiUnitNumber />;
-    default:
-      return <input type="text" placeholder="Unsupported input type" />;
-  }
-};
-
 const Questions = () => {
   const dispatch = useAppDispatch();
   const currentStep = useAppSelector((state) => state.stepper.currentStep);
@@ -62,6 +38,19 @@ const Questions = () => {
   const [mainBlockQuestionsShown, setMainBlockQuestionsShown] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const questionsPerPage = 5;
+  const [isBackDisabled, setIsBackDisabled] = useState(true);
+  const loading = useAppSelector((state) => state.questions.loading);
+
+  // const currentBusinessPlan = useAppSelector(
+  //   (state) => state.businessPlan.currentBusinessPlan
+  // );
+  // console.log("Current Business Plan :", currentBusinessPlan);
+
+  // const currentBusinessPlanId = currentBusinessPlan?.id;
+  // console.log("Current Business Plan ID:", currentBusinessPlanId);
+
+  // const [answers, setAnswers] = useState<Record<string, any>>({});
+  const answers = useAppSelector((state) => state.answers.answers);
 
   useEffect(() => {
     dispatch(fetchSectionsForStep(currentStep));
@@ -84,14 +73,44 @@ const Questions = () => {
     currentPage * questionsPerPage
   );
 
+  // const handleContinue = () => {
+  //   console.log("Answers:", answers);
+  //   if (currentPage < totalPages) {
+  //     setCurrentPage(currentPage + 1);
+  //   } else if (nestedBlocks.length > 0 && !mainBlockQuestionsShown) {
+  //     // Main block questions have been shown, now show nested blocks
+  //     setMainBlockQuestionsShown(true);
+  //     setCurrentPage(1);
+  //   } else {
+  //     if (
+  //       isInsideNestedBlock &&
+  //       currentNestedBlockIndex < nestedBlocks.length - 1
+  //     ) {
+  //       // Move to the next nested block
+  //       setCurrentNestedBlockIndex(currentNestedBlockIndex + 1);
+  //       setCurrentPage(1);
+  //     } else if (currentBlockIndex < (section?.blocks?.length || 0) - 1) {
+  //       // Move to the next main block
+  //       setCurrentBlockIndex(currentBlockIndex + 1);
+  //       setMainBlockQuestionsShown(false); // Reset the flag for the new main block
+  //       setCurrentNestedBlockIndex(0); // Reset nested block index
+  //       setCurrentPage(1);
+  //     } else {
+  //       // Move to the next section
+  //       dispatch(incrementStep());
+  //       setCurrentBlockIndex(0);
+  //       setMainBlockQuestionsShown(false);
+  //       setCurrentNestedBlockIndex(0);
+  //       setCurrentPage(1);
+  //     }
+  //   }
+  // };
+
   const handleContinue = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    } else if (nestedBlocks.length > 0 && !mainBlockQuestionsShown) {
-      // Main block questions have been shown, now show nested blocks
-      setMainBlockQuestionsShown(true);
-      setCurrentPage(1);
-    } else {
+    console.log("Answers:", answers);
+
+    setIsBackDisabled(false);
+    const moveToNextBlockOrSubBlock = () => {
       if (
         isInsideNestedBlock &&
         currentNestedBlockIndex < nestedBlocks.length - 1
@@ -113,6 +132,57 @@ const Questions = () => {
         setCurrentNestedBlockIndex(0);
         setCurrentPage(1);
       }
+    };
+
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    } else if (nestedBlocks.length > 0 && !mainBlockQuestionsShown) {
+      // Main block questions have been shown, now show nested blocks
+      setMainBlockQuestionsShown(true);
+      setCurrentPage(1);
+    } else {
+      moveToNextBlockOrSubBlock();
+      // Check if the new block or sub-block has questions. If not, continue to the next.
+      while (blockToRender?.questions.length === 0) {
+        moveToNextBlockOrSubBlock();
+      }
+    }
+  };
+
+  const handleBack = () => {
+    let newCurrentPage = currentPage;
+    let newCurrentBlockIndex = currentBlockIndex;
+    let newCurrentNestedBlockIndex = currentNestedBlockIndex;
+
+    if (currentPage > 1) {
+      newCurrentPage = currentPage - 1;
+    } else if (isInsideNestedBlock && currentNestedBlockIndex > 0) {
+      // If inside a nested block and it's not the first nested block, move to the previous nested block
+      newCurrentNestedBlockIndex = currentNestedBlockIndex - 1;
+      newCurrentPage = Math.ceil(
+        (blockToRender?.questions?.length || 0) / questionsPerPage
+      );
+    } else if (currentBlockIndex > 0) {
+      // If it's a main block and not the first block, move to the previous block
+      newCurrentBlockIndex = currentBlockIndex - 1;
+      newCurrentNestedBlockIndex = 0; // Reset nested block index
+      newCurrentPage = Math.ceil(
+        (blockToRender?.questions?.length || 0) / questionsPerPage
+      );
+    }
+
+    setCurrentPage(newCurrentPage);
+    setCurrentBlockIndex(newCurrentBlockIndex);
+    setCurrentNestedBlockIndex(newCurrentNestedBlockIndex);
+
+    if (
+      newCurrentBlockIndex === 0 &&
+      !isInsideNestedBlock &&
+      newCurrentPage === 1
+    ) {
+      setIsBackDisabled(true);
+    } else {
+      setIsBackDisabled(false);
     }
   };
 
@@ -122,39 +192,158 @@ const Questions = () => {
     }
     return currentBlock?.label || "Commencer maintenant";
   };
+
+  const renderInputComponent = (inputType: InputType, question: Question) => {
+    switch (inputType) {
+      case "number":
+        return (
+          <NumberInput
+            value={answers[question.id]}
+            onChange={(value) => handleInputChange(question.id, value)}
+          />
+        );
+      case "string":
+        return (
+          <StringInput
+            value={answers[question.id]}
+            onChange={(value) => handleInputChange(question.id, value)}
+          />
+        );
+      case "boolean":
+        return (
+          <InputCheckBox
+            value={answers[question.id]}
+            onChange={(boolValue) =>
+              handleInputChange(question.id, String(boolValue))
+            }
+          />
+        );
+      case "date":
+        return (
+          <InputCalendar
+            value={answers[question.id]}
+            onChange={(date) => {
+              const formattedDate = date ? date.format("D/M/YYYY") : null;
+              handleInputChange(question.id, formattedDate);
+            }}
+          />
+        );
+      case "list":
+        const parsedOptions = question.options
+          ? question.options
+              .slice(1, -1)
+              .split(",")
+              .map((str) => str.trim())
+              .map((option) => ({ name: option }))
+          : [];
+        return (
+          <InputListBox
+            value={
+              answers[question.id]
+                ? { name: answers[question.id] }
+                : parsedOptions[0]
+            }
+            options={parsedOptions}
+            onChange={(selectedOption) =>
+              handleInputChange(question.id, selectedOption.name)
+            }
+          />
+        );
+      case "percent":
+        return (
+          <InputPercentage
+            value={answers[question.id]}
+            onChange={(value) => handleInputChange(question.id, value)}
+          />
+        );
+      case "MultiInput":
+        return (
+          <MultiInput
+            value={answers[question.id]}
+            onChange={(value) => handleInputChange(question.id, value)}
+          />
+        );
+      case "GooglePlaces":
+        return (
+          <StringInput
+            value={answers[question.id]}
+            onChange={(value) => handleInputChange(question.id, value)}
+          />
+        );
+      case "amount":
+        return (
+          <InputAmount
+            value={answers[question.id]}
+            onChange={(value) => handleInputChange(question.id, value)}
+          />
+        );
+      case "MultiUnitNumber":
+        return (
+          <InputMultiUnitNumber
+            value={answers[question.id]}
+            onChange={(value) => handleInputChange(question.id, value)}
+          />
+        );
+      default:
+        return <input type="text" placeholder="Unsupported input type" />;
+    }
+  };
+
+  const handleInputChange = (questionId: number, value: any) => {
+    // setAnswers((prevAnswers) => ({
+    //   ...prevAnswers,
+    //   [questionId]: value,
+    // }));
+    dispatch(setAnswer({ questionId: questionId.toString(), value }));
+  };
   return (
     <div className="py-6 w-full sm:w-[470px] h-full lg:w-[470px]">
-      <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
-        <div>
-          <HiMiniArrowLeft className="text-[24px]" />
+      {loading ? (
+        <div className="flex justify-center items-center h-full">
+          <FadeLoader color="#6D3B9E" />
         </div>
-        <div className="text-[24px]">{renderBlockLabel()}</div>
-      </div>
-      <div className="text-[#A08FB1] text-[16px] ps-[38px] mb-[28px]">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-        ultrices, justo non feugiat imperdiet. Lorem ipsum dolor sit amet.
-      </div>
-      <div className="mb-10 w-full">
-        {displayedQuestions?.map((question) => (
-          <div key={question.id} className="mb-6">
-            <div className="px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
-              {question.label}
+      ) : (
+        <>
+          <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
+            <div>
+              <HiMiniArrowLeft
+                className={`text-[24px] ${
+                  isBackDisabled
+                    ? "opacity-50 cursor-default"
+                    : "hover:cursor-pointer"
+                }`}
+                onClick={!isBackDisabled ? handleBack : undefined}
+              />
             </div>
-            {renderInputComponent(question.inputType)}
+            <div className="text-[24px]">{renderBlockLabel()}</div>
           </div>
-        ))}
-      </div>
-      <div className="flex">
-        <button
-          onClick={handleContinue}
-          className="w-full flex justify-center items-center gap-[10px] bg-gradient-to-r from-[#914FD2] from-0% to-[#946CBB] to-100% rounded-[45px] px-[35px] py-[15px] text-white hover:cursor-pointer"
-        >
-          <span className="text-[15px]">Continuer</span>
-          <span className="">
-            <HiMiniArrowRight className="text-[20px]" />
-          </span>
-        </button>
-      </div>
+          <div className="text-[#A08FB1] text-[16px] ps-[38px] mb-[28px]">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+            ultrices, justo non feugiat imperdiet. Lorem ipsum dolor sit amet.
+          </div>
+          <div className="mb-10 w-full">
+            {displayedQuestions?.map((question) => (
+              <div key={question.id} className="mb-6">
+                <div className="px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
+                  {question.label}
+                </div>
+                {renderInputComponent(question.inputType, question)}
+              </div>
+            ))}
+          </div>
+          <div className="flex">
+            <button
+              onClick={handleContinue}
+              className="w-full flex justify-center items-center gap-[10px] bg-gradient-to-r from-[#914FD2] from-0% to-[#946CBB] to-100% rounded-[45px] px-[35px] py-[15px] text-white hover:cursor-pointer"
+            >
+              <span className="text-[15px]">Continuer</span>
+              <span className="">
+                <HiMiniArrowRight className="text-[20px]" />
+              </span>
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -1,5 +1,11 @@
 import { InputNumber, Select } from "antd";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+
+interface InputMultiUnitNumberProps {
+  value?: string;
+  onChange: (value: string) => void;
+}
 
 const { Option } = Select;
 
@@ -45,20 +51,51 @@ const StyledInputNumber = styled(InputNumber)`
   }
 `;
 
-const InputMultiUnitNumber = () => {
-    return (
-        <Wrapper>
-            <StyledInputNumber
-                addonAfter={
-                    <Select defaultValue="m²" style={{ width: 100 }}>
-                        <Option value="m²">m²</Option>
-                        <Option value="Squarefeet">Squarefeet</Option>
-                    </Select>
-                }
-                defaultValue={0}
-            />
-        </Wrapper>
-    );
+const InputMultiUnitNumber: React.FC<InputMultiUnitNumberProps> = ({
+  value = "0 m²",
+  onChange,
+}) => {
+  const [numberValue, setNumberValue] = useState<number>(parseFloat(value));
+  const [unitValue, setUnitValue] = useState<string>(
+    value.split(" ")[1] || "m²"
+  );
+
+  useEffect(() => {
+    const parts = value.split(" ");
+    if (parts.length === 2) {
+      setNumberValue(parseFloat(parts[0]));
+      setUnitValue(parts[1]);
+    }
+  }, [value]);
+
+  return (
+    <Wrapper>
+      <StyledInputNumber
+        addonAfter={
+          <Select
+            defaultValue="m²"
+            style={{ width: 100 }}
+            value={unitValue}
+            onChange={(unit) => {
+              setUnitValue(unit);
+              onChange(`${numberValue} ${unit}`);
+            }}
+          >
+            <Option value="m²">m²</Option>
+            <Option value="Squarefeet">Squarefeet</Option>
+          </Select>
+        }
+        defaultValue={0}
+        value={numberValue}
+        onChange={(num) => {
+          if (num !== null && typeof num === "number") {
+            setNumberValue(num);
+            onChange(`${num} ${unitValue}`);
+          }
+        }}
+      />
+    </Wrapper>
+  );
 };
 
 export default InputMultiUnitNumber;

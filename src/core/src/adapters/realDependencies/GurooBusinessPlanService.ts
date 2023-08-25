@@ -23,7 +23,7 @@ export class GurooBusinessPlanService implements BusinessPlanService {
   async createBusinessPlan(businessPlan: BusinessPlan): Promise<BusinessPlan> {
     try {
       const response = await api.post("/business-plan/create", businessPlan);
-      return response.data;
+      return response.data.businessPlanProperties || response.data;
     } catch (e) {
       console.log(e);
       throw Error("Creating BusinessPlan failed");

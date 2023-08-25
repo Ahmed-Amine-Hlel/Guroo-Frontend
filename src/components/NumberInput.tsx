@@ -3,10 +3,16 @@ import { VscTriangleDown } from "react-icons/vsc";
 
 interface NumberInputProps {
   reducedwidth?: boolean;
+  onChange?: (value: string) => void;
+  value?: string | null;
 }
 
-const NumberInput: React.FC<NumberInputProps> = ({ reducedwidth = false }) => {
-  const [value, setValue] = useState<string | null>(null);
+const NumberInput: React.FC<NumberInputProps> = ({
+  reducedwidth = false,
+  onChange,
+  value: propValue = null,
+}) => {
+  const [value, setValue] = useState<string | null>(propValue);
   const [isValid, setIsValid] = useState(true);
   const [isHover, setIsHover] = useState(false);
 
@@ -30,7 +36,10 @@ const NumberInput: React.FC<NumberInputProps> = ({ reducedwidth = false }) => {
     <div className="relative flex items-center w-full">
       <input
         value={value === null ? "" : value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => {
+          setValue(e.target.value);
+          onChange && onChange(e.target.value);
+        }}
         className={`${baseClasses} ${isValid ? validClasses : invalidClasses}`}
         type="number"
         required

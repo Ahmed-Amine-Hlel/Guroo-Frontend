@@ -1,19 +1,40 @@
 import Stepper from "../../components/Stepper";
 import Questions from "../../components/Questions";
+import { decrementStep, incrementStep } from "../../store/StepperSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 const NewBusinessPlan = () => {
-    return (
-        <div className='flex items-center justify-center bg-purple-light min-h-[calc(100%_-_65px)] px-[20px] py-[40px] font-plus-jakarta-sans'>
-            <div className='px-[10px] xl:px-[100px] grid grid-cols-1 lg:grid-cols-2 lg:gap-[120px]'>
-                <div className='flex justify-center lg:justify-end'>
-                    <Stepper />
-                </div>
-                <div className='flex justify-center xl:justify-start'>
-                    <Questions />
-                </div>
-            </div>
+  const dispatch = useAppDispatch();
+  const currentStep = useAppSelector((state) => state.stepper.currentStep);
+
+  return (
+    <div className="flex items-center justify-center bg-purple-light min-h-[calc(100%_-_65px)] px-[20px] py-[40px] font-plus-jakarta-sans">
+      <div className="px-[10px] xl:px-[100px] grid grid-cols-1 lg:grid-cols-2 lg:gap-[120px]">
+        <div className="flex justify-center lg:justify-end">
+          <Stepper />
+          <div>
+            <button
+              className="relative w-10 h-10"
+              onClick={() => dispatch(incrementStep())}
+            >
+              +
+            </button>
+            {currentStep}
+            <button
+              className="relative w-10 h-10"
+              onClick={() => dispatch(decrementStep())}
+            >
+              -
+            </button>
+          </div>
         </div>
-    )
-}
+
+        <div className="flex justify-center xl:justify-start">
+          <Questions />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default NewBusinessPlan;
