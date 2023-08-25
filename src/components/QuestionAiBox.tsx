@@ -1,6 +1,6 @@
 const QuestionAiBox = () => {
     return (
-        <div className='font-plus-jakarta-sans p-[24px] rounded-[24px] border border-gainsboro ai-card-bg w-[470px]'>
+        <div className='font-plus-jakarta-sans p-[24px] rounded-[24px] border border-gainsboro ai-card-bg w-full'>
             <div className="flex justify-center items-center w-[38px] h-[38px] rounded-full border-[2px] border-primary-600 border-opacity-10 mb-[7px]">
                 <div className="flex justify-center items-center w-[27px] h-[27px] rounded-full border-[2px] border-primary-600 border-opacity-30">
                     <img

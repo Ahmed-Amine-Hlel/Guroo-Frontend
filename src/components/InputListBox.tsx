@@ -66,7 +66,7 @@ export default function InputListBox({
             leaveTo="opacity-0"
           >
             <div className="z-50 absolute w-full mt-[14px] py-[15px] rounded-[24px] bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              <Listbox.Options className="h-[175px] rounded-[24px] listbox-options  overflow-y-auto ">
+              <Listbox.Options className="max-h-[175px] rounded-[24px] listbox-options  overflow-y-auto ">
                 {options.map((option, optionIdx) => (
                   <Listbox.Option
                     key={optionIdx}
@@ -77,9 +77,8 @@ export default function InputListBox({
                   >
                     {({ selected, active }) => (
                       <div
-                        className={`flex justify-between items-center w-full px-6 h-[45px] rounded-[56px] ${
-                          active ? "bg-[#faf5ff]" : ""
-                        } ${selected ? "bg-[#faf5ff]" : ""}`}
+                        className={`flex justify-between items-center w-full px-6 h-[45px] rounded-[56px] ${active ? "bg-[#faf5ff]" : ""
+                          } ${selected ? "bg-[#faf5ff]" : ""}`}
                       >
                         <span
                           className={`block truncate text-base text-[#6D3B9E] font-[500] font-plus-jakarta-sans leading-6`}

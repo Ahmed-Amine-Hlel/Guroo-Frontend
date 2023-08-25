@@ -8,9 +8,9 @@ const NewBusinessPlan = () => {
   const currentStep = useAppSelector((state) => state.stepper.currentStep);
 
   return (
-    <div className="flex items-center justify-center bg-purple-light min-h-[calc(100%_-_65px)] px-[20px] py-[40px] font-plus-jakarta-sans">
-      <div className="px-[10px] xl:px-[100px] grid grid-cols-1 lg:grid-cols-2 lg:gap-[120px]">
-        <div className="flex justify-center lg:justify-end">
+    <div className="flex items-center justify-center bg-purple-light min-h-[calc(100%_-_65px)] py-[40px] font-plus-jakarta-sans">
+      <div className="px-[10px] min-[1920px]:px-[150px] xl:px-[100px] w-full grid grid-cols-1 lg:grid-cols-2 min-[1920px]:gap-[0px] gap-[100px]">
+        <div className="flex justify-center w-full">
           <Stepper />
           <div>
             <button
@@ -29,7 +29,7 @@ const NewBusinessPlan = () => {
           </div>
         </div>
 
-        <div className="flex justify-center xl:justify-start">
+        <div className="flex justify-center w-full">
           <Questions />
         </div>
       </div>

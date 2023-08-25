@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledInputNumber = styled(InputNumber)`
-  width: 470px;
+  width: 100%;
 
   & .ant-input-number-input {
     color: #6d3b9e;

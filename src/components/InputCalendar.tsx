@@ -21,11 +21,12 @@ const StyledDatePicker = styled(DatePicker)<InputCalendarProps>`
   &.ant-picker-focused {
     border: none;
     background: transparent;
+    width: 100%;
     box-shadow: none !important;
     padding: 0;
     .ant-picker-input {
       border-radius: 76px;
-      width: ${(props) => (props.reducedwidth ? "140px" : "470px")};
+      width: ${(props) => (props.reducedwidth ? "140px" : "100%")};
 
       background: #fff;
       box-shadow: none !important;

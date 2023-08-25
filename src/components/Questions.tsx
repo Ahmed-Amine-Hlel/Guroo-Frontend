@@ -16,6 +16,7 @@ import InputMultiUnitNumber from "./InputMultiUnitNumber";
 import { Question } from "../core/src/domain/entities/Question";
 import { FadeLoader } from "react-spinners";
 import { setAnswer } from "../store/answersSlice";
+import QuestionAiBox from "./QuestionAiBox";
 
 type InputType =
   | "number"
@@ -231,10 +232,10 @@ const Questions = () => {
       case "list":
         const parsedOptions = question.options
           ? question.options
-              .slice(1, -1)
-              .split(",")
-              .map((str) => str.trim())
-              .map((option) => ({ name: option }))
+            .slice(1, -1)
+            .split(",")
+            .map((str) => str.trim())
+            .map((option) => ({ name: option }))
           : [];
         return (
           <InputListBox
@@ -297,7 +298,7 @@ const Questions = () => {
     dispatch(setAnswer({ questionId: questionId.toString(), value }));
   };
   return (
-    <div className="py-6 w-full sm:w-[470px] h-full lg:w-[470px]">
+    <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1920px]:w-[600px] h-full px-2">
       {loading ? (
         <div className="flex justify-center items-center h-full">
           <FadeLoader color="#6D3B9E" />
@@ -307,11 +308,10 @@ const Questions = () => {
           <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
             <div>
               <HiMiniArrowLeft
-                className={`text-[24px] ${
-                  isBackDisabled
-                    ? "opacity-50 cursor-default"
-                    : "hover:cursor-pointer"
-                }`}
+                className={`text-[24px] ${isBackDisabled
+                  ? "opacity-50 cursor-default"
+                  : "hover:cursor-pointer"
+                  }`}
                 onClick={!isBackDisabled ? handleBack : undefined}
               />
             </div>
@@ -321,17 +321,20 @@ const Questions = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
             ultrices, justo non feugiat imperdiet. Lorem ipsum dolor sit amet.
           </div>
-          <div className="mb-10 w-full">
-            {displayedQuestions?.map((question) => (
-              <div key={question.id} className="mb-6">
-                <div className="px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
-                  {question.label}
+          <div className="px-[5px] overflow-y-scroll py-[5px] qb-thumb h-[600px]">
+            <div className="mb-10 w-full">
+              {displayedQuestions?.map((question) => (
+                <div key={question.id} className="mb-6">
+                  <div className="px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
+                    {question.label}
+                  </div>
+                  {renderInputComponent(question.inputType, question)}
                 </div>
-                {renderInputComponent(question.inputType, question)}
-              </div>
-            ))}
+              ))}
+            </div>
+            <QuestionAiBox />
           </div>
-          <div className="flex">
+          <div className="w-full mt-auto px-[5px]">
             <button
               onClick={handleContinue}
               className="w-full flex justify-center items-center gap-[10px] bg-gradient-to-r from-[#914FD2] from-0% to-[#946CBB] to-100% rounded-[45px] px-[35px] py-[15px] text-white hover:cursor-pointer"

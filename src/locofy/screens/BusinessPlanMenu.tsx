@@ -131,7 +131,7 @@ const BusinessPlanMenu = () => {
           </div>
         </div>
       </div>
-      <div className="w-full">
+      <div className="flex flex-col w-full">
         <div className="flex flex-col gap-4 lg:gap-0 lg:flex-row  justify-between lg:items-center rounded-[16px] px-[18px] py-[22px] bg-white mb-[22px]">
           <div className="text-[16px] md:text-[18px] lg:text-[26px]">
             Voici vos business-plan,{" "}
@@ -168,84 +168,86 @@ const BusinessPlanMenu = () => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px]">
-          {/* 1<div className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
-            <div>
-              <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
-                LB
-              </div>
-            </div>
-            <div className="flex justify-between items-center text-[#5C3C7C]">
-              <div className="text-[20px]">Le Bretagne</div>
-              <div>
-                <img src={editIcon} alt="edit-icon" />
-              </div>
-            </div>
-            <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
-              3 modifications restantes
-            </div>
-          </div> */}
-
-          {/* <div className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
-            <div>
-              <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
-                LF
-              </div>
-            </div>
-            <div className="flex justify-between items-center text-[#5C3C7C]">
-              <div className="text-[20px]">Les Flots</div>
-              <div>
-                <img src={editIcon} alt="edit-icon" />
-              </div>
-            </div>
-            <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
-              3 modifications restantes
-            </div>
-          </div> */}
-
-          {/* <div className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
-            <div>
-              <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
-                LB
-              </div>
-            </div>
-            <div className="flex justify-between items-center text-[#5C3C7C]">
-              <div className="text-[20px]">Le Bretagne</div>
-              <div>
-                <img src={editIcon} alt="edit-icon" />
-              </div>
-            </div>
-            <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
-              3 modifications restantes
-            </div>
-          </div> */}
-          {businessPlan?.map((plan) => (
-            <div
-              key={plan.id}
-              className="flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]"
-            >
+        <div className="overflow-y-scroll qb-thumb h-full">
+          <div className="grid grid-rows-3 grid-cols-1 lg:grid-cols-2 min-[1920px]:grid-cols-3 gap-[20px]">
+            {/* <div className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
               <div>
                 <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
-                  {plan.title.slice(0, 2).toUpperCase()}
+                  LB
                 </div>
               </div>
               <div className="flex justify-between items-center text-[#5C3C7C]">
-                <div className="text-[20px]">{plan.title}</div>
-                <div className="relative flex flex-col-reverse items-center space-y-reverse space-y-2">
-                  <AiOutlineDelete
-                    size={20}
-                    color="#c5b1d8"
-                    onClick={() => plan.id && handleDeleteBp(plan.id)}
-                    className="absolute top-[-1.75rem] cursor-pointer"
-                  />
+                <div className="text-[20px]">Le Bretagne</div>
+                <div>
                   <img src={editIcon} alt="edit-icon" />
                 </div>
               </div>
               <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
-                {plan.revisions} modifications restantes
+                3 modifications restantes
               </div>
             </div>
-          ))}
+
+            <div className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
+              <div>
+                <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
+                  LB
+                </div>
+              </div>
+              <div className="flex justify-between items-center text-[#5C3C7C]">
+                <div className="text-[20px]">Le Bretagne</div>
+                <div>
+                  <img src={editIcon} alt="edit-icon" />
+                </div>
+              </div>
+              <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
+                3 modifications restantes
+              </div>
+            </div>
+
+            <div className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
+              <div>
+                <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
+                  LB
+                </div>
+              </div>
+              <div className="flex justify-between items-center text-[#5C3C7C]">
+                <div className="text-[20px]">Le Bretagne</div>
+                <div>
+                  <img src={editIcon} alt="edit-icon" />
+                </div>
+              </div>
+              <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
+                3 modifications restantes
+              </div>
+            </div> */}
+            {businessPlan?.map((plan) => (
+              <div
+                key={plan.id}
+                className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]"
+              >
+                <div>
+                  <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
+                    {plan.title.slice(0, 2).toUpperCase()}
+                  </div>
+                </div>
+                <div className="flex justify-between items-center text-[#5C3C7C]">
+                  <div className="text-[20px]">{plan.title}</div>
+                  <div className="relative flex flex-col-reverse items-center space-y-reverse space-y-2">
+                    <AiOutlineDelete
+                      size={20}
+                      color="#c5b1d8"
+                      onClick={() => plan.id && handleDeleteBp(plan.id)}
+                      className="absolute top-[-1.75rem] cursor-pointer"
+                    />
+                    <img src={editIcon} alt="edit-icon" />
+                  </div>
+                </div>
+                <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
+                  {plan.revisions} modifications restantes
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

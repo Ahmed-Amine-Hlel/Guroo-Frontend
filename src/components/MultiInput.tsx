@@ -68,7 +68,7 @@ const MultiInput: React.FC<MultiInputProps> = ({ value, onChange }) => {
   }, [dateValue, numberValue, amountValue]);
 
   return (
-    <div className="flex flex-row gap-[25px]">
+    <div className="flex flex-row gap-[25px] w-full">
       <InputCalendar
         reducedwidth
         value={dayjs(dateValue)}

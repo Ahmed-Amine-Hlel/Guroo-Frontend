@@ -39,6 +39,24 @@ input[type="number"]::-webkit-outer-spin-button {
   scrollbar-color: #eaecf0 transparent;
 }
 
+.qb-thumb::-webkit-scrollbar {
+  width: 8px;
+}
+
+.qb-thumb::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.qb-thumb::-webkit-scrollbar-thumb {
+  background: #efe5f8;
+  border-radius: 8px;
+}
+
+.qb-thumb {
+  scrollbar-width: thin;
+  scrollbar-color: #eaecf0 transparent;
+}
+
 .custom-shadow {
   box-shadow: 0px 3.629821538925171px 133.39593505859375px 0px rgba(217, 169, 255, 0.65);
 }
@@ -50,4 +68,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .card-shadow {
   box-shadow: 0px 12px 40px -4px rgba(217, 169, 255, 0.49);
+}
+
+.ai-card-bg {
+  background-image: url(ai-bg.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
