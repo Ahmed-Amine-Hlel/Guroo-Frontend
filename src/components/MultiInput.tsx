@@ -25,11 +25,7 @@ interface MultiInputProps {
     "Durée  Amort (Années)": number;
     Montant: number;
   };
-  onChange?: (value: {
-    Date: string;
-    "Durée  Amort (Années)": number;
-    Montant: number;
-  }) => void;
+  onChange?: (value: string) => void;
 }
 
 const MultiInput: React.FC<MultiInputProps> = ({ value, onChange }) => {
@@ -39,11 +35,7 @@ const MultiInput: React.FC<MultiInputProps> = ({ value, onChange }) => {
   );
   const [amountValue, setAmountValue] = useState<number>(value?.Montant || 0);
 
-  const prevValueRef = useRef<{
-    Date: string;
-    "Durée  Amort (Années)": number;
-    Montant: number;
-  }>();
+  const prevValueRef = useRef<string>("");
 
   const debouncedOnChange = useRef(
     debounce((value: any) => {
@@ -56,14 +48,15 @@ const MultiInput: React.FC<MultiInputProps> = ({ value, onChange }) => {
   useEffect(() => {
     const newValue = {
       Date: dateValue,
-      "Durée  Amort (Années)": numberValue,
-      Montant: amountValue,
+      "Durée  Amort (Années)": numberValue.toString(),
+      Montant: amountValue.toString(),
     };
 
-    // Only call onChange if the value has genuinely changed
-    if (JSON.stringify(newValue) !== JSON.stringify(prevValueRef.current)) {
-      debouncedOnChange(newValue);
-      prevValueRef.current = newValue;
+    const newValueString = `{ 'Date': '${newValue.Date}', 'Durée  Amort (Années)': ${newValue["Durée  Amort (Années)"]}, 'Montant': ${newValue.Montant}}`;
+
+    if (newValueString !== prevValueRef.current) {
+      debouncedOnChange(newValueString);
+      prevValueRef.current = newValueString;
     }
   }, [dateValue, numberValue, amountValue]);
 
@@ -71,8 +64,13 @@ const MultiInput: React.FC<MultiInputProps> = ({ value, onChange }) => {
     <div className="flex flex-row gap-[25px] w-full">
       <InputCalendar
         reducedwidth
-        value={dayjs(dateValue)}
-        onChange={(date) => setDateValue(date ? date.format("YYYY-MM-DD") : "")}
+        value={dayjs(dateValue).isValid() ? dayjs(dateValue) : null}
+        onChange={(date) => {
+          const formattedDate = date ? date.format("YYYY-MM-DD") : "";
+          if (formattedDate) {
+            setDateValue(formattedDate);
+          }
+        }}
       />
 
       <NumberInput

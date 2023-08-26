@@ -15,8 +15,9 @@ import InputAmount from "./InputAmount";
 import InputMultiUnitNumber from "./InputMultiUnitNumber";
 import { Question } from "../core/src/domain/entities/Question";
 import { FadeLoader } from "react-spinners";
-import { setAnswer } from "../store/answersSlice";
+import { setAnswer, submitAnswersAsync } from "../store/answersSlice";
 import QuestionAiBox from "./QuestionAiBox";
+import { Answer } from "../core/src/domain/entities/Answer";
 
 type InputType =
   | "number"
@@ -42,12 +43,12 @@ const Questions = () => {
   const [isBackDisabled, setIsBackDisabled] = useState(true);
   const loading = useAppSelector((state) => state.questions.loading);
 
-  // const currentBusinessPlan = useAppSelector(
-  //   (state) => state.businessPlan.currentBusinessPlan
-  // );
+  const currentBusinessPlan = useAppSelector(
+    (state) => state.businessPlan.currentBusinessPlan
+  );
   // console.log("Current Business Plan :", currentBusinessPlan);
 
-  // const currentBusinessPlanId = currentBusinessPlan?.id;
+  const currentBusinessPlanId = currentBusinessPlan?.id;
   // console.log("Current Business Plan ID:", currentBusinessPlanId);
 
   // const [answers, setAnswers] = useState<Record<string, any>>({});
@@ -109,31 +110,15 @@ const Questions = () => {
 
   const handleContinue = () => {
     console.log("Answers:", answers);
+    const formattedAnswers = displayedQuestions?.map((question) => ({
+      value: answers[question.id],
+      questionId: question.uid,
+      businessPlanId: currentBusinessPlanId,
+    }));
+
+    console.log("Formatted Answers:", formattedAnswers);
 
     setIsBackDisabled(false);
-    const moveToNextBlockOrSubBlock = () => {
-      if (
-        isInsideNestedBlock &&
-        currentNestedBlockIndex < nestedBlocks.length - 1
-      ) {
-        // Move to the next nested block
-        setCurrentNestedBlockIndex(currentNestedBlockIndex + 1);
-        setCurrentPage(1);
-      } else if (currentBlockIndex < (section?.blocks?.length || 0) - 1) {
-        // Move to the next main block
-        setCurrentBlockIndex(currentBlockIndex + 1);
-        setMainBlockQuestionsShown(false); // Reset the flag for the new main block
-        setCurrentNestedBlockIndex(0); // Reset nested block index
-        setCurrentPage(1);
-      } else {
-        // Move to the next section
-        dispatch(incrementStep());
-        setCurrentBlockIndex(0);
-        setMainBlockQuestionsShown(false);
-        setCurrentNestedBlockIndex(0);
-        setCurrentPage(1);
-      }
-    };
 
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -142,11 +127,30 @@ const Questions = () => {
       setMainBlockQuestionsShown(true);
       setCurrentPage(1);
     } else {
-      moveToNextBlockOrSubBlock();
-      // Check if the new block or sub-block has questions. If not, continue to the next.
-      while (blockToRender?.questions.length === 0) {
-        moveToNextBlockOrSubBlock();
+      if (
+        isInsideNestedBlock &&
+        currentNestedBlockIndex < nestedBlocks.length - 1
+      ) {
+        setCurrentNestedBlockIndex(currentNestedBlockIndex + 1);
+        setCurrentPage(1);
+      } else if (currentBlockIndex < (section?.blocks?.length || 0) - 1) {
+        setCurrentBlockIndex(currentBlockIndex + 1);
+        setMainBlockQuestionsShown(false); // Reset the flag for the new main block
+        setCurrentNestedBlockIndex(0); // Reset nested block index
+        setCurrentPage(1);
+      } else {
+        dispatch(incrementStep());
+        setCurrentBlockIndex(0);
+        setMainBlockQuestionsShown(false);
+        setCurrentNestedBlockIndex(0);
+        setCurrentPage(1);
       }
+    }
+
+    if (formattedAnswers && currentBusinessPlanId) {
+      dispatch(submitAnswersAsync(formattedAnswers as Answer[]));
+    } else {
+      console.error("Failed to format answers or missing business plan ID.");
     }
   };
 
@@ -291,12 +295,15 @@ const Questions = () => {
   };
 
   const handleInputChange = (questionId: number, value: any) => {
-    // setAnswers((prevAnswers) => ({
-    //   ...prevAnswers,
-    //   [questionId]: value,
-    // }));
-    dispatch(setAnswer({ questionId: questionId.toString(), value }));
+    dispatch(
+      setAnswer({
+        questionId: questionId.toString(),
+        value,
+        businessPlanId: currentBusinessPlanId,
+      })
+    );
   };
+
   return (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
       {loading ? (
@@ -324,7 +331,7 @@ const Questions = () => {
               ultrices, justo non feugiat imperdiet. Lorem ipsum dolor sit amet.
             </div>
           </div>
-          <div className="px-[40px] overflow-y-scroll py-[5px] qb-thumb h-[550px]">
+          <div className="px-[35px] overflow-y-scroll py-[5px] qb-thumb h-[550px]">
             <div className="mb-10 w-full">
               {displayedQuestions?.map((question) => (
                 <div key={question.id} className="mb-6">

@@ -1,4 +1,5 @@
 import { BsFillPlusCircleFill, BsGrid } from "react-icons/bs";
+import { FaExclamationCircle } from "react-icons/fa";
 import { PiListBulletsBold } from "react-icons/pi";
 import { IoIosArrowDown } from "react-icons/io";
 import starLogo from "../../assets/icons/star.svg";
@@ -30,11 +31,49 @@ const BusinessPlanMenu = () => {
 
   const handleDeleteBp = (id: string) => {
     Modal.confirm({
-      title: "Are you sure you want to delete this business plan?",
-      content: "This action cannot be undone.",
+      title: (
+        <div
+          style={{
+            color: "#41245e",
+            fontSize: "1.25rem",
+            fontFamily: "Plus Jakarta Sans, sans-serif",
+          }}
+        >
+          Are you sure you want to delete this business plan?
+        </div>
+      ),
+      content: (
+        <div
+          style={{
+            color: "#252B48",
+            fontSize: "1rem",
+            fontFamily: "Inter, sans-serif",
+          }}
+        >
+          This action cannot be undone.
+        </div>
+      ),
       okText: "Yes",
       okType: "danger",
       cancelText: "No",
+      icon: (
+        <FaExclamationCircle
+          style={{
+            color: "#eb5757",
+            fontSize: "2rem",
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+          }}
+        />
+      ),
+      width: "35%",
+      style: {
+        top: "40%",
+      },
+      bodyStyle: {
+        fontSize: "2rem",
+      },
       onOk() {
         console.log("delete id ", id);
         dispatch(deleteBusinessPlanAsync(id));
