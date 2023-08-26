@@ -24,14 +24,14 @@ const PayementScreen = () => {
       </div>
 
       <div className="px-2 sm:px-20 md:px-14 flex flex-col lg:flex-row justify-center items-center">
-        <div className="bg-white p-[20px] w-full h-full rounded-[32px] lg:rounded-tr-none lg:rounded-br-none lg:mr-[-5px] mb-[50px] lg:mb-0">
-          <div className="mb-[16px] text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-[#331C4A]">
+        <div className="flex flex-col w-[380px] h-[600px] min-[1864px]:w-[450px] min-[1864px]:h-[700px] bg-white p-[20px] rounded-[32px] lg:rounded-tr-none lg:rounded-br-none lg:mr-[-5px] mb-[50px] lg:mb-0">
+          <div className="mb-[16px] text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] min-[1864px]:text-[30px] text-center text-[#331C4A]">
             Résumé de votre projet
           </div>
-          <div className="text-center text-[#914FD2] text-[34px] md:text-[36px] lg:text-[38px] xl:text-[40px] font-medium">
+          <div className="text-center text-[#914FD2] text-[34px] md:text-[36px] lg:text-[38px] xl:text-[40px] min-[1864px]:text-[46px] font-medium">
             Gratuit
           </div>
-          <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] text-center text-[#7D6990] mb-[16px]">
+          <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[20px] text-center text-[#7D6990] mb-[16px]">
             Pour comprendre comment votre business fonctionne
           </div>
 
@@ -42,10 +42,10 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Access to all basic features
               </div>
             </div>
@@ -54,13 +54,13 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="mr-[5px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="mr-[5px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Access to all basic features
               </div>
-              <div className="flex justify-center items-center text-[#914FD2] px-[5px] py-[2px] bg-[#EFE5F8] text-[10px] md:text-[12px] rounded-[7px] ">
+              <div className="flex justify-center items-center text-[#914FD2] px-[5px] py-[2px] bg-[#EFE5F8] text-[10px] md:text-[12px] min-[1864px]:text-[14px] rounded-[7px] ">
                 New
               </div>
             </div>
@@ -69,10 +69,10 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Basic reporting and analytics
               </div>
             </div>
@@ -81,10 +81,10 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Up to 10 individual users
               </div>
             </div>
@@ -93,10 +93,10 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 20GB individual data each user
               </div>
             </div>
@@ -105,15 +105,16 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Basic chat and email support
               </div>
             </div>
             <hr className="mb-[32px]" />
-
+          </div>
+          <div className="flex items-end h-full">
             <button className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-white rounded-[8px] bg-[#914FD2] hover:bg-[#8347bd]">
               <span>Obtenir mon résumé gratuit</span>
               <span>
@@ -136,19 +137,19 @@ const PayementScreen = () => {
             </button>
           </div>
         </div>
-        <div className="z-50 bg-[#FAF5FF] card-shadow border-[2px] border-[#ddc8f1] p-[20px] w-full rounded-[32px] mb-[50px] lg:mb-0">
+        <div className="flex flex-col w-[380px] h-[660px] min-[1864px]:w-[450px] min-[1864px]:h-[760px] z-50 bg-[#FAF5FF] card-shadow border-[2px] border-[#ddc8f1] p-[20px] rounded-[32px] mb-[50px] lg:mb-0">
           <div className="-translate-y-[40px] flex justify-center">
             <div className="text-white rounded-[8px] px-[28px] py-[10px] bg-gradient-to-b from-[#914FD2] from-0% to-[#C78EFF] to-100%">
               Le plus populaire
             </div>
           </div>
-          <div className="mt-[-12px] mb-[16px] text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-[#331C4A]">
+          <div className="mt-[-12px] mb-[16px] text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] min-[1864px]:text-[30px] text-center text-[#331C4A]">
             Business plan clé en main
           </div>
-          <div className="text-center text-[#914FD2] text-[34px] md:text-[36px] lg:text-[38px] xl:text-[40px] font-medium">
+          <div className="text-center text-[#914FD2] text-[34px] md:text-[36px] lg:text-[38px] xl:text-[40px] min-[1864px]:text-[46px] font-medium">
             49€ TTC
           </div>
-          <div className="mb-[50px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] text-center text-[#7D6990] mb-[16px]">
+          <div className="mb-[50px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[20px] text-center text-[#7D6990] mb-[16px]">
             Idéal pour avoir une idée de votre business
           </div>
           <hr className="mb-[32px]" />
@@ -158,13 +159,13 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="mr-[5px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="mr-[5px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Access to all basic features
               </div>
-              <div className="flex justify-center items-center text-[#914FD2] px-[5px] py-[2px] bg-[#EFE5F8] text-[10px] md:text-[12px] rounded-[7px] ">
+              <div className="flex justify-center items-center text-[#914FD2] px-[5px] py-[2px] bg-[#EFE5F8] text-[10px] md:text-[12px] min-[1864px]:text-[14px] rounded-[7px] ">
                 New
               </div>
             </div>
@@ -173,13 +174,13 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="mr-[5px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="mr-[5px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Access to all basic features
               </div>
-              <div className="flex justify-center items-center text-[#914FD2] px-[5px] py-[2px] bg-[#EFE5F8] text-[10px] md:text-[12px] rounded-[7px] ">
+              <div className="flex justify-center items-center text-[#914FD2] px-[5px] py-[2px] bg-[#EFE5F8] text-[10px] md:text-[12px] min-[1864px]:text-[14px] rounded-[7px] ">
                 New
               </div>
             </div>
@@ -188,11 +189,11 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
-                Up to 10 individual users
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
+                Up to 10 individual users 
               </div>
             </div>
             <div className="flex gap-[12px] mb-[16px]">
@@ -200,10 +201,10 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 20GB individual data each user
               </div>
             </div>
@@ -212,15 +213,16 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Basic chat and email support
               </div>
             </div>
             <hr className="mb-[32px]" />
-
+          </div>
+          <div className="h-full min-[1864px]:flex min-[1864px]:items-center mt-4">
             <button className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-white rounded-[8px] bg-[#914FD2] hover:bg-[#8347bd]">
               <span>Obtenir mon business plan</span>
               <span>
@@ -243,14 +245,14 @@ const PayementScreen = () => {
             </button>
           </div>
         </div>
-        <div className="bg-white p-[20px] w-full rounded-[32px] lg:rounded-tl-none lg:rounded-bl-none lg:ml-[-5px] mb-[50px] lg:mb-0">
-          <div className="mb-[16px] text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] text-center text-[#331C4A]">
+        <div className="flex flex-col w-[380px] h-[600px] min-[1864px]:w-[450px] min-[1864px]:h-[700px] bg-white p-[20px] rounded-[32px] lg:rounded-tl-none lg:rounded-bl-none lg:ml-[-5px] mb-[50px] lg:mb-0">
+          <div className="mb-[16px] text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] min-[1864px]:text-[30px] text-center text-[#331C4A]">
             Business plan <span className="text-[#914FD2]">PRO</span>
           </div>
-          <div className="text-center text-[#914FD2] text-[#914FD2] text-[34px] md:text-[36px] lg:text-[38px] xl:text-[40px] font-medium">
+          <div className="text-center text-[#914FD2] text-[#914FD2] text-[34px] md:text-[36px] lg:text-[38px] xl:text-[40px] min-[1864px]:text-[46px] font-medium">
             79€ TTC
           </div>
-          <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] text-center text-[#7D6990] mb-[16px]">
+          <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[20px] text-center text-[#7D6990] mb-[16px]">
             Idéal pour présenter à vos partenaires et a votre banque.
           </div>
 
@@ -261,10 +263,10 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Access to all basic features
               </div>
             </div>
@@ -273,10 +275,10 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="mr-[5px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="mr-[5px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Basic reporting and analytics
               </div>
             </div>
@@ -285,10 +287,10 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Up to 10 individual users
               </div>
             </div>
@@ -297,10 +299,10 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 20GB individual data each user
               </div>
             </div>
@@ -309,15 +311,16 @@ const PayementScreen = () => {
                 <img
                   src="/check-icon.svg"
                   alt="check-icon"
-                  className="w-[24px] object-contain"
+                  className="w-[24px] min-[1864px]:w-[30px] object-contain"
                 />
               </div>
-              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]">
+              <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
                 Basic chat and email support
               </div>
             </div>
             <hr className="mb-[32px] lg:mb-[72px]" />
-
+          </div>
+          <div className="flex items-end h-full">
             <button className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-[#914FD2] border border-[#914FD2] rounded-[8px]">
               <span>Rejoindre la file d’attente</span>
               <span>
