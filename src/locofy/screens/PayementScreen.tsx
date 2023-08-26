@@ -128,7 +128,7 @@ const PayementScreen = () => {
                     d="M5.79297 12.7363H19.793M19.793 12.7363L12.793 5.73633M19.793 12.7363L12.793 19.7363"
                     stroke="white"
                     strokeWidth="1.66667"
-                    strokeLinecapp="round"
+                    strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                 </svg>
@@ -235,7 +235,7 @@ const PayementScreen = () => {
                     d="M5.79297 12.7363H19.793M19.793 12.7363L12.793 5.73633M19.793 12.7363L12.793 19.7363"
                     stroke="white"
                     strokeWidth="1.66667"
-                    strokeLinecapp="round"
+                    strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                 </svg>
@@ -332,7 +332,7 @@ const PayementScreen = () => {
                     d="M5.79297 12.7363H19.793M19.793 12.7363L12.793 5.73633M19.793 12.7363L12.793 19.7363"
                     stroke="#914FD2"
                     strokeWidth="1.66667"
-                    strokeLinecapp="round"
+                    strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                 </svg>

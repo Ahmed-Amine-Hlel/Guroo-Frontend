@@ -236,10 +236,10 @@ const Questions = () => {
       case "list":
         const parsedOptions = question.options
           ? question.options
-              .slice(1, -1)
-              .split(",")
-              .map((str) => str.trim())
-              .map((option) => ({ name: option }))
+            .slice(1, -1)
+            .split(",")
+            .map((str) => str.trim())
+            .map((option) => ({ name: option }))
           : [];
         return (
           <InputListBox
@@ -316,11 +316,10 @@ const Questions = () => {
             <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
               <div>
                 <HiMiniArrowLeft
-                  className={`text-[24px] ${
-                    isBackDisabled
+                  className={`text-[24px] ${isBackDisabled
                       ? "opacity-50 cursor-default"
                       : "hover:cursor-pointer"
-                  }`}
+                    }`}
                   onClick={!isBackDisabled ? handleBack : undefined}
                 />
               </div>
@@ -331,8 +330,8 @@ const Questions = () => {
               ultrices, justo non feugiat imperdiet. Lorem ipsum dolor sit amet.
             </div>
           </div>
-          <div className="px-[35px] overflow-y-scroll py-[5px] qb-thumb h-[550px]">
-            <div className="mb-10 w-full">
+          <div className="overflow-y-scroll py-[5px] qb-thumb h-[550px]">
+            <div className="mb-10 w-full px-[35px]">
               {displayedQuestions?.map((question) => (
                 <div key={question.id} className="mb-6">
                   <div className="px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
@@ -341,13 +340,13 @@ const Questions = () => {
                   {renderInputComponent(question.inputType, question)}
                 </div>
               ))}
+              <QuestionAiBox />
             </div>
-            <QuestionAiBox />
           </div>
-          <div className="w-full mt-auto px-[40px]">
+          <div className="w-full mt-auto pr-[40px] pl-[35px]">
             <button
               onClick={handleContinue}
-              className="w-full flex justify-center items-center gap-[10px] mb-[50px] bg-gradient-to-r from-[#914FD2] from-0% to-[#946CBB] to-100% rounded-[45px] px-[35px] py-[15px] text-white hover:cursor-pointer"
+              className="w-full flex justify-center items-center gap-[10px] md:mb-[50px] bg-gradient-to-r from-[#914FD2] from-0% to-[#946CBB] to-100% rounded-[45px] px-[35px] py-[15px] text-white hover:cursor-pointer"
             >
               <span className="text-[15px]">Continuer</span>
               <span className="">
