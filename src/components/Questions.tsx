@@ -312,7 +312,7 @@ const Questions = () => {
         </div>
       ) : (
         <>
-          <div className="px-[40px]">
+          <div className="sm:px-[40px]">
             <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
               <div>
                 <HiMiniArrowLeft
@@ -330,8 +330,8 @@ const Questions = () => {
               ultrices, justo non feugiat imperdiet. Lorem ipsum dolor sit amet.
             </div>
           </div>
-          <div className="overflow-y-scroll py-[5px] qb-thumb h-[550px]">
-            <div className="mb-10 w-full px-[35px]">
+          <div className="overflow-y-scroll py-[5px] qb-thumb h-[550px] mb-[10px]">
+            <div className="mb-10 w-full sm:px-[35px]">
               {displayedQuestions?.map((question) => (
                 <div key={question.id} className="mb-6">
                   <div className="px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
@@ -343,10 +343,10 @@ const Questions = () => {
               <QuestionAiBox />
             </div>
           </div>
-          <div className="w-full mt-auto pr-[40px] pl-[35px]">
+          <div className="w-full flex justify-center mt-auto sm:pr-[40px] sm:pl-[35px]">
             <button
               onClick={handleContinue}
-              className="w-full flex justify-center items-center gap-[10px] md:mb-[50px] bg-gradient-to-r from-[#914FD2] from-0% to-[#946CBB] to-100% rounded-[45px] px-[35px] py-[15px] text-white hover:cursor-pointer"
+              className="w-[150px] sm:w-full flex justify-center items-center gap-[10px] md:mb-[50px] bg-gradient-to-r from-[#914FD2] from-0% to-[#946CBB] to-100% rounded-[45px] px-[35px] py-[15px] text-white hover:cursor-pointer"
             >
               <span className="text-[15px]">Continuer</span>
               <span className="">

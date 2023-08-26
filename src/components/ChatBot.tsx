@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
+import { HiChatAlt } from 'react-icons/hi'
+import { LiaTimesSolid } from 'react-icons/lia'
+import { FaRobot } from 'react-icons/fa'
+
 const ChatBot = () => {
-    console.log('ChatBot')
     const [isOpened, setIsOpened] = useState<boolean>(false)
     const chatBotRef = useRef<HTMLDivElement>(null);
     const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -96,27 +99,26 @@ const ChatBot = () => {
                 <div
                     role="button"
                     aria-label="Toggle Chat"
-                    className='z-50 absolute bottom-0 right-0 rounded-full hover:cursor-pointer'
+                    className='z-50 flex items-center justify-center absolute bottom-0 right-0 w-[45px] h-[45px] min-[1864px]:w-[55px] min-[1864px]:h-[55px] rounded-full bg-[#914FD2] hover:bg-[#946CBB] hover:cursor-pointer'
                     onClick={toggleChat}
                 >
+                    {
+                        isOpened ?
+                            <LiaTimesSolid className="text-white text-[20px] min-[1864px]:text-[25px]" /> :
+                            <HiChatAlt className="text-white text-[20px] min-[1864px]:text-[25px]" />
 
-                    <img
-                        src='/bubble-chat.png'
-                        alt='bubble-chat'
-                        className='w-[45px] h-[45px] object-cover'
-                    />
-
+                    }
                 </div>
                 {
                     isOpened && (
-                        <div className={`absolute bottom-0 right-0 w-full h-full bg-transparent pb-[45px] transition-transform duration-300 ${isOpened ? 'ping-enter' : ''}`}>
+                        <div className={`absolute bottom-0 right-0 w-full h-full bg-transparent pb-[50px] min-[1864px]:pb-[60px] transition-transform duration-300 ${isOpened ? 'ping-enter' : ''}`}>
                             <div className='z-50 bg-white flex flex-col h-full w-full rounded-[16px] overflow-hidden border-[2px] border-gray-200/50'>
                                 <div className='grid grid-cols-2 gap-1 w-full h-[200px] mb-1 p-2 overflow-y-scroll no-thumb border-b border-b-[2px] border-gray-200/50'>
                                     {
                                         suggests.map((suggest: string, index: number) => (
                                             <div
                                                 key={index}
-                                                className={`bg-gray-100 hover:cursor-pointer text-xs p-2 rounded-[16px] h-max ${index === 4 ? 'col-span-2' : ''}`}
+                                                className={`bg-gray-100 hover:cursor-pointer text-xs min-[1864px]:text-[14px] p-2 rounded-[16px] h-max ${index === 4 ? 'col-span-2' : ''}`}
                                                 onClick={() => addNewMessage(suggest)}>
                                                 {suggest}
                                             </div>
@@ -130,15 +132,17 @@ const ChatBot = () => {
                                                 {
                                                     data.type === 'user' ?
                                                         <div className='flex justify-end'>
-                                                            <div className='bg-purple-200 rounded-[16px] px-2 py-1 max-w-[80%] text-xs'>
+                                                            <div className='bg-purple-200 rounded-[16px] px-2 py-1 max-w-[80%] text-xs min-[1864px]:text-[14px]'>
                                                                 {data.message}
                                                             </div>
                                                         </div> :
                                                         <div className='flex justify-start gap-1'>
-                                                            <div className='w-[26px] h-[26px] bg-gray-200/50 rounded-full'>
-
+                                                            <div className='flex items-center justify-center w-[26px] h-[26px] bg-gray-200/50 rounded-full'>
+                                                                <FaRobot
+                                                                    className='text-[16px] min-[1864px]:text-[18px] text-gray-600'
+                                                                />
                                                             </div>
-                                                            <div className='bg-gray-200/50 rounded-[16px] px-2 py-1 max-w-[70%]  text-xs'>
+                                                            <div className='bg-gray-200/50 rounded-[16px] px-2 py-1 max-w-[70%]  text-xs min-[1864px]:text-[14px]'>
                                                                 {data.message}
                                                             </div>
                                                         </div>
@@ -149,10 +153,12 @@ const ChatBot = () => {
                                     {
                                         loading && (
                                             <div className='flex justify-start gap-1 mb-3'>
-                                                <div className='w-[26px] h-[26px] bg-gray-200/50 rounded-full'>
-
+                                                <div className='flex items-center justify-center w-[26px] h-[26px] bg-gray-200/50 rounded-full'>
+                                                    <FaRobot
+                                                        className='text-[16px] min-[1864px]:text-[18px] text-gray-600'
+                                                    />
                                                 </div>
-                                                <div className='bg-gray-200/50 rounded-[16px] px-2 py-1 max-w-[70%]  text-xs'>
+                                                <div className='bg-gray-200/50 rounded-[16px] px-2 py-1 max-w-[70%]  text-xs min-[1864px]:text-[14px]'>
                                                     Wait a moment...
                                                 </div>
                                             </div>
