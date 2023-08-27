@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
 import { HiChatAlt } from 'react-icons/hi'
-import { LiaTimesSolid } from 'react-icons/lia'
 import { FaRobot } from 'react-icons/fa'
 
 const ChatBot = () => {
@@ -98,16 +97,10 @@ const ChatBot = () => {
             <div className='z-50 relative h-full'>
                 <div
                     role="button"
-                    aria-label="Toggle Chat"
                     className='z-50 flex items-center justify-center absolute bottom-0 right-0 w-[45px] h-[45px] min-[1864px]:w-[55px] min-[1864px]:h-[55px] rounded-full bg-[#914FD2] hover:bg-[#946CBB] hover:cursor-pointer'
                     onClick={toggleChat}
                 >
-                    {
-                        isOpened ?
-                            <LiaTimesSolid className="text-white text-[20px] min-[1864px]:text-[25px]" /> :
-                            <HiChatAlt className="text-white text-[20px] min-[1864px]:text-[25px]" />
-
-                    }
+                    <HiChatAlt className="text-white text-[20px] min-[1864px]:text-[25px]" />
                 </div>
                 {
                     isOpened && (
