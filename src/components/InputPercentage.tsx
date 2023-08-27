@@ -43,10 +43,10 @@ const StyledInputNumber = styled(InputNumber)`
 const InputPercentage = ({ onChange, value = "0%" }: InputPercentageProps) => {
   return (
     <div className="relative flex items-center w-full">
-      <Wrapper>
+      <Wrapper className="w-full">
         <StyledInputNumber
           parser={(value) => (value ? value.replace("%", "") : "")}
-          className="w-[470px]"
+          className="w-full"
           value={parseFloat(value)}
           onChange={(numValue) => {
             if (typeof numValue === "number") {

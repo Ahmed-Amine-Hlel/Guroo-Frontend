@@ -35,7 +35,7 @@ const StyledInputAmount = styled(
     <InputNumber {...props} />
   )
 )`
-  width: ${(props) => (props.reducedwidth ? "140px" : "470px")};
+  width: ${(props) => (props.reducedwidth ? "140px" : "100%")};
 
   & .ant-input-number-input {
     color: #6d3b9e;

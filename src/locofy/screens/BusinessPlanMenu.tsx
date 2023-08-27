@@ -208,7 +208,7 @@ const BusinessPlanMenu = () => {
           </div>
         </div>
         <div className="overflow-y-scroll qb-thumb h-full">
-          <div className="grid grid-rows-3 grid-cols-1 lg:grid-cols-2 min-[1920px]:grid-cols-3 gap-[20px]">
+          <div className="grid grid-rows-3 grid-cols-1 lg:grid-cols-2 min-[1864px]:grid-cols-3 gap-[20px]">
             {/* <div className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
               <div>
                 <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
