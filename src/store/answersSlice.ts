@@ -34,7 +34,7 @@ const answersSlice = createSlice({
   initialState,
   reducers: {
     setAnswer: (state, action) => {
-      state.answers[action.payload.questionId] = action.payload.value;
+      state.answers[action.payload.questionUid] = action.payload.value;
     },
   },
   extraReducers: (builder) => {

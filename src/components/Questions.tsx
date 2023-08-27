@@ -1,7 +1,12 @@
 import { HiMiniArrowLeft, HiMiniArrowRight } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { fetchSectionsForStep } from "../store/QuestionsSlice";
+import {
+  fetchCotisationsSalariales,
+  fetchNetSalary,
+  fetchPredictLoyer,
+  fetchSectionsForStep,
+} from "../store/QuestionsSlice";
 import { incrementStep } from "../store/StepperSlice";
 import NumberInput from "./NumberInput";
 import StringInput from "./StringInput";
@@ -42,6 +47,7 @@ const Questions = () => {
   const questionsPerPage = 5;
   const [isBackDisabled, setIsBackDisabled] = useState(true);
   const loading = useAppSelector((state) => state.questions.loading);
+  const aiResponses = useAppSelector((state) => state.questions.aiResponses);
 
   const currentBusinessPlan = useAppSelector(
     (state) => state.businessPlan.currentBusinessPlan
@@ -111,7 +117,7 @@ const Questions = () => {
   const handleContinue = () => {
     console.log("Answers:", answers);
     const formattedAnswers = displayedQuestions?.map((question) => ({
-      value: answers[question.id],
+      value: answers[question.uid],
       questionId: question.uid,
       businessPlanId: currentBusinessPlanId,
     }));
@@ -151,6 +157,66 @@ const Questions = () => {
       dispatch(submitAnswersAsync(formattedAnswers as Answer[]));
     } else {
       console.error("Failed to format answers or missing business plan ID.");
+    }
+
+    triggerApiCalls();
+  };
+
+  const triggerApiCalls = () => {
+    // Triggering the fetchNetSalary API call
+    const town = answers["0f7b07a6-0a75-4df1-8e11-4e164712c7b4"];
+    if (town) {
+      dispatch(fetchNetSalary(town));
+    }
+
+    // Triggering the fetchPredictLoyer API call
+    const pays = answers["43e05de9-0bf4-47f7-8483-224179cd475f"];
+    const code_postal = "70123";
+    const surface = Number(answers["4481644a-646e-486f-99b3-390535dc13b4"]);
+    if (pays && code_postal && surface) {
+      dispatch(fetchPredictLoyer({ pays, code_postal, surface }));
+    }
+
+    // Triggering the fetchCotisationsSalariales API call
+    const gross_monthly_salary_employee1 =
+      answers["5f4800c7-e289-4885-b6bf-f5897e3850fd"];
+    const gross_monthly_salary_employee2 =
+      answers["12732041-22ea-4fb5-af30-4a96bd4bb369"];
+    const gross_monthly_salary_employee3 =
+      answers["e466fa89-043c-41b7-90c4-c264af9cc736"];
+    const gross_monthly_salary_employee4 =
+      answers["24a1f8ad-ddf1-4dcf-9878-f3bf3e6c3be5"];
+    const gross_monthly_salary_employee5 =
+      answers["acca41fb-1edc-4dba-a13d-bc47d5821b8f"];
+    const gross_monthly_salary_employee6 =
+      answers["dfddfb23-5480-4676-92e2-8be02faef6d8"];
+    const gross_monthly_salary_employee7 =
+      answers["97648262-8f5a-4629-8e6c-7bdcd1dd7b40"];
+    const gross_monthly_salary_employee8 =
+      answers["eb92aafb-852c-4cbe-8bc6-9ee444d12005"];
+    const gross_monthly_salary_employee9 =
+      answers["03688503-02a9-4df7-8c60-4b16c8d54d4b"];
+    const gross_monthly_salary_employee10 =
+      answers["74c48ae7-5e75-4d8d-88c4-836d21f52816"];
+    if (
+      gross_monthly_salary_employee1 &&
+      gross_monthly_salary_employee2 &&
+      gross_monthly_salary_employee3
+    ) {
+      dispatch(
+        fetchCotisationsSalariales({
+          gross_monthly_salary_employee1,
+          gross_monthly_salary_employee2,
+          gross_monthly_salary_employee3,
+          gross_monthly_salary_employee4,
+          gross_monthly_salary_employee5,
+          gross_monthly_salary_employee6,
+          gross_monthly_salary_employee7,
+          gross_monthly_salary_employee8,
+          gross_monthly_salary_employee9,
+          gross_monthly_salary_employee10,
+        })
+      );
     }
   };
 
@@ -203,90 +269,90 @@ const Questions = () => {
       case "number":
         return (
           <NumberInput
-            value={answers[question.id]}
-            onChange={(value) => handleInputChange(question.id, value)}
+            value={answers[question.uid]}
+            onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       case "string":
         return (
           <StringInput
-            value={answers[question.id]}
-            onChange={(value) => handleInputChange(question.id, value)}
+            value={answers[question.uid]}
+            onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       case "boolean":
         return (
           <InputCheckBox
-            value={answers[question.id]}
+            value={answers[question.uid]}
             onChange={(boolValue) =>
-              handleInputChange(question.id, String(boolValue))
+              handleInputChange(question.uid, String(boolValue))
             }
           />
         );
       case "date":
         return (
           <InputCalendar
-            value={answers[question.id]}
+            value={answers[question.uid]}
             onChange={(date) => {
               const formattedDate = date ? date.format("D/M/YYYY") : null;
-              handleInputChange(question.id, formattedDate);
+              handleInputChange(question.uid, formattedDate);
             }}
           />
         );
       case "list":
         const parsedOptions = question.options
           ? question.options
-            .slice(1, -1)
-            .split(",")
-            .map((str) => str.trim())
-            .map((option) => ({ name: option }))
+              .slice(1, -1)
+              .split(",")
+              .map((str) => str.trim())
+              .map((option) => ({ name: option }))
           : [];
         return (
           <InputListBox
             value={
-              answers[question.id]
-                ? { name: answers[question.id] }
+              answers[question.uid]
+                ? { name: answers[question.uid] }
                 : parsedOptions[0]
             }
             options={parsedOptions}
             onChange={(selectedOption) =>
-              handleInputChange(question.id, selectedOption.name)
+              handleInputChange(question.uid, selectedOption.name)
             }
           />
         );
       case "percent":
         return (
           <InputPercentage
-            value={answers[question.id]}
-            onChange={(value) => handleInputChange(question.id, value)}
+            value={answers[question.uid]}
+            onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       case "MultiInput":
         return (
           <MultiInput
-            value={answers[question.id]}
-            onChange={(value) => handleInputChange(question.id, value)}
+            value={answers[question.uid]}
+            onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       case "GooglePlaces":
         return (
           <StringInput
-            value={answers[question.id]}
-            onChange={(value) => handleInputChange(question.id, value)}
+            value={answers[question.uid]}
+            onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       case "amount":
         return (
           <InputAmount
-            value={answers[question.id]}
-            onChange={(value) => handleInputChange(question.id, value)}
+            value={answers[question.uid]}
+            onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       case "MultiUnitNumber":
         return (
           <InputMultiUnitNumber
-            value={answers[question.id]}
-            onChange={(value) => handleInputChange(question.id, value)}
+            value={answers[question.uid]}
+            onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       default:
@@ -294,15 +360,25 @@ const Questions = () => {
     }
   };
 
-  const handleInputChange = (questionId: number, value: any) => {
+  const handleInputChange = (questionUid: string, value: any) => {
     dispatch(
       setAnswer({
-        questionId: questionId.toString(),
+        questionUid,
         value,
         businessPlanId: currentBusinessPlanId,
       })
     );
   };
+
+  // console.log(
+  //   "Town is : ",
+  //   typeof answers["0f7b07a6-0a75-4df1-8e11-4e164712c7b4"]
+  // );
+
+  // console.log(
+  //   "Surface : ",
+  //   typeof Number(answers["4481644a-646e-486f-99b3-390535dc13b4"])
+  // );
 
   return (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
@@ -316,10 +392,11 @@ const Questions = () => {
             <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
               <div>
                 <HiMiniArrowLeft
-                  className={`text-[24px] ${isBackDisabled
+                  className={`text-[24px] ${
+                    isBackDisabled
                       ? "opacity-50 cursor-default"
                       : "hover:cursor-pointer"
-                    }`}
+                  }`}
                   onClick={!isBackDisabled ? handleBack : undefined}
                 />
               </div>
@@ -332,7 +409,7 @@ const Questions = () => {
           </div>
           <div className="overflow-y-scroll py-[5px] qb-thumb h-[550px] mb-[10px]">
             <div className="mb-10 w-full sm:px-[35px]">
-              {displayedQuestions?.map((question) => (
+              {/* {displayedQuestions?.map((question) => (
                 <div key={question.id} className="mb-6">
                   <div className="px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
                     {question.label}
@@ -340,7 +417,18 @@ const Questions = () => {
                   {renderInputComponent(question.inputType, question)}
                 </div>
               ))}
-              <QuestionAiBox />
+              <QuestionAiBox /> */}
+              {displayedQuestions?.map((question) => (
+                <div key={question.uid} className="mb-6">
+                  <div className="px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
+                    {question.label}
+                  </div>
+                  {renderInputComponent(question.inputType, question)}
+                  {aiResponses[question.uid] && (
+                    <QuestionAiBox message={aiResponses[question.uid]} />
+                  )}
+                </div>
+              ))}
             </div>
           </div>
           <div className="w-full flex justify-center mt-auto sm:pr-[40px] sm:pl-[35px]">
