@@ -3,6 +3,14 @@ import { HiChatAlt } from "react-icons/hi";
 import { FaRobot } from "react-icons/fa";
 import { PulseLoader } from "react-spinners";
 import axios from "axios";
+import BotResponseBox from "./BotResponseBox";
+
+export type ChatMessage = {
+    id: number
+    message: string;
+    type: "user" | "bot";
+    displayed: boolean;
+};
 
 const ChatBot = () => {
     const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -18,7 +26,7 @@ const ChatBot = () => {
         "Activités"
     ]);
     const [questions, setQuestions] = useState<string[]>([])
-    const [chat, setChat] = useState<object[]>([]);
+    const [chat, setChat] = useState<ChatMessage[]>([]);
 
     const toggleChat = () => {
         setIsOpened((prevState) => !prevState);
@@ -32,8 +40,10 @@ const ChatBot = () => {
         setChat((prev) => [
             ...prev,
             {
+                id: Date.now(),
                 message,
                 type: "user",
+                displayed: false,
             },
         ]);
         setLoading(true);
@@ -44,17 +54,32 @@ const ChatBot = () => {
         setChat((prev) => [
             ...prev,
             {
+                id: Date.now(),
                 message: response,
                 type: "bot",
+                displayed: false,
             },
         ]);
         setLoading(false)
     };
 
+    const setDisplayedBotMessage = (id: number) => {
+        setChat((prev) =>
+            prev.map((message) => {
+                if (message.id === id) {
+                    return {
+                        ...message,
+                        displayed: true,
+                    };
+                }
+                return message;
+            })
+        );
+    }
+
     const getQuestions = async (category: string) => {
         try {
             const res = await axios.get(`https://fundr-ia.onrender.com/get_questions/${category}`);
-            console.log(res.data)
             setQuestions(res.data.questions)
         } catch (error) {
             console.log('error', error)
@@ -91,7 +116,7 @@ const ChatBot = () => {
     return (
         <div
             ref={chatBotRef}
-            className={`z-50 fixed right-2 sm:right-8 bottom-10 w-[350px] font-plus-jakarta-sans ${!isOpened ? "h-max" : "h-[600px] "
+            className={`z-50 fixed right-2 sm:right-8 bottom-10 w-[350px] font-text-xs-medium ${!isOpened ? "h-max" : "h-[600px] "
                 }`}
         >
             <div className="z-50 relative h-full">
@@ -108,21 +133,21 @@ const ChatBot = () => {
                             }`}
                     >
                         <div className="z-50 bg-white flex flex-col h-full w-full rounded-[16px] overflow-hidden border-[2px] border-gray-200/50">
-                            <div className="overflow-y-scroll no-thumb h-[220px] mb-4 p-2  border-b border-b-[2px] border-gray-200/50">
+                            <div className="overflow-y-scroll no-thumb h-[230px] mb-4 p-2  border-b border-b-[2px] border-gray-200/50 bg-gray-100">
                                 <div className="text-[14px] mb-2">
                                     {
                                         selectedCategory === '' ?
-                                            <div className="px-1">
+                                            <div className="text-center px-1">
                                                 Les catégories de questions
                                             </div> :
                                             <div className="flex items-center gap-4">
                                                 <button
-                                                    className="px-2 py-1 border border-purple-200 w-max rounded-[16px] hover:bg-purple-200/50"
+                                                    className="px-2 py-1 border border-gray-300 w-max rounded-[8px] hover:bg-gray-300"
                                                     onClick={() => setSelectedCategory('')}>
                                                     Retour
                                                 </button>
                                                 <div
-                                                    className="px-2 py-1 bg-green-200 w-max rounded-[16px]"
+                                                    className="text-[#F1F2F6] px-2 py-1 bg-[#7A2048] w-max rounded-[8px]"
                                                 >
                                                     {selectedCategory}
                                                 </div>
@@ -135,7 +160,7 @@ const ChatBot = () => {
                                             categories.map((category: string, index: number) => (
                                                 <div
                                                     key={index}
-                                                    className={`text-center bg-gray-100 hover:cursor-pointer hover:bg-gray-200 text-xs min-[1864px]:text-[14px] p-2 rounded-[16px] h-max`}
+                                                    className={`text-center bg-gray-300/50 hover:bg-gray-300 hover:cursor-pointer text-xs min-[1864px]:text-[14px] p-2 rounded-[8px] h-max`}
                                                     onClick={() => selectCategory(category)}
                                                 >
                                                     {category}
@@ -148,7 +173,7 @@ const ChatBot = () => {
                                                 questions.map((question: string, index: number) => (
                                                     <div
                                                         key={index}
-                                                        className={`bg-gray-100 hover:cursor-pointer text-xs min-[1864px]:text-[14px] p-2 rounded-[16px] h-max`}
+                                                        className={`bg-gray-300/50 hover:cursor-pointer text-xs min-[1864px]:text-[14px] p-2 rounded-[8px] h-max`}
                                                         onClick={() => addNewMessage(question)}
                                                     >
                                                         {question}
@@ -161,11 +186,11 @@ const ChatBot = () => {
                                 ref={chatContainerRef}
                                 className="overflow-y-scroll no-thumb h-full w-full px-2"
                             >
-                                {chat.map((data: any, index: number) => (
+                                {chat.map((data: ChatMessage, index: number) => (
                                     <div key={index} className="mb-3">
                                         {data.type === "user" ? (
                                             <div className="flex justify-end">
-                                                <div className="bg-purple-200 rounded-[16px] px-2 py-1 max-w-[80%] text-xs min-[1864px]:text-[14px]">
+                                                <div className="bg-purple-200 rounded-[8px] p-2 max-w-[80%] text-[13px] min-[1864px]:text-[14px]">
                                                     {data.message}
                                                 </div>
                                             </div>
@@ -174,9 +199,11 @@ const ChatBot = () => {
                                                 <div className="flex items-center justify-center w-[26px] h-[26px] bg-gray-200/50 rounded-full">
                                                     <FaRobot className="text-[16px] min-[1864px]:text-[18px] text-gray-600" />
                                                 </div>
-                                                <div className="bg-gray-200/50 rounded-[16px] px-2 py-1 max-w-[70%]  text-xs min-[1864px]:text-[14px]">
-                                                    {data.message}
-                                                </div>
+                                                <BotResponseBox
+                                                    data={data}
+                                                    chatContainerRef={chatContainerRef}
+                                                    setDisplayedBotMessage={setDisplayedBotMessage}
+                                                />
                                             </div>
                                         )}
                                     </div>
