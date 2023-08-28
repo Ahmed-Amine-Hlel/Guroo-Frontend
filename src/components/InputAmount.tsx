@@ -1,17 +1,18 @@
 import { InputNumber } from "antd";
 import styled from "styled-components";
 import { InputNumberProps } from "antd/lib/input-number";
+import { useEffect } from "react";
 
 type StyledInputAmountProps = InputNumberProps & {
   reducedwidth?: boolean;
   value?: number;
-  onChange?: (value: number) => void;
+  onChange?: (value: string) => void;
 };
 
 interface InputAmountProps {
   reducedwidth?: boolean;
   value?: number;
-  onChange?: (value: number) => void;
+  onChange?: (value: string) => void;
 }
 
 const Wrapper = styled.div`
@@ -57,19 +58,24 @@ const StyledInputAmount = styled(
 
 const InputAmount: React.FC<InputAmountProps> = ({
   reducedwidth = false,
-  value,
+  value = 0,
   onChange,
 }) => {
+  useEffect(() => {
+    if (value === 0 || value === undefined) {
+      onChange?.("0");
+    }
+  }, []);
+
   return (
     <Wrapper>
       <StyledInputAmount
         addonAfter="€"
-        defaultValue={0}
         reducedwidth={reducedwidth}
         value={value}
-        onChange={(value) => {
-          if (onChange && typeof value === "number") {
-            onChange(value);
+        onChange={(numValue) => {
+          if (onChange && typeof numValue === "number") {
+            onChange((numValue ?? 0).toString());
           }
         }}
       />

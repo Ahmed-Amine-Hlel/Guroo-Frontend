@@ -311,10 +311,8 @@ const Questions = () => {
       case "boolean":
         return (
           <InputCheckBox
-            value={answers[question.uid]}
-            onChange={(boolValue) =>
-              handleInputChange(question.uid, String(boolValue))
-            }
+            value={answers[question.uid] === "true"}
+            onChange={(boolValue) => handleInputChange(question.uid, boolValue)}
           />
         );
       case "date":
@@ -322,8 +320,12 @@ const Questions = () => {
           <InputCalendar
             value={answers[question.uid]}
             onChange={(date) => {
-              const formattedDate = date ? date.format("D/M/YYYY") : null;
-              handleInputChange(question.uid, formattedDate);
+              const formattedDate = date ? date.format("DD/MM/YYYY") : null;
+              handleInputChange(
+                question.uid,
+
+                formattedDate
+              );
             }}
           />
         );
@@ -372,8 +374,10 @@ const Questions = () => {
       case "amount":
         return (
           <InputAmount
-            value={answers[question.uid]}
-            onChange={(value) => handleInputChange(question.uid, value)}
+            value={answers[question.uid] ?? 0}
+            onChange={(value) =>
+              handleInputChange(question.uid, value.toString())
+            }
           />
         );
       case "MultiUnitNumber":

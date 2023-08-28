@@ -1,5 +1,6 @@
 import { InputNumber } from "antd";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 type InputPercentageProps = {
   onChange: (value: string) => void;
@@ -41,6 +42,12 @@ const StyledInputNumber = styled(InputNumber)`
 `;
 
 const InputPercentage = ({ onChange, value = "0%" }: InputPercentageProps) => {
+  useEffect(() => {
+    if (value === "0%") {
+      onChange("0%");
+    }
+  }, []);
+
   return (
     <div className="relative flex items-center w-full">
       <Wrapper className="w-full">
