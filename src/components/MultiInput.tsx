@@ -66,7 +66,7 @@ const MultiInput: React.FC<MultiInputProps> = ({ value, onChange }) => {
         reducedwidth
         value={dayjs(dateValue).isValid() ? dayjs(dateValue) : null}
         onChange={(date) => {
-          const formattedDate = date ? date.format("YYYY-MM-DD") : "";
+          const formattedDate = date ? date.format("DD/MM/YYYY") : "";
           if (formattedDate) {
             setDateValue(formattedDate);
           }

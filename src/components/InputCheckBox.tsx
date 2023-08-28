@@ -1,9 +1,10 @@
 import { Checkbox } from "antd";
 import styled from "styled-components";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
+import { useEffect } from "react";
 
 interface InputCheckBoxProps {
-  onChange: (value: boolean) => void;
+  onChange: (value: string) => void;
   value?: boolean;
 }
 
@@ -45,8 +46,12 @@ const InputCheckBox: React.FC<InputCheckBoxProps> = ({
   onChange,
   value = false,
 }) => {
+  useEffect(() => {
+    onChange(value ? "true" : "false");
+  }, []);
+
   const handleCheckboxChange = (e: CheckboxChangeEvent) => {
-    onChange(e.target.checked);
+    onChange(e.target.checked ? "true" : "false");
   };
   return (
     <StyledCheckbox checked={value} onChange={handleCheckboxChange}>

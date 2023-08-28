@@ -62,6 +62,12 @@ const InputMultiUnitNumber: React.FC<InputMultiUnitNumberProps> = ({
     setNumberValue(parseFloat(value));
   }, [value]);
 
+  useEffect(() => {
+    if (value === "0") {
+      onChange("0");
+    }
+  }, []);
+
   return (
     <Wrapper>
       <StyledInputNumber
