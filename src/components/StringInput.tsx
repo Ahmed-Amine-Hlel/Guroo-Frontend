@@ -1,9 +1,15 @@
+import { useEffect } from "react";
+
 interface StringInputProps {
   onChange: (value: string) => void;
   value?: string;
 }
 
 const StringInput: React.FC<StringInputProps> = ({ onChange, value = "" }) => {
+  useEffect(() => {
+    onChange(value || "");
+  }, []);
+
   return (
     <div className="relative flex items-center w-full">
       <input

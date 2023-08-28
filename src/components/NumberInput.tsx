@@ -10,7 +10,7 @@ interface NumberInputProps {
 const NumberInput: React.FC<NumberInputProps> = ({
   reducedwidth = false,
   onChange,
-  value: propValue = null,
+  value: propValue = "0",
 }) => {
   const [value, setValue] = useState<string | null>(propValue);
   const [isValid, setIsValid] = useState(true);
@@ -23,6 +23,12 @@ const NumberInput: React.FC<NumberInputProps> = ({
       setIsValid(true);
     }
   }, [value]);
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(propValue || "0");
+    }
+  }, []);
 
   const baseClasses = `${
     reducedwidth ? "w-[140px]" : "w-full"

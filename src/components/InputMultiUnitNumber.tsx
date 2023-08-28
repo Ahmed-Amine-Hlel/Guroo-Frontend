@@ -59,14 +59,18 @@ const InputMultiUnitNumber: React.FC<InputMultiUnitNumberProps> = ({
   const [unitValue, setUnitValue] = useState<string>("m²");
 
   useEffect(() => {
-    setNumberValue(parseFloat(value));
+    const numberPart = parseFloat(value);
+    const unitPart = value.replace(numberPart.toString(), "");
+
+    setNumberValue(numberPart);
+    if (unitPart) setUnitValue(unitPart);
   }, [value]);
 
   useEffect(() => {
     if (value === "0") {
-      onChange("0");
+      onChange(`0${unitValue}`);
     }
-  }, []);
+  }, [value, unitValue, onChange]);
 
   return (
     <Wrapper>
@@ -78,6 +82,7 @@ const InputMultiUnitNumber: React.FC<InputMultiUnitNumberProps> = ({
             value={unitValue}
             onChange={(unit) => {
               setUnitValue(unit);
+              onChange(`${numberValue}${unit}`);
             }}
           >
             <Option value="m²">m²</Option>
@@ -89,7 +94,7 @@ const InputMultiUnitNumber: React.FC<InputMultiUnitNumberProps> = ({
         onChange={(num) => {
           if (num !== null && typeof num === "number") {
             setNumberValue(num);
-            onChange(`${num}`);
+            onChange(`${num}${unitValue}`);
           }
         }}
       />

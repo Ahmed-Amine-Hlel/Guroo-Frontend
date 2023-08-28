@@ -103,10 +103,10 @@ const Questions = () => {
   // -----------------------------------------------------------------------------------------------------------------------------------
 
   const handleContinue = () => {
-    console.log("Current Page:", currentPage);
-    console.log("Total Pages:", totalPages);
-    console.log("Current Index List:", currentIndexList);
-    console.log("Block to Render Blocks Length:", blockToRender?.blocks.length);
+    // console.log("Current Page:", currentPage);
+    // console.log("Total Pages:", totalPages);
+    // console.log("Current Index List:", currentIndexList);
+    // console.log("Block to Render Blocks Length:", blockToRender?.blocks.length);
 
     const formattedAnswers = displayedQuestions?.map((question: Question) => ({
       value: answers[question.uid],
@@ -297,14 +297,14 @@ const Questions = () => {
       case "number":
         return (
           <NumberInput
-            value={answers[question.uid]}
+            value={answers[question.uid] || "0"}
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       case "string":
         return (
           <StringInput
-            value={answers[question.uid]}
+            value={answers[question.uid] || ""}
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
@@ -367,7 +367,7 @@ const Questions = () => {
       case "GooglePlaces":
         return (
           <StringInput
-            value={answers[question.uid]}
+            value={answers[question.uid] || ""}
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
