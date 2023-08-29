@@ -1,5 +1,3 @@
-import bravoLogo from '../../assets/bravo-image.png'
-
 const LoadingScreen = () => {
     return (
         <div className='transition-all ease-in-out duration-400 flex min-h-screen p-4 sm:p-10 bg-gradient-to-br from-[#914fd2] from-0% to-[#a56be1] to-100%'>

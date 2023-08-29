@@ -7,6 +7,9 @@ import BusinessPlanMenu from "./locofy/screens/BusinessPlanMenu";
 import CreateBusinessPlan from "./locofy/screens/CreateBusinessPlan";
 // import EditBusinessPlan from "./locofy/screens/EditBusinessPlan";
 import NewBusinessPlan from "./locofy/screens/NewBusinessPlan";
+import EditBusinessPlan from "./locofy/screens/EditBusinessPlan";
+import PreEditBusinessPlan from "./locofy/screens/PreEditBusinessPlan";
+import PrePayementScreen from "./locofy/screens/PrePayementScreen";
 // import PayementScreen from "./locofy/screens/PayementScreen";
 // import InputAmount from "./components/InputAmount";
 // import InputCalendar from "./components/InputCalendar";
@@ -35,6 +38,7 @@ function App() {
               element={<CreateBusinessPlan />}
             />
             <Route path={"/new-business-plan"} element={<NewBusinessPlan />} />
+            <Route path={"/edit-business-plan"} element={<PrePayementScreen />} />
           </Routes>
         </GoogleOAuthProvider>
       </div>

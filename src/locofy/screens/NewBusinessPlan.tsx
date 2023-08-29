@@ -14,21 +14,6 @@ const NewBusinessPlan = () => {
       <div className="px-[10px] min-[1864px]:px-[150px] xl:px-[100px] w-full grid grid-cols-1 lg:grid-cols-2 min-[1864px]:gap-[0px] gap-[50px]">
         <div className="flex justify-center w-full">
           <Stepper />
-          {/* <div>
-            <button
-              className="relative w-10 h-10"
-              onClick={() => dispatch(incrementStep())}
-            >
-              +
-            </button>
-            {currentStep}
-            <button
-              className="relative w-10 h-10"
-              onClick={() => dispatch(decrementStep())}
-            >
-              -
-            </button>
-          </div> */}
         </div>
 
         <div className="flex justify-center w-full">

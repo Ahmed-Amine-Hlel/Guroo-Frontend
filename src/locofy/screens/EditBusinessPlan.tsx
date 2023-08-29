@@ -18,8 +18,8 @@ const EditBusinessPlan = () => {
             </div>
 
             <div className='flex flex-col overflow-hidden bg-white rounded-[16px] border border-[#e6ccff6e]'>
-                <div className='flex items-center justify-between px-[30px] py-[10px] bg-[#F4EDFB] border-b border-b-[#E8D1FF]'>
-                    <div className='flex items-center gap-[20px]'>
+                <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between px-[30px] py-[10px] bg-[#F4EDFB] border-b border-b-[#E8D1FF]'>
+                    <div className='flex items-center gap-[20px] mb-3 lg:mb-0'>
 
                         <div className="bg-[#FBF6FF] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
                             LB
@@ -54,11 +54,12 @@ const EditBusinessPlan = () => {
                     </div>
 
                 </div>
-                <div className='flex ietms-center gap-[20px] p-[35px]'>
-                    <div className='h-full p-5 w-full'>
+                <div className="py-[35px] px-2 w-full grid grid-cols-1 xl:grid-cols-2 min-[1864px]:gap-[0px] gap-[50px]">
+                    <div className="flex justify-center w-full">
                         <Stepper />
                     </div>
-                    <div className='w-full'>
+
+                    <div className="flex justify-center w-full">
                         <Questions />
                     </div>
                 </div>
