@@ -1,4 +1,62 @@
+import { useState } from "react";
+import { useAppSelector } from "../../hooks/hooks";
+import { FetchPaymentPrices } from "../../core/src/usecases/FetchPaymentPrices";
+import { InitiateCheckoutSession } from "../../core/src/usecases/InitiateCheckoutSession";
+import GurooPaymentService from "../../core/src/adapters/realDependencies/GurooPaymentService";
+import { useEffect } from "react";
+import { PaymentPrice } from "../../core/src/domain/entities/Payment";
+
 const PayementScreen = () => {
+  const [prices, setPrices] = useState<PaymentPrice[]>([]);
+
+  const currentBusinessPlan = useAppSelector(
+    (state) => state.businessPlan.currentBusinessPlan
+  );
+
+  const currentBusinessPlanId = currentBusinessPlan?.id;
+
+  const paymentService = new GurooPaymentService();
+
+  const fetchPaymentPricesUseCase = new FetchPaymentPrices(paymentService);
+  const initiateCheckoutSessionUseCase = new InitiateCheckoutSession(
+    paymentService
+  );
+
+  useEffect(() => {
+    async function fetchPrices() {
+      const fetchedPrices = await fetchPaymentPricesUseCase.execute();
+      setPrices(fetchedPrices);
+      console.log(fetchedPrices);
+    }
+
+    fetchPrices();
+  }, []);
+
+  const handlePayment = async (nickname: string) => {
+    const price = prices.find((price) => price.nickname === nickname);
+
+    if (!price) {
+      console.error("Price not found for selected plan");
+      return;
+    }
+
+    if (!currentBusinessPlanId) {
+      console.error("No business plan ID found");
+      return;
+    }
+
+    try {
+      const session = await initiateCheckoutSessionUseCase.execute(
+        price.id,
+        currentBusinessPlanId
+      );
+      console.log(session);
+      console.log(price.amount);
+    } catch (error) {
+      console.error("Failed to initiate checkout:", error);
+    }
+  };
+
   return (
     <div
       className="flex flex-col min-h-screen bg-[#F4EDFB] px-[10px] lg:px-[50px] xl:px-[100px] py-[20px] font-plus-jakarta-sans"
@@ -29,7 +87,7 @@ const PayementScreen = () => {
             Résumé de votre projet
           </div>
           <div className="text-center text-[#914FD2] text-[34px] md:text-[36px] lg:text-[38px] xl:text-[40px] min-[1864px]:text-[46px] font-medium">
-            Gratuit
+            Classic
           </div>
           <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[20px] text-center text-[#7D6990] mb-[16px]">
             Pour comprendre comment votre business fonctionne
@@ -115,7 +173,10 @@ const PayementScreen = () => {
             <hr className="mb-[32px]" />
           </div>
           <div className="flex items-end h-full">
-            <button className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-white rounded-[8px] bg-[#914FD2] hover:bg-[#8347bd]">
+            <button
+              className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-white rounded-[8px] bg-[#914FD2] hover:bg-[#8347bd]"
+              onClick={() => handlePayment("classic")}
+            >
               <span>Obtenir mon résumé gratuit</span>
               <span>
                 <svg
@@ -193,7 +254,7 @@ const PayementScreen = () => {
                 />
               </div>
               <div className="text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] min-[1864px]:text-[22px]">
-                Up to 10 individual users 
+                Up to 10 individual users
               </div>
             </div>
             <div className="flex gap-[12px] mb-[16px]">
@@ -223,7 +284,10 @@ const PayementScreen = () => {
             <hr className="mb-[32px]" />
           </div>
           <div className="h-full min-[1864px]:flex min-[1864px]:items-center mt-4">
-            <button className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-white rounded-[8px] bg-[#914FD2] hover:bg-[#8347bd]">
+            <button
+              className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-white rounded-[8px] bg-[#914FD2] hover:bg-[#8347bd]"
+              onClick={() => handlePayment("premium")}
+            >
               <span>Obtenir mon business plan</span>
               <span>
                 <svg
@@ -321,7 +385,10 @@ const PayementScreen = () => {
             <hr className="mb-[32px] lg:mb-[72px]" />
           </div>
           <div className="flex items-end h-full">
-            <button className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-[#914FD2] border border-[#914FD2] rounded-[8px]">
+            <button
+              className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-[#914FD2] border border-[#914FD2] rounded-[8px]"
+              onClick={() => handlePayment("plus")}
+            >
               <span>Rejoindre la file d’attente</span>
               <span>
                 <svg

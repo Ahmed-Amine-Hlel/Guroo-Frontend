@@ -23,6 +23,7 @@ import { FadeLoader } from "react-spinners";
 import { setAnswer, submitAnswersAsync } from "../store/answersSlice";
 import QuestionAiBox from "./QuestionAiBox";
 import { Answer } from "../core/src/domain/entities/Answer";
+import { useNavigate } from "react-router-dom";
 
 type InputType =
   | "number"
@@ -45,6 +46,7 @@ const Questions = () => {
   const [isBackDisabled, setIsBackDisabled] = useState(true);
   const loading = useAppSelector((state) => state.questions.loading);
   const aiResponses = useAppSelector((state) => state.questions.aiResponses);
+  const navigate = useNavigate();
 
   const currentBusinessPlan = useAppSelector(
     (state) => state.businessPlan.currentBusinessPlan
@@ -130,6 +132,11 @@ const Questions = () => {
     } else {
       // Move to the next block or sub-block.
       moveNextBlockOrStep(deepClone);
+    }
+
+    if (currentStep === 7 && currentPage === totalPages) {
+      navigate("/payment");
+      return;
     }
 
     // Submit the answers
