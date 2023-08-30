@@ -51,7 +51,8 @@ const PayementScreen = () => {
         currentBusinessPlanId
       );
       console.log(session);
-      console.log(price.amount);
+      // console.log(price.id);
+      // console.log(currentBusinessPlanId);
     } catch (error) {
       console.error("Failed to initiate checkout:", error);
     }

@@ -1,7 +1,7 @@
 import { BsCheckLg } from "react-icons/bs";
 import stepsData from "../fixtures/stepsData";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { incrementStep } from "../store/StepperSlice";
+import { decrementStep, incrementStep } from "../store/StepperSlice";
 
 const Stepper = () => {
   const currentStep = useAppSelector((state) => state.stepper.currentStep);
@@ -58,13 +58,18 @@ const Stepper = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleDecrement = () => {
+  const handleIncrement = () => {
     dispatch(incrementStep());
+  };
+
+  const handleDecrement = () => {
+    dispatch(decrementStep());
   };
 
   return (
     <>
-      <button onClick={handleDecrement}>go forward</button>
+      <button onClick={handleDecrement}>go back</button>
+      <button onClick={handleIncrement}>go forward</button>
       <div className="flex flex-col items-center w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-max md:h-[792px] bg-white rounded-2xl border-[1px] border-solid border-foundation-purple-light-hover overflow-hidden text-left text-lg text-foundation-purple-dark-active font-plus-jakarta-sans">
         <div className="flex flex-col items-start w-full h-[76px] border-b-[1px] border-solid border-foundation-purple-light-hover text-xs text-lightslategray">
           <div className="flex flex-col items-start justify-center h-full gap-[8px] ml-auto mr-8">

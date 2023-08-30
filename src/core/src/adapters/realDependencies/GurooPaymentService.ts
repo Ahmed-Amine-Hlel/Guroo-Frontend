@@ -21,9 +21,11 @@ class GurooPaymentService implements PaymentService {
     businessPlanUid: string
   ): Promise<CheckoutSessionResponse> {
     try {
-      const response = await api.post(`/payment/session-checkout`, {
-        priceId: priceId,
-        businessPlanUid: businessPlanUid,
+      const response = await api.get(`/payment/session-checkout`, {
+        params: {
+          priceId: priceId,
+          businessPlanUid: businessPlanUid,
+        },
       });
       return response.data as CheckoutSessionResponse;
     } catch (error) {
