@@ -24,6 +24,7 @@ import { setAnswer, submitAnswersAsync } from "../store/answersSlice";
 import QuestionAiBox from "./QuestionAiBox";
 import { Answer } from "../core/src/domain/entities/Answer";
 import { useNavigate } from "react-router-dom";
+import { Block } from "../core/src/domain/entities/Block";
 
 type InputType =
   | "number"
@@ -47,7 +48,8 @@ const Questions = () => {
   const loading = useAppSelector((state) => state.questions.loading);
   const aiResponses = useAppSelector((state) => state.questions.aiResponses);
   const navigate = useNavigate();
-
+  console.log("Current Step:", currentStep);
+  console.log("Section:", section);
   const currentBusinessPlan = useAppSelector(
     (state) => state.businessPlan.currentBusinessPlan
   );
@@ -55,13 +57,39 @@ const Questions = () => {
   const currentBusinessPlanId = currentBusinessPlan?.id;
   const answers = useAppSelector((state) => state.answers.answers);
 
-  useEffect(() => {
-    dispatch(fetchSectionsForStep(currentStep));
-  }, [currentStep, dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchSectionsForStep(currentStep));
+  // }, [currentStep, dispatch]);
 
   // -----------------------------------------------------------------------------------------------------------------------------------
 
   const [currentIndexList, setCurrentIndexList] = useState([0]);
+
+  const getNextBlockWithQuestions = (
+    block: Block | null,
+    direction: "forward" | "backward" = "forward"
+  ): Block | null => {
+    if (!block) return null;
+
+    if (block?.questions && block.questions.length > 0) {
+      return block;
+    }
+
+    if (!block?.blocks || block.blocks.length === 0) {
+      return null;
+    }
+
+    for (let nestedBlock of direction === "forward"
+      ? block.blocks
+      : [...block.blocks].reverse()) {
+      const result = getNextBlockWithQuestions(nestedBlock, direction);
+      if (result) {
+        return result;
+      }
+    }
+
+    return null;
+  };
 
   const getBlockToRender = (
     blockIndex: number,
@@ -109,6 +137,12 @@ const Questions = () => {
     // console.log("Total Pages:", totalPages);
     // console.log("Current Index List:", currentIndexList);
     // console.log("Block to Render Blocks Length:", blockToRender?.blocks.length);
+
+    const nextBlock = getNextBlockWithQuestions(blockToRender);
+    if (!nextBlock) {
+      moveNextBlockOrStep([...currentIndexList]);
+      return;
+    }
 
     const formattedAnswers = displayedQuestions?.map((question: Question) => ({
       value: answers[question.uid],
@@ -166,8 +200,8 @@ const Questions = () => {
     } else if (
       lastIdx > 0 &&
       deepClone[lastIdx] ===
-        getBlockToRender(indicesList[0], indicesList.slice(1, lastIdx)).blocks
-          ?.length
+      getBlockToRender(indicesList[0], indicesList.slice(1, lastIdx)).blocks
+        ?.length
     ) {
       // If we are at the last sub-block, move up a level and then call recursively.
       deepClone.pop();
@@ -262,6 +296,12 @@ const Questions = () => {
   };
 
   const handleBack = () => {
+    const previousBlock = getNextBlockWithQuestions(blockToRender, "backward");
+    if (!previousBlock) {
+      moveBackToLastSubBlock([...currentIndexList]);
+      return;
+    }
+
     let currentIndices = [...currentIndexList];
 
     if (currentPage > 1) {
@@ -294,8 +334,8 @@ const Questions = () => {
     setCurrentIndexList(currentIndices);
     setIsBackDisabled(
       currentIndices.length === 1 &&
-        currentIndices[0] === 0 &&
-        currentPage === 1
+      currentIndices[0] === 0 &&
+      currentPage === 1
     );
   };
 
@@ -339,10 +379,10 @@ const Questions = () => {
       case "list":
         const parsedOptions = question.options
           ? question.options
-              .slice(1, -1)
-              .split(",")
-              .map((str) => str.trim())
-              .map((option) => ({ name: option }))
+            .slice(1, -1)
+            .split(",")
+            .map((str) => str.trim())
+            .map((option) => ({ name: option }))
           : [];
         return (
           <InputListBox
@@ -409,9 +449,25 @@ const Questions = () => {
     );
   };
 
+  useEffect(() => {
+    /* console.log('Here')
+    dispatch(fetchSectionsForStep(currentStep)); */
+    if (
+      currentStep !== 7 &&
+      (!blockToRender?.questions || blockToRender?.questions.length === 0)
+    ) {
+      handleContinue();
+    }
+  }, [blockToRender, currentStep]);
+
+  useEffect(() => {
+    dispatch(fetchSectionsForStep(currentStep))
+  }, [dispatch, currentStep, fetchSectionsForStep])
+
+
   return (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
-      {loading ? (
+      {loading || !section ? (
         <div className="flex justify-center items-center h-full">
           <FadeLoader color="#6D3B9E" />
         </div>
@@ -421,11 +477,10 @@ const Questions = () => {
             <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
               <div>
                 <HiMiniArrowLeft
-                  className={`text-[24px] ${
-                    isBackDisabled
-                      ? "opacity-50 cursor-default"
-                      : "hover:cursor-pointer"
-                  }`}
+                  className={`text-[24px] ${isBackDisabled
+                    ? "opacity-50 cursor-default"
+                    : "hover:cursor-pointer"
+                    }`}
                   onClick={!isBackDisabled ? handleBack : undefined}
                 />
               </div>
