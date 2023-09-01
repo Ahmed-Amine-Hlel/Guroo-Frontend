@@ -23,13 +23,16 @@ const BusinessPlanMenu = () => {
   const dispatch = useAppDispatch();
   const { loading, user } = useAppSelector((state) => state.auth);
   const { businessPlan } = useAppSelector((state) => state.businessPlan);
+
+  console.log("businessPlan", businessPlan);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getBusinessPlanAsync());
   }, [dispatch]);
 
-  const handleDeleteBp = (id: string) => {
+  const handleDeleteBp = (uid: string) => {
     Modal.confirm({
       title: (
         <div
@@ -75,8 +78,8 @@ const BusinessPlanMenu = () => {
         fontSize: "2rem",
       },
       onOk() {
-        console.log("delete id ", id);
-        dispatch(deleteBusinessPlanAsync(id));
+        console.log("delete id ", uid);
+        dispatch(deleteBusinessPlanAsync(uid));
       },
       onCancel() {
         console.log("Cancel");
@@ -261,7 +264,7 @@ const BusinessPlanMenu = () => {
             </div> */}
             {businessPlan?.map((plan) => (
               <div
-                key={plan.id}
+                key={plan.uid}
                 className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]"
               >
                 <div>
@@ -275,14 +278,14 @@ const BusinessPlanMenu = () => {
                     <AiOutlineDelete
                       size={20}
                       color="#c5b1d8"
-                      onClick={() => plan.id && handleDeleteBp(plan.id)}
+                      onClick={() => plan.uid && handleDeleteBp(plan.uid)}
                       className="absolute top-[-1.75rem] cursor-pointer"
                     />
                     <img src={editIcon} alt="edit-icon" />
                   </div>
                 </div>
                 <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
-                  {plan.revisions} modifications restantes
+                  {plan.availableRevisions} modifications restantes
                 </div>
               </div>
             ))}

@@ -6,9 +6,9 @@ export class BusinessPlanMapper implements Mapper<BusinessPlan> {
     const {
       createdAt,
       description,
-      id,
+      uid,
       isDone,
-      revisions,
+      availableRevisions,
       section,
       title,
       updatedAt,
@@ -17,9 +17,9 @@ export class BusinessPlanMapper implements Mapper<BusinessPlan> {
     return {
       createdAt,
       description,
-      id,
+      uid,
       isDone,
-      revisions,
+      availableRevisions,
       section,
       title,
       updatedAt,

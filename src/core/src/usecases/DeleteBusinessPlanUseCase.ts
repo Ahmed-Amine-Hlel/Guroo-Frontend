@@ -2,7 +2,7 @@ import { UseCase } from "./UseCase";
 import { BusinessPlanService } from "../domain/adapters/BusinessPlanService";
 
 export interface DeleteBusinessPlanCommand {
-  id: string;
+  uid: string;
 }
 
 export class DeleteBusinessPlan
@@ -11,7 +11,7 @@ export class DeleteBusinessPlan
   constructor(private businessPlanService: BusinessPlanService) {}
 
   async execute(request: DeleteBusinessPlanCommand): Promise<string> {
-    const { id } = request;
-    return await this.businessPlanService.deleteBusinessPlans(id);
+    const { uid } = request;
+    return await this.businessPlanService.deleteBusinessPlans(uid);
   }
 }
