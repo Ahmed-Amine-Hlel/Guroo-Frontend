@@ -73,11 +73,11 @@ export const createBusinessPlanAsync = createAsyncThunk(
 
 export const deleteBusinessPlanAsync = createAsyncThunk(
   "businessPlan/delete",
-  async (id: string, thunkAPI) => {
+  async (uid: string, thunkAPI) => {
     try {
-      await deleteBusinessPlanUseCase.execute({ id });
+      await deleteBusinessPlanUseCase.execute({ uid });
       thunkAPI.dispatch(getBusinessPlanAsync());
-      return id;
+      return uid;
     } catch (error) {
       throw new Error(`delete BusinessPlant Failed: ${error}`);
     }
@@ -135,7 +135,7 @@ const businessPlanSlice = createSlice({
           state.loadingBusinessPlan = false;
           if (state.businessPlan) {
             state.businessPlan = state.businessPlan.filter(
-              (plan) => plan.id !== action.payload
+              (plan) => plan.uid !== action.payload
             );
           }
         }

@@ -30,13 +30,25 @@ export class GurooBusinessPlanService implements BusinessPlanService {
     }
   }
 
-  async deleteBusinessPlans(id: string): Promise<string> {
+  async deleteBusinessPlans(uid: string): Promise<string> {
     try {
-      const response = await api.delete(`/business-plan/${id}`);
+      const response = await api.delete(`/business-plan/${uid}`);
       return response.data.message;
     } catch (e) {
       console.log(e);
       throw Error("deleting BusinessPlan failed");
+    }
+  }
+
+  async markBusinessPlanAsDone(uid: string): Promise<any> {
+    try {
+      const response = await api.post("/business-plan/done", {
+        businessPlanUid: uid,
+      });
+      return response.data;
+    } catch (e) {
+      console.log(e);
+      throw Error("Marking BusinessPlan as done failed");
     }
   }
 }

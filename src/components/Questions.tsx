@@ -24,6 +24,9 @@ import { setAnswer, submitAnswersAsync } from "../store/answersSlice";
 import QuestionAiBox from "./QuestionAiBox";
 import { Answer } from "../core/src/domain/entities/Answer";
 import { useNavigate } from "react-router-dom";
+import { GurooBusinessPlanService } from "../core/src/adapters/realDependencies/GurooBusinessPlanService";
+import { BusinessPlanMapper } from "../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
+import { MarkBusinessPlanAsDoneUseCase } from "../core/src/usecases/MarkBusinessPlanAsDoneUseCase";
 import { Block } from "../core/src/domain/entities/Block";
 
 type InputType =
@@ -38,6 +41,13 @@ type InputType =
   | "amount"
   | "MultiUnitNumber";
 
+const businessPlanService = new GurooBusinessPlanService(
+  new BusinessPlanMapper()
+);
+const markBusinessPlanAsDoneUseCase = new MarkBusinessPlanAsDoneUseCase(
+  businessPlanService
+);
+
 const Questions = () => {
   const dispatch = useAppDispatch();
   const currentStep = useAppSelector((state) => state.stepper.currentStep);
@@ -47,6 +57,7 @@ const Questions = () => {
   const [isBackDisabled, setIsBackDisabled] = useState(true);
   const loading = useAppSelector((state) => state.questions.loading);
   const aiResponses = useAppSelector((state) => state.questions.aiResponses);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   console.log("Current Step:", currentStep);
   console.log("Section:", section);
@@ -54,7 +65,8 @@ const Questions = () => {
     (state) => state.businessPlan.currentBusinessPlan
   );
 
-  const currentBusinessPlanId = currentBusinessPlan?.id;
+  const currentBusinessPlanId = currentBusinessPlan?.uid;
+  console.log("Current Business Plan ID:", currentBusinessPlanId);
   const answers = useAppSelector((state) => state.answers.answers);
 
   // useEffect(() => {
@@ -132,7 +144,8 @@ const Questions = () => {
 
   // -----------------------------------------------------------------------------------------------------------------------------------
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
+    setIsSubmitting(true);
     // console.log("Current Page:", currentPage);
     // console.log("Total Pages:", totalPages);
     // console.log("Current Index List:", currentIndexList);
@@ -169,9 +182,20 @@ const Questions = () => {
     }
 
     if (currentStep === 7 && currentPage === totalPages) {
-      navigate("/payment");
+      // Before navigating to the payment page, mark the business plan as done using the use case.
+      if (currentBusinessPlanId) {
+        try {
+          await markBusinessPlanAsDoneUseCase.execute(currentBusinessPlanId);
+          navigate("/payment");
+        } catch (error) {
+          console.error("Error marking the business plan as done:", error);
+        }
+      }
+      setIsSubmitting(false);
       return;
     }
+
+    setIsSubmitting(false);
 
     // Submit the answers
     if (formattedAnswers && currentBusinessPlanId) {
@@ -514,6 +538,7 @@ const Questions = () => {
           <div className="w-full flex justify-center mt-auto sm:pr-[40px] sm:pl-[35px]">
             <button
               onClick={handleContinue}
+              disabled={isSubmitting}
               className="w-[150px] sm:w-full flex justify-center items-center gap-[10px] md:mb-[50px] bg-gradient-to-r from-[#914FD2] from-0% to-[#946CBB] to-100% rounded-[45px] px-[35px] py-[15px] text-white hover:cursor-pointer"
             >
               <span className="text-[15px]">Continuer</span>

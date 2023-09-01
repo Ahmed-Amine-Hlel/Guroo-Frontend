@@ -1,9 +1,9 @@
 export interface BusinessPlan {
   createdAt?: string;
   description?: string;
-  id?: string;
+  uid?: string;
   isDone?: boolean;
-  revisions?: number;
+  availableRevisions?: number;
   section?: number;
   title: string;
   updatedAt?: string;

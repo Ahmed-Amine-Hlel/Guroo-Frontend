@@ -13,7 +13,7 @@ const PayementScreen = () => {
     (state) => state.businessPlan.currentBusinessPlan
   );
 
-  const currentBusinessPlanId = currentBusinessPlan?.id;
+  const currentBusinessPlanId = currentBusinessPlan?.uid;
 
   const paymentService = new GurooPaymentService();
 
@@ -50,9 +50,14 @@ const PayementScreen = () => {
         price.id,
         currentBusinessPlanId
       );
+      if (session && session.stripe_checkout_url) {
+        window.location.href = session.stripe_checkout_url;
+      } else {
+        console.error("Stripe checkout URL not found in the response");
+      }
       console.log(session);
-      // console.log(price.id);
-      // console.log(currentBusinessPlanId);
+      console.log("Price ID : ", price.id);
+      console.log(currentBusinessPlanId);
     } catch (error) {
       console.error("Failed to initiate checkout:", error);
     }

@@ -8,6 +8,7 @@ import CreateBusinessPlan from "./locofy/screens/CreateBusinessPlan";
 import NewBusinessPlan from "./locofy/screens/NewBusinessPlan";
 import PayementScreen from "./locofy/screens/PayementScreen";
 import PrePayementScreen from "./locofy/screens/PrePayementScreen";
+import EditBusinessPlan from "./locofy/screens/EditBusinessPlan";
 
 function App() {
   const location = useLocation();
@@ -27,6 +28,10 @@ function App() {
             <Route path={"/new-business-plan"} element={<NewBusinessPlan />} />
             <Route path={"/payment"} element={<PayementScreen />} />
             <Route path={"/pre-payment"} element={<PrePayementScreen />} />
+            <Route
+              path={"/edit-business-plan"}
+              element={<EditBusinessPlan />}
+            />
           </Routes>
         </GoogleOAuthProvider>
       </div>

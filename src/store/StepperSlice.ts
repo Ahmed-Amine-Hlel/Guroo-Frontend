@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+const MAX_STEPS = 7;
+
 interface StepperState {
   currentStep: number;
 }
@@ -16,7 +18,9 @@ const stepperSlice = createSlice({
       state.currentStep = action.payload;
     },
     incrementStep: (state) => {
-      state.currentStep += 1;
+      if (state.currentStep < MAX_STEPS) {
+        state.currentStep += 1;
+      }
     },
     decrementStep: (state) => {
       if (state.currentStep > 1) {

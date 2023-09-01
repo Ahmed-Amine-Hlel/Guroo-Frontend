@@ -1,13 +1,8 @@
 import Stepper from "../../components/Stepper";
 import Questions from "../../components/Questions";
-// import { decrementStep, incrementStep } from "../../store/StepperSlice";
-// import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import ChatBot from "../../components/ChatBot";
 
 const NewBusinessPlan = () => {
-  // const dispatch = useAppDispatch();
-  // const currentStep = useAppSelector((state) => state.stepper.currentStep);
-
   return (
     <div className="flex items-center justify-center bg-purple-light min-h-[calc(100%_-_65px)] py-[40px] font-plus-jakarta-sans">
       <ChatBot />
