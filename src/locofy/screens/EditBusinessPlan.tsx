@@ -2,11 +2,12 @@ import { HiMiniArrowLeft } from "react-icons/hi2";
 import { FiEdit2, FiSave } from "react-icons/fi";
 import { VscTriangleRight } from "react-icons/vsc";
 import Stepper from "../../components/Stepper";
-import Questions from "../../components/Questions";
+// import Questions from "../../components/Questions";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useEffect } from "react";
 import { getBusinessPlanQuestionsWithAnswersAsync } from "../../store/businessPlan/businessPlanSlice";
+import EditQuestions from "../../components/EditQuestions";
 
 const EditBusinessPlan = () => {
   const dispatch = useAppDispatch();
@@ -35,7 +36,7 @@ const EditBusinessPlan = () => {
         })
       );
     }
-  }, [uid, dispatch]);
+  }, [uid, currentStep, dispatch]);
 
   return (
     <div className="bg-[#E9E9E9] min-h-[calc(100%_-_65px)] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans">
@@ -84,7 +85,8 @@ const EditBusinessPlan = () => {
           </div>
 
           <div className="flex justify-center w-full">
-            <Questions />
+            {/* <Questions /> */}
+            <EditQuestions />
           </div>
         </div>
       </div>
