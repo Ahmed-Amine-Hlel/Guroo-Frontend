@@ -1,7 +1,7 @@
 import { BsCheckLg } from "react-icons/bs";
 import stepsData from "../fixtures/stepsData";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { decrementStep, incrementStep } from "../store/StepperSlice";
+import { setCurrentStep } from "../store/StepperSlice";
 
 const Stepper = () => {
   const currentStep = useAppSelector((state) => state.stepper.currentStep);
@@ -58,18 +58,8 @@ const Stepper = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleIncrement = () => {
-    dispatch(incrementStep());
-  };
-
-  const handleDecrement = () => {
-    dispatch(decrementStep());
-  };
-
   return (
     <>
-      <button onClick={handleDecrement}>go back</button>
-      <button onClick={handleIncrement}>go forward</button>
       <div className="flex flex-col items-center w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-max md:h-[792px] bg-white rounded-2xl border-[1px] border-solid border-foundation-purple-light-hover overflow-hidden text-left text-lg text-foundation-purple-dark-active font-plus-jakarta-sans">
         <div className="flex flex-col items-start w-full h-[76px] border-b-[1px] border-solid border-foundation-purple-light-hover text-xs text-lightslategray">
           <div className="flex flex-col items-start justify-center h-full gap-[8px] ml-auto mr-8">
@@ -96,7 +86,10 @@ const Stepper = () => {
                 )}
               </div>
               <div className="flex flex-col gap-2 flex-grow mt-2">
-                <b className="tracking-[-0.02em] leading-[24px]">
+                <b
+                  className="tracking-[-0.02em] leading-[24px] cursor-pointer hover:text-[#8347bd]"
+                  onClick={() => dispatch(setCurrentStep(index + 1))}
+                >
                   {step.labels}
                 </b>
                 <div className="text-smi leading-[18px] font-medium text-lightslategray w-full">
