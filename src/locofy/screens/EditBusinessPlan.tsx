@@ -66,7 +66,8 @@ const EditBusinessPlan = () => {
           <div className="flex items-center gap-[12px]">
             <div className="flex items-center">
               <div className="rounded-[8px] px-[12px] py-[8px] text-[12px] text-[#914FD2] bg-[#ddc8f1] ">
-                2 modifications restantes
+                {currentBusinessPlan?.availableRevisions} modifications
+                restantes
               </div>
               <VscTriangleRight className="ms-[-6px] text-[#ddc8f1] " />
             </div>
