@@ -1,15 +1,23 @@
 // src/redux/businessPlanSlice.ts
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BusinessPlan } from "../../core/src/domain/entities/BusinessPlan";
-import { GurooBusinessPlanService } from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
+import {
+  BusinessPlanQuestionsWithAnswersResponse,
+  GurooBusinessPlanService,
+} from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
 import { BusinessPlanMapper } from "../../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
 import { GetBusinessPlans } from "../../core/src/usecases/GetBusinessPlans";
 import { CreateBusinessPlanUseCase } from "../../core/src/usecases/CreateBusinessPlanUseCase";
 import { DeleteBusinessPlan } from "../../core/src/usecases/DeleteBusinessPlanUseCase";
+import {
+  GetBusinessPlanQuestionsWithAnswers,
+  GetQuestionsWithAnswersRequest,
+} from "../../core/src/usecases/GetBusinessPlanQuestionsWithAnswers";
 
 interface businessPlanState {
   businessPlan: BusinessPlan[] | null;
   currentBusinessPlan: BusinessPlan | null;
+  currentQuestionsWithAnswers: BusinessPlanQuestionsWithAnswersResponse | null;
   loadingBusinessPlan: boolean;
   error: string | null;
 }
@@ -17,6 +25,7 @@ interface businessPlanState {
 const initialState: businessPlanState = {
   businessPlan: [],
   currentBusinessPlan: null,
+  currentQuestionsWithAnswers: null,
   loadingBusinessPlan: false,
   error: null,
 };
@@ -27,6 +36,8 @@ const gurooBusinessPlanService = new GurooBusinessPlanService(
 );
 
 const getBusinessPlansUseCase = new GetBusinessPlans(gurooBusinessPlanService);
+const getBusinessPlanQuestionsWithAnswersUseCase =
+  new GetBusinessPlanQuestionsWithAnswers(gurooBusinessPlanService);
 const createBusinessPlanUseCase = new CreateBusinessPlanUseCase(
   gurooBusinessPlanService
 );
@@ -42,6 +53,24 @@ export const getBusinessPlanAsync = createAsyncThunk(
       return await getBusinessPlansUseCase.execute();
     } catch (error) {
       throw new Error(`fetch BusinessPlan Failed: ${error}`);
+    }
+  }
+);
+
+export const getBusinessPlanQuestionsWithAnswersAsync = createAsyncThunk(
+  "businessPlan/fetchQuestionsWithAnswers",
+  async ({ sectionId, businessPlanUid }: GetQuestionsWithAnswersRequest) => {
+    try {
+      const response = await getBusinessPlanQuestionsWithAnswersUseCase.execute(
+        {
+          sectionId,
+          businessPlanUid,
+        }
+      );
+      console.log("Questions + Answers :", response);
+      return response;
+    } catch (error) {
+      throw new Error(`Fetching questions with answers failed: ${error}`);
     }
   }
 );
@@ -107,6 +136,29 @@ const businessPlanSlice = createSlice({
           action.error.message ||
           "An error occurred while fetching the BusinessPlans.";
       })
+      .addCase(getBusinessPlanQuestionsWithAnswersAsync.pending, (state) => {
+        state.loadingBusinessPlan = true;
+        state.error = null;
+      })
+      .addCase(
+        getBusinessPlanQuestionsWithAnswersAsync.fulfilled,
+        (
+          state,
+          action: PayloadAction<BusinessPlanQuestionsWithAnswersResponse>
+        ) => {
+          state.loadingBusinessPlan = false;
+          state.currentQuestionsWithAnswers = action.payload;
+        }
+      )
+      .addCase(
+        getBusinessPlanQuestionsWithAnswersAsync.rejected,
+        (state, action) => {
+          state.loadingBusinessPlan = false;
+          state.error =
+            action.error.message ||
+            "An error occurred while fetching the questions and answers.";
+        }
+      )
       .addCase(createBusinessPlanAsync.pending, (state) => {
         state.loadingBusinessPlan = true;
         state.error = null;

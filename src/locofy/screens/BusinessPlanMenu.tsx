@@ -212,56 +212,6 @@ const BusinessPlanMenu = () => {
         </div>
         <div className="overflow-y-scroll qb-thumb h-full">
           <div className="grid grid-rows-3 grid-cols-1 lg:grid-cols-2 min-[1864px]:grid-cols-3 gap-[20px]">
-            {/* <div className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
-              <div>
-                <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
-                  LB
-                </div>
-              </div>
-              <div className="flex justify-between items-center text-[#5C3C7C]">
-                <div className="text-[20px]">Le Bretagne</div>
-                <div>
-                  <img src={editIcon} alt="edit-icon" />
-                </div>
-              </div>
-              <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
-                3 modifications restantes
-              </div>
-            </div>
-
-            <div className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
-              <div>
-                <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
-                  LB
-                </div>
-              </div>
-              <div className="flex justify-between items-center text-[#5C3C7C]">
-                <div className="text-[20px]">Le Bretagne</div>
-                <div>
-                  <img src={editIcon} alt="edit-icon" />
-                </div>
-              </div>
-              <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
-                3 modifications restantes
-              </div>
-            </div>
-
-            <div className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]">
-              <div>
-                <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
-                  LB
-                </div>
-              </div>
-              <div className="flex justify-between items-center text-[#5C3C7C]">
-                <div className="text-[20px]">Le Bretagne</div>
-                <div>
-                  <img src={editIcon} alt="edit-icon" />
-                </div>
-              </div>
-              <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
-                3 modifications restantes
-              </div>
-            </div> */}
             {businessPlan?.map((plan) => (
               <div
                 key={plan.uid}
@@ -281,7 +231,14 @@ const BusinessPlanMenu = () => {
                       onClick={() => plan.uid && handleDeleteBp(plan.uid)}
                       className="absolute top-[-1.75rem] cursor-pointer"
                     />
-                    <img src={editIcon} alt="edit-icon" />
+                    <img
+                      src={editIcon}
+                      alt="edit-icon"
+                      onClick={() =>
+                        navigate(`/edit-business-plan/${plan.uid}`)
+                      }
+                      className="cursor-pointer"
+                    />
                   </div>
                 </div>
                 <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">

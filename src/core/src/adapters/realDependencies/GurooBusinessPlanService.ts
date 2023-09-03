@@ -1,7 +1,18 @@
 import api from "../../domain/adapters/api";
 import { BusinessPlanService } from "../../domain/adapters/BusinessPlanService";
+import { Block } from "../../domain/entities/Block";
 import { BusinessPlan } from "../../domain/entities/BusinessPlan";
 import { BusinessPlanMapper } from "./mappers/BusinessPlanMapper";
+
+export interface BusinessPlanQuestionsWithAnswersResponse {
+  id: number;
+  startRow: number;
+  endRow: number;
+  createdAt: string;
+  updatedAt: string;
+  labels: string;
+  blocks: Block[];
+}
 
 export class GurooBusinessPlanService implements BusinessPlanService {
   constructor(private businessPlanMapper: BusinessPlanMapper) {}
@@ -17,6 +28,21 @@ export class GurooBusinessPlanService implements BusinessPlanService {
     } catch (e) {
       console.log(e);
       throw Error("fetching BusinessPlan failed");
+    }
+  }
+
+  async getBusinessPlanQuestionsWithAnswers(
+    sectionId: number,
+    businessPlanUid: string
+  ): Promise<BusinessPlanQuestionsWithAnswersResponse> {
+    try {
+      const response = await api.get(
+        `/questions?sectionId=${sectionId}&businessPlanUid=${businessPlanUid}`
+      );
+      return response.data;
+    } catch (e) {
+      console.log(e);
+      throw Error("Fetching questions with answers failed");
     }
   }
 
