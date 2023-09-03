@@ -3,13 +3,14 @@ import { FiEdit2, FiSave } from "react-icons/fi";
 import { VscTriangleRight } from "react-icons/vsc";
 import Stepper from "../../components/Stepper";
 import Questions from "../../components/Questions";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useEffect } from "react";
 import { getBusinessPlanQuestionsWithAnswersAsync } from "../../store/businessPlan/businessPlanSlice";
 
 const EditBusinessPlan = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { uid } = useParams();
   console.log("uid", uid);
 
@@ -39,7 +40,10 @@ const EditBusinessPlan = () => {
   return (
     <div className="bg-[#E9E9E9] min-h-[calc(100%_-_65px)] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans">
       <div className="text-[#572F7E] flex items-center gap-4 mb-[25px]">
-        <div className="flex justify-center items-center bg-white w-10 h-10 rounded-[4px] hover:cursor-pointer">
+        <div
+          onClick={() => navigate("/business-plan")}
+          className="flex justify-center items-center bg-white w-10 h-10 rounded-[4px] hover:cursor-pointer"
+        >
           <HiMiniArrowLeft className="text-[20px]" />
         </div>
         <span className="text-[14px]">Retour</span>
