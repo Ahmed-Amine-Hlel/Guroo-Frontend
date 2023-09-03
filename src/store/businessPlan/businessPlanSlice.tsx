@@ -67,7 +67,7 @@ export const getBusinessPlanQuestionsWithAnswersAsync = createAsyncThunk(
           businessPlanUid,
         }
       );
-      console.log("Questions + Answers :", response);
+      // console.log("Questions + Answers :", response);
       return response;
     } catch (error) {
       throw new Error(`Fetching questions with answers failed: ${error}`);
