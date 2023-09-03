@@ -3,8 +3,39 @@ import { FiEdit2, FiSave } from "react-icons/fi";
 import { VscTriangleRight } from "react-icons/vsc";
 import Stepper from "../../components/Stepper";
 import Questions from "../../components/Questions";
+import { useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useEffect } from "react";
+import { getBusinessPlanQuestionsWithAnswersAsync } from "../../store/businessPlan/businessPlanSlice";
 
 const EditBusinessPlan = () => {
+  const dispatch = useAppDispatch();
+  const { uid } = useParams();
+  console.log("uid", uid);
+
+  const allBusinessPlans = useAppSelector(
+    (state) => state.businessPlan.businessPlan
+  );
+
+  const currentBusinessPlan = allBusinessPlans?.find(
+    (plan) => plan.uid === uid
+  );
+  console.log(currentBusinessPlan);
+
+  const currentStep = useAppSelector((state) => state.stepper.currentStep);
+  console.log("currentStep", currentStep);
+
+  useEffect(() => {
+    if (uid) {
+      dispatch(
+        getBusinessPlanQuestionsWithAnswersAsync({
+          sectionId: currentStep,
+          businessPlanUid: uid,
+        })
+      );
+    }
+  }, [uid, dispatch]);
+
   return (
     <div className="bg-[#E9E9E9] min-h-[calc(100%_-_65px)] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans">
       <div className="text-[#572F7E] flex items-center gap-4 mb-[25px]">
@@ -18,9 +49,11 @@ const EditBusinessPlan = () => {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between px-[30px] py-[10px] bg-[#F4EDFB] border-b border-b-[#E8D1FF]">
           <div className="flex items-center gap-[20px] mb-3 lg:mb-0">
             <div className="bg-[#FBF6FF] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
-              LB
+              {currentBusinessPlan?.title.slice(0, 2).toUpperCase()}
             </div>
-            <div className="text-[20px] text-[#5C3C7C]">Le Bretagne</div>
+            <div className="text-[20px] text-[#5C3C7C]">
+              {currentBusinessPlan?.title}
+            </div>
             <div className="flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[28px] h-[28px] hover:bg-[#FBF6FF] hover:cursor-pointer">
               <FiEdit2 color="#ddc8f1" />
             </div>

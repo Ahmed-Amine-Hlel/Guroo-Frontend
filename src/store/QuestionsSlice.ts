@@ -116,6 +116,11 @@ const questionsSlice = createSlice({
             "eb92aafb-852c-4cbe-8bc6-9ee444d12005",
             "03688503-02a9-4df7-8c60-4b16c8d54d4b",
             "74c48ae7-5e75-4d8d-88c4-836d21f52816",
+            "08f64241-f6f1-4464-ac41-df644f8b6041",
+            "8cd87eca-28e2-4af9-afe7-c472e5451bcf",
+            "60aa9c59-d53b-4276-99b0-28c95d5948fc",
+            "10fedd72-b6ca-41d6-abce-e7a3a69cd885",
+            "e2b91075-2585-4658-b6ce-30a17fba368b",
           ];
           uids.forEach((uid) => {
             state.aiResponses[uid] = action.payload;

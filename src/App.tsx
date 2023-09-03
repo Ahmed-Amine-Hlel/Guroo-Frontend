@@ -29,7 +29,7 @@ function App() {
             <Route path={"/payment"} element={<PayementScreen />} />
             <Route path={"/pre-payment"} element={<PrePayementScreen />} />
             <Route
-              path={"/edit-business-plan"}
+              path={"/edit-business-plan/:uid"}
               element={<EditBusinessPlan />}
             />
           </Routes>

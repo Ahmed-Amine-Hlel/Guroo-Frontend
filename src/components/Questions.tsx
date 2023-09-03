@@ -2,7 +2,7 @@ import { HiMiniArrowLeft, HiMiniArrowRight } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import {
-  fetchCotisationsSalariales,
+  // fetchCotisationsSalariales,
   fetchNetSalary,
   fetchPredictLoyer,
   fetchSectionsForStep,
@@ -66,7 +66,7 @@ const Questions = () => {
   );
 
   const currentBusinessPlanId = currentBusinessPlan?.uid;
-  console.log("Current Business Plan ID:", currentBusinessPlanId);
+  // console.log("Current Business Plan ID:", currentBusinessPlanId);
   const answers = useAppSelector((state) => state.answers.answers);
 
   // useEffect(() => {
@@ -254,46 +254,46 @@ const Questions = () => {
     }
 
     // Triggering the fetchCotisationsSalariales API call
-    const gross_monthly_salary_employee1 =
-      answers["5f4800c7-e289-4885-b6bf-f5897e3850fd"];
-    const gross_monthly_salary_employee2 =
-      answers["12732041-22ea-4fb5-af30-4a96bd4bb369"];
-    const gross_monthly_salary_employee3 =
-      answers["e466fa89-043c-41b7-90c4-c264af9cc736"];
-    const gross_monthly_salary_employee4 =
-      answers["24a1f8ad-ddf1-4dcf-9878-f3bf3e6c3be5"];
-    const gross_monthly_salary_employee5 =
-      answers["acca41fb-1edc-4dba-a13d-bc47d5821b8f"];
-    const gross_monthly_salary_employee6 =
-      answers["dfddfb23-5480-4676-92e2-8be02faef6d8"];
-    const gross_monthly_salary_employee7 =
-      answers["97648262-8f5a-4629-8e6c-7bdcd1dd7b40"];
-    const gross_monthly_salary_employee8 =
-      answers["eb92aafb-852c-4cbe-8bc6-9ee444d12005"];
-    const gross_monthly_salary_employee9 =
-      answers["03688503-02a9-4df7-8c60-4b16c8d54d4b"];
-    const gross_monthly_salary_employee10 =
-      answers["74c48ae7-5e75-4d8d-88c4-836d21f52816"];
-    if (
-      gross_monthly_salary_employee1 &&
-      gross_monthly_salary_employee2 &&
-      gross_monthly_salary_employee3
-    ) {
-      dispatch(
-        fetchCotisationsSalariales({
-          gross_monthly_salary_employee1,
-          gross_monthly_salary_employee2,
-          gross_monthly_salary_employee3,
-          gross_monthly_salary_employee4,
-          gross_monthly_salary_employee5,
-          gross_monthly_salary_employee6,
-          gross_monthly_salary_employee7,
-          gross_monthly_salary_employee8,
-          gross_monthly_salary_employee9,
-          gross_monthly_salary_employee10,
-        })
-      );
-    }
+    // const gross_monthly_salary_employee1 =
+    //   answers["5f4800c7-e289-4885-b6bf-f5897e3850fd"];
+    // const gross_monthly_salary_employee2 =
+    //   answers["12732041-22ea-4fb5-af30-4a96bd4bb369"];
+    // const gross_monthly_salary_employee3 =
+    //   answers["e466fa89-043c-41b7-90c4-c264af9cc736"];
+    // const gross_monthly_salary_employee4 =
+    //   answers["24a1f8ad-ddf1-4dcf-9878-f3bf3e6c3be5"];
+    // const gross_monthly_salary_employee5 =
+    //   answers["acca41fb-1edc-4dba-a13d-bc47d5821b8f"];
+    // const gross_monthly_salary_employee6 =
+    //   answers["dfddfb23-5480-4676-92e2-8be02faef6d8"];
+    // const gross_monthly_salary_employee7 =
+    //   answers["97648262-8f5a-4629-8e6c-7bdcd1dd7b40"];
+    // const gross_monthly_salary_employee8 =
+    //   answers["eb92aafb-852c-4cbe-8bc6-9ee444d12005"];
+    // const gross_monthly_salary_employee9 =
+    //   answers["03688503-02a9-4df7-8c60-4b16c8d54d4b"];
+    // const gross_monthly_salary_employee10 =
+    //   answers["74c48ae7-5e75-4d8d-88c4-836d21f52816"];
+    // if (
+    //   gross_monthly_salary_employee1 &&
+    //   gross_monthly_salary_employee2 &&
+    //   gross_monthly_salary_employee3
+    // ) {
+    //   dispatch(
+    //     fetchCotisationsSalariales({
+    //       gross_monthly_salary_employee1,
+    //       gross_monthly_salary_employee2,
+    //       gross_monthly_salary_employee3,
+    //       gross_monthly_salary_employee4,
+    //       gross_monthly_salary_employee5,
+    //       gross_monthly_salary_employee6,
+    //       gross_monthly_salary_employee7,
+    //       gross_monthly_salary_employee8,
+    //       gross_monthly_salary_employee9,
+    //       gross_monthly_salary_employee10,
+    //     })
+    //   );
+    // }
   };
 
   const moveBackToLastSubBlock = (
