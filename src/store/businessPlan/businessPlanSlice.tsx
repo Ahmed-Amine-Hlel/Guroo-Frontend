@@ -19,6 +19,7 @@ interface businessPlanState {
   currentBusinessPlan: BusinessPlan | null;
   currentQuestionsWithAnswers: BusinessPlanQuestionsWithAnswersResponse | null;
   loadingBusinessPlan: boolean;
+  loadingQuestionsWithAnswers: boolean;
   error: string | null;
 }
 
@@ -27,6 +28,7 @@ const initialState: businessPlanState = {
   currentBusinessPlan: null,
   currentQuestionsWithAnswers: null,
   loadingBusinessPlan: false,
+  loadingQuestionsWithAnswers: false,
   error: null,
 };
 
@@ -137,7 +139,7 @@ const businessPlanSlice = createSlice({
           "An error occurred while fetching the BusinessPlans.";
       })
       .addCase(getBusinessPlanQuestionsWithAnswersAsync.pending, (state) => {
-        state.loadingBusinessPlan = true;
+        state.loadingQuestionsWithAnswers = true;
         state.error = null;
       })
       .addCase(
@@ -146,14 +148,14 @@ const businessPlanSlice = createSlice({
           state,
           action: PayloadAction<BusinessPlanQuestionsWithAnswersResponse>
         ) => {
-          state.loadingBusinessPlan = false;
+          state.loadingQuestionsWithAnswers = false;
           state.currentQuestionsWithAnswers = action.payload;
         }
       )
       .addCase(
         getBusinessPlanQuestionsWithAnswersAsync.rejected,
         (state, action) => {
-          state.loadingBusinessPlan = false;
+          state.loadingQuestionsWithAnswers = false;
           state.error =
             action.error.message ||
             "An error occurred while fetching the questions and answers.";

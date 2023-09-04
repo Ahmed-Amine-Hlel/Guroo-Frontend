@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../hooks/hooks";
 import { FadeLoader } from "react-spinners";
 import { HiMiniArrowLeft, HiMiniArrowRight } from "react-icons/hi2";
-import QuestionAiBox from "./QuestionAiBox";
+// import QuestionAiBox from "./QuestionAiBox";
 import StringInput from "./StringInput";
 import InputMultiUnitNumber from "./InputMultiUnitNumber";
 import InputAmount from "./InputAmount";
@@ -14,77 +14,90 @@ import InputCheckBox from "./InputCheckBox";
 import NumberInput from "./NumberInput";
 import { Question } from "../core/src/domain/entities/Question";
 import { Block } from "../core/src/domain/entities/Block";
-import data from '../../public/data.json'
+// import data from "../../public/data.json";
 import { BsArrowRight } from "react-icons/bs";
 const EditQuestions = () => {
-
-  const [loading, setLoading] = useState<boolean>(false); // FROM REDUX 
+  const isLoadingQuestionsWithAnswers = useAppSelector(
+    (state) => state.businessPlan.loadingQuestionsWithAnswers
+  );
   const [isBackDisabled, setIsBackDisabled] = useState<boolean>(false);
   const questionsWithAnswers = useAppSelector(
     (state) => state.businessPlan.currentQuestionsWithAnswers
   );
-  console.log("questionsWithAnswers", questionsWithAnswers);
+  //   console.log("questionsWithAnswers", questionsWithAnswers);
 
-  const [blocks, setBlocks] = useState<Block[]>([])
-  const [questionsPerPage] = useState<number>(5)
+  //   const answersCount = useAppSelector((state) => state.answers.answers);
+  //   console.log("answersCount", answersCount);
+
+  const [blocks, setBlocks] = useState<Block[]>([]);
+  const [questionsPerPage] = useState<number>(5);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-  const [currentStep, setCurrentStep] = useState<number>(1)
-  const extractBlocksWithQuestions = (block: Block, result: Block[] = [], parentLabel: string = ''): void => {
-
-    const currentLabel = parentLabel ? `${parentLabel}-${block.label}` : block.label;
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const extractBlocksWithQuestions = (
+    block: Block,
+    result: Block[] = [],
+    parentLabel: string = ""
+  ): void => {
+    const currentLabel = parentLabel
+      ? `${parentLabel}-${block.label}`
+      : block.label;
 
     if (block.questions.length > 0) {
-      // Clone block to avoid mutation, remove inner blocks, and update the label
       const clonedBlock = { ...block, blocks: [], label: currentLabel };
       result.push(clonedBlock);
     }
-    /* const clonedBlock = { ...block, blocks: [], label: currentLabel };
-    result.push(clonedBlock); */
 
     for (let subBlock of block.blocks) {
       extractBlocksWithQuestions(subBlock, result, currentLabel);
     }
-  }
+  };
 
   const reformatData = () => {
-
     const blocksWithQuestions: Block[] = [];
-    for (let block of data.blocks) {
-      extractBlocksWithQuestions(block, blocksWithQuestions);
+    if (questionsWithAnswers?.blocks) {
+      for (let block of questionsWithAnswers?.blocks as Block[]) {
+        extractBlocksWithQuestions(block, blocksWithQuestions);
+      }
     }
-    console.log(blocksWithQuestions)
-    setBlocks(blocksWithQuestions)
-  }
+    console.log(blocksWithQuestions);
+    setBlocks(blocksWithQuestions);
+  };
 
   const handleNext = () => {
     const currentBlockQuestions = blocks[currentStep - 1]?.questions || [];
-    if (currentQuestionIndex + questionsPerPage < currentBlockQuestions.length) {
+    if (
+      currentQuestionIndex + questionsPerPage <
+      currentBlockQuestions.length
+    ) {
       // There are more questions in the current block to display
-      setCurrentQuestionIndex(prev => prev + questionsPerPage);
+      setCurrentQuestionIndex((prev) => prev + questionsPerPage);
     } else {
       // Move to the next block and reset the question index
       if (currentStep < blocks.length) {
-        setCurrentStep(prev => prev + 1);
+        setCurrentStep((prev) => prev + 1);
         setCurrentQuestionIndex(0);
       }
     }
-  }
+  };
 
   const handleBack = () => {
     if (currentQuestionIndex - questionsPerPage >= 0) {
       // Go back to the previous set of questions in the current block
-      setCurrentQuestionIndex(prev => prev - questionsPerPage);
+      setCurrentQuestionIndex((prev) => prev - questionsPerPage);
     } else {
       // Move to the previous block, and set the question index to the last set of questions of that block
       if (currentStep > 1) {
-        setCurrentStep(prev => prev - 1);
+        setCurrentStep((prev) => prev - 1);
         const previousBlockQuestions = blocks[currentStep - 2]?.questions || [];
         const modulo = previousBlockQuestions.length % questionsPerPage;
-        setCurrentQuestionIndex(modulo === 0 ? previousBlockQuestions.length - questionsPerPage : previousBlockQuestions.length - modulo);
+        setCurrentQuestionIndex(
+          modulo === 0
+            ? previousBlockQuestions.length - questionsPerPage
+            : previousBlockQuestions.length - modulo
+        );
       }
     }
-  }
-
+  };
 
   const renderInputComponent = (inputType: string, question: Question) => {
     switch (inputType) {
@@ -111,20 +124,17 @@ const EditQuestions = () => {
           <InputCalendar
             onChange={(date) => {
               const formattedDate = date ? date.format("DD/MM/YYYY") : null;
-              handleInputChange(
-                question.uid,
-                formattedDate
-              );
+              handleInputChange(question.uid, formattedDate);
             }}
           />
         );
       case "list":
         const parsedOptions = question.options
           ? question.options
-            .slice(1, -1)
-            .split(",")
-            .map((str) => str.trim())
-            .map((option) => ({ name: option }))
+              .slice(1, -1)
+              .split(",")
+              .map((str) => str.trim())
+              .map((option) => ({ name: option }))
           : [];
         return (
           <InputListBox
@@ -172,16 +182,20 @@ const EditQuestions = () => {
   };
 
   const handleInputChange = (questionUid: string, value: any) => {
-    console.log(questionUid, value)
+    console.log(questionUid, value);
   };
 
   useEffect(() => {
-    reformatData()
-  }, [])
+    reformatData();
+  }, [questionsWithAnswers]);
+
+  useEffect(() => {
+    setIsBackDisabled(currentStep === 1 && currentQuestionIndex === 0);
+  }, [currentStep, currentQuestionIndex]);
 
   return (
-    <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
-      {loading ? (
+    <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2 mt-[20px]">
+      {isLoadingQuestionsWithAnswers ? (
         <div className="flex justify-center items-center h-full">
           <FadeLoader color="#6D3B9E" />
         </div>
@@ -191,71 +205,55 @@ const EditQuestions = () => {
             <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
               <div>
                 <HiMiniArrowLeft
-                  className={`text-[24px] ${isBackDisabled
-                    ? "opacity-50 cursor-default"
-                    : "hover:cursor-pointer"
-                    }`}
-                  onClick={handleBack}
+                  className={`text-[24px] ${
+                    isBackDisabled
+                      ? "opacity-50 cursor-default"
+                      : "hover:cursor-pointer"
+                  }`}
+                  onClick={!isBackDisabled ? handleBack : undefined}
                 />
               </div>
-              <div className="text-[24px]">
-                Présetation de projet
-              </div>
+              <div className="text-[24px]">{questionsWithAnswers?.labels}</div>
             </div>
             <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mb-[28px]">
-              {
-                blocks[currentStep - 1]?.label.split('-').map((label: string, index: number) => (
-
-                  <div key={index} className='flex items-center'>
-
-                    <span className=''>
-                      {
-                        index > 0 && index < blocks[currentStep - 1]?.label.split('-').length ? <BsArrowRight className="text-md mr-2" /> : ''
-                      }
+              {blocks[currentStep - 1]?.label
+                .split("-")
+                .map((label: string, index: number) => (
+                  <div key={index} className="flex items-center">
+                    <span className="">
+                      {index > 0 &&
+                      index <
+                        blocks[currentStep - 1]?.label.split("-").length ? (
+                        <BsArrowRight className="text-md mr-2" />
+                      ) : (
+                        ""
+                      )}
                     </span>
-                    <span
-                      key={index}
-                      className={`text-sm text-blue-300 mr-2`}
-                    >
+                    <span key={index} className={`text-sm text-blue-300 mr-2`}>
                       {label}
                     </span>
                   </div>
-
-                ))
-                /*  blocks[currentStep - 1]?.label */
-              }
+                ))}
             </div>
           </div>
-          <div className="overflow-y-scroll py-[5px] qb-thumb h-[550px] mb-[10px]">
+          <div className="overflow-y-scroll py-[5px] qb-thumb h-[560px] mb-[10px]">
             <div className="mb-10 w-full sm:px-[35px]">
-
-              {/* <div className="mb-6">
-                <div className="px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
-                  Question label
-                </div>
-                {renderInputComponent(question.inputType, question)}
-                {aiResponses[question.uid] && (
-                  <QuestionAiBox message={aiResponses[question.uid]} />
-                )}
-              </div> */}
-              {
-                blocks[currentStep - 1]?.questions
-                  .slice(currentQuestionIndex, currentQuestionIndex + questionsPerPage)
-                  .map((question: Question, index: number) => (
-                    <div key={index} className="mb-6">
-                      <label
-
-                        className="block px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
-                        {question.label}
-                      </label>
-                      {renderInputComponent(question.inputType, question)}
-                      {/* {aiResponses[question.uid] && (
+              {blocks[currentStep - 1]?.questions
+                .slice(
+                  currentQuestionIndex,
+                  currentQuestionIndex + questionsPerPage
+                )
+                .map((question: Question, index: number) => (
+                  <div key={index} className="mb-6">
+                    <label className="block px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
+                      {question.label}
+                    </label>
+                    {renderInputComponent(question.inputType, question)}
+                    {/* {aiResponses[question.uid] && (
                         <QuestionAiBox message={aiResponses[question.uid]} />
                       )} */}
-                    </div>
-                  ))
-              }
-
+                  </div>
+                ))}
             </div>
           </div>
           <div className="w-full flex justify-end mt-auto sm:pr-[40px] sm:pl-[35px]">
@@ -270,10 +268,8 @@ const EditQuestions = () => {
             </button>
           </div>
         </>
-      )
-      }
-    </div >
-
+      )}
+    </div>
   );
 };
 
