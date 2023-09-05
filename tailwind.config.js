@@ -8,6 +8,7 @@ export default {
         "gray-200": "#eaecf0",
         "gray-100": "#f2f4f7",
         "gray-700": "#344054",
+        "gray-warm-200": "#E7E5E4",
         "success-50": "#ecfdf3",
         "success-700": "#027a48",
         white: "#fff",
@@ -19,6 +20,7 @@ export default {
         "foundation-purple-normal": "#914fd2",
         "foundation-purple-hover": "#946CBB",
         lightslategray: "#a08fb1",
+        "foundation-purple-dark": "#6D3B9E", 
         "foundation-purple-darker": "#331C4A",
         "foundation-purple-dark-active": "#41245e",
         gainsboro: "#e7e5e4",
@@ -26,6 +28,7 @@ export default {
         "foundation-purple-normal-hover": "#8347bd",
         limegreen: "#16cc3e",
         'light-gray': 'rgba(255, 255, 255, 0.64)',
+        'lighter-p' : '#914fd278'
       },
       fontFamily: {
         "text-xs-medium": "Inter",

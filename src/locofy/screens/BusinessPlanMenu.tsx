@@ -20,6 +20,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
 import { resetCurrentStep } from "../../store/StepperSlice";
+import NoData from "../../components/NoData";
 
 const BusinessPlanMenu = () => {
   const dispatch = useAppDispatch();
@@ -213,44 +214,49 @@ const BusinessPlanMenu = () => {
           </div>
         </div>
         <div className="overflow-y-scroll qb-thumb h-full">
-          <div className="grid grid-rows-3 grid-cols-1 lg:grid-cols-2 min-[1864px]:grid-cols-3 gap-[20px]">
-            {businessPlan?.map((plan) => (
-              <div
-                key={plan.uid}
-                className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]"
-              >
-                <div>
-                  <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
-                    {plan.title.slice(0, 2).toUpperCase()}
+          {
+            businessPlan?.length === 0 ? (
+              <NoData />
+            ) :
+              <div className="grid grid-rows-3 grid-cols-1 lg:grid-cols-2 min-[1864px]:grid-cols-3 gap-[20px]">
+                {businessPlan?.map((plan) => (
+                  <div
+                    key={plan.uid}
+                    className="h-max flex flex-col gap-[14px] rounded-[16px] w-full bg-white p-[12px]"
+                  >
+                    <div>
+                      <div className="bg-[#f4edfb] flex items-center justify-center rounded-full text-[#874CC8] font-bold text-[16px] w-[48px] h-[48px]">
+                        {plan.title.slice(0, 2).toUpperCase()}
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center text-[#5C3C7C]">
+                      <div className="text-[20px]">{plan.title}</div>
+                      <div className="relative flex flex-col-reverse items-center space-y-reverse space-y-2">
+                        <AiOutlineDelete
+                          size={20}
+                          color="#c5b1d8"
+                          onClick={() => plan.uid && handleDeleteBp(plan.uid)}
+                          className="absolute top-[-1.75rem] cursor-pointer"
+                        />
+                        <img
+                          src={editIcon}
+                          alt="edit-icon"
+                          onClick={() => {
+                            dispatch(resetCurrentStep());
+                            dispatch(resetCurrentQuestionsWithAnswers());
+                            navigate(`/edit-business-plan/${plan.uid}`);
+                          }}
+                          className="cursor-pointer"
+                        />
+                      </div>
+                    </div>
+                    <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
+                      {plan.availableRevisions} modifications restantes
+                    </div>
                   </div>
-                </div>
-                <div className="flex justify-between items-center text-[#5C3C7C]">
-                  <div className="text-[20px]">{plan.title}</div>
-                  <div className="relative flex flex-col-reverse items-center space-y-reverse space-y-2">
-                    <AiOutlineDelete
-                      size={20}
-                      color="#c5b1d8"
-                      onClick={() => plan.uid && handleDeleteBp(plan.uid)}
-                      className="absolute top-[-1.75rem] cursor-pointer"
-                    />
-                    <img
-                      src={editIcon}
-                      alt="edit-icon"
-                      onClick={() => {
-                        dispatch(resetCurrentStep());
-                        dispatch(resetCurrentQuestionsWithAnswers());
-                        navigate(`/edit-business-plan/${plan.uid}`);
-                      }}
-                      className="cursor-pointer"
-                    />
-                  </div>
-                </div>
-                <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
-                  {plan.availableRevisions} modifications restantes
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+          }
         </div>
       </div>
     </div>
