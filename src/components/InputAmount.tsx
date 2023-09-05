@@ -4,12 +4,14 @@ import { InputNumberProps } from "antd/lib/input-number";
 import { useEffect } from "react";
 
 type StyledInputAmountProps = InputNumberProps & {
+  coloredAiBorder?: boolean;
   reducedwidth?: boolean;
   value?: number;
   onChange?: (value: string) => void;
 };
 
 interface InputAmountProps {
+  coloredAiBorder?: boolean;
   reducedwidth?: boolean;
   value?: number;
   onChange?: (value: string) => void;
@@ -57,6 +59,7 @@ const StyledInputAmount = styled(
 `;
 
 const InputAmount: React.FC<InputAmountProps> = ({
+  coloredAiBorder,
   reducedwidth = false,
   value = 0,
   onChange,
@@ -68,7 +71,7 @@ const InputAmount: React.FC<InputAmountProps> = ({
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper className={coloredAiBorder ? "gradient-border z-50" : ""}>
       <StyledInputAmount
         addonAfter="€"
         reducedwidth={reducedwidth}

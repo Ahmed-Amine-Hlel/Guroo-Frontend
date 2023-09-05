@@ -3,12 +3,16 @@ import styled from "styled-components";
 import { useEffect } from "react";
 
 type InputPercentageProps = {
+  coloredAiBorder?: boolean;
   onChange: (value: string) => void;
   value?: string;
 };
 
 const Wrapper = styled.div`
   .ant-input-number {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     border-start-start-radius: 76px !important;
     border-end-start-radius: 76px !important;
     border-start-end-radius: 76px !important;
@@ -41,7 +45,7 @@ const StyledInputNumber = styled(InputNumber)`
   }
 `;
 
-const InputPercentage = ({ onChange, value = "0%" }: InputPercentageProps) => {
+const InputPercentage = ({ coloredAiBorder, onChange, value = "0%" }: InputPercentageProps) => {
   useEffect(() => {
     if (value === "0%") {
       onChange("0%");
@@ -50,7 +54,7 @@ const InputPercentage = ({ onChange, value = "0%" }: InputPercentageProps) => {
 
   return (
     <div className="relative flex items-center w-full">
-      <Wrapper className="w-full">
+      <Wrapper className={`w-full ${coloredAiBorder ? 'gradient-border z-50' : ''}`}>
         <StyledInputNumber
           parser={(value) => (value ? value.replace("%", "") : "")}
           className="w-full"
@@ -65,7 +69,7 @@ const InputPercentage = ({ onChange, value = "0%" }: InputPercentageProps) => {
       <img
         src="/Percent.svg"
         alt="Percent Icon"
-        className="hover:cursor-pointer absolute right-[20px]"
+        className="hover:cursor-pointer absolute right-[20px] z-50"
       />
     </div>
   );

@@ -128,6 +128,25 @@ const Questions = () => {
     //     return {};
     //   }
     // };
+    const aiBoxUids: string[] = [
+      "5f4800c7-e289-4885-b6bf-f5897e3850fd",
+      "12732041-22ea-4fb5-af30-4a96bd4bb369",
+      "e466fa89-043c-41b7-90c4-c264af9cc736",
+      "24a1f8ad-ddf1-4dcf-9878-f3bf3e6c3be5",
+      "acca41fb-1edc-4dba-a13d-bc47d5821b8f",
+      "dfddfb23-5480-4676-92e2-8be02faef6d8",
+      "97648262-8f5a-4629-8e6c-7bdcd1dd7b40",
+      "eb92aafb-852c-4cbe-8bc6-9ee444d12005",
+      "03688503-02a9-4df7-8c60-4b16c8d54d4b",
+      "74c48ae7-5e75-4d8d-88c4-836d21f52816",
+      "08f64241-f6f1-4464-ac41-df644f8b6041",
+      "8cd87eca-28e2-4af9-afe7-c472e5451bcf",
+      "60aa9c59-d53b-4276-99b0-28c95d5948fc",
+      "10fedd72-b6ca-41d6-abce-e7a3a69cd885",
+      "e2b91075-2585-4658-b6ce-30a17fba368b",
+    ];
+
+    const hasAIPinkBorder: boolean = aiBoxUids.includes(question.uid) ? true : false;
 
     const handleParseObjectOptions = (optionsString: string) => {
       let correctedOptionsString = optionsString
@@ -183,10 +202,10 @@ const Questions = () => {
       case "list":
         const parsedOptions = question.options
           ? question.options
-              .slice(1, -1)
-              .split(",")
-              .map((str) => str.trim())
-              .map((option) => ({ name: option }))
+            .slice(1, -1)
+            .split(",")
+            .map((str) => str.trim())
+            .map((option) => ({ name: option }))
           : [];
         return (
           <InputListBox
@@ -204,6 +223,7 @@ const Questions = () => {
       case "percent":
         return (
           <InputPercentage
+            coloredAiBorder={hasAIPinkBorder}
             value={answers[question.uid]}
             onChange={(value) => handleInputChange(question.uid, value)}
           />
@@ -229,6 +249,7 @@ const Questions = () => {
       case "amount":
         return (
           <InputAmount
+            coloredAiBorder={hasAIPinkBorder}
             value={answers[question.uid] ?? 0}
             onChange={(value) =>
               handleInputChange(question.uid, value.toString())
@@ -478,11 +499,10 @@ const Questions = () => {
             <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
               <div>
                 <HiMiniArrowLeft
-                  className={`text-[24px] ${
-                    isBackDisabled
-                      ? "opacity-50 cursor-default"
-                      : "hover:cursor-pointer"
-                  }`}
+                  className={`text-[24px] ${isBackDisabled
+                    ? "opacity-50 cursor-default"
+                    : "hover:cursor-pointer"
+                    }`}
                   onClick={!isBackDisabled ? handleBack : undefined}
                 />
               </div>
@@ -495,7 +515,7 @@ const Questions = () => {
                   <div key={index} className="flex items-center">
                     <span className="">
                       {index > 0 &&
-                      index <
+                        index <
                         blocks[currentStep - 1]?.label.split("-").length ? (
                         <BsArrowRight className="text-md mr-2" />
                       ) : (
