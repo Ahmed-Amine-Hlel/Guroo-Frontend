@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { FadeLoader } from "react-spinners";
 import { HiMiniArrowLeft, HiMiniArrowRight } from "react-icons/hi2";
 // import QuestionAiBox from "./QuestionAiBox";
@@ -16,6 +16,8 @@ import { Question } from "../core/src/domain/entities/Question";
 import { Block } from "../core/src/domain/entities/Block";
 // import data from "../../public/data.json";
 import { BsArrowRight } from "react-icons/bs";
+import dayjs from "dayjs";
+import { incrementStep } from "../store/StepperSlice";
 const EditQuestions = () => {
   const isLoadingQuestionsWithAnswers = useAppSelector(
     (state) => state.businessPlan.loadingQuestionsWithAnswers
@@ -23,6 +25,11 @@ const EditQuestions = () => {
   const [isBackDisabled, setIsBackDisabled] = useState<boolean>(false);
   const questionsWithAnswers = useAppSelector(
     (state) => state.businessPlan.currentQuestionsWithAnswers
+  );
+
+  const dispatch = useAppDispatch();
+  const currentSectionStep = useAppSelector(
+    (state) => state.stepper.currentStep
   );
   //   console.log("questionsWithAnswers", questionsWithAnswers);
 
@@ -76,6 +83,8 @@ const EditQuestions = () => {
       if (currentStep < blocks.length) {
         setCurrentStep((prev) => prev + 1);
         setCurrentQuestionIndex(0);
+      } else {
+        dispatch(incrementStep());
       }
     }
   };
@@ -100,28 +109,41 @@ const EditQuestions = () => {
   };
 
   const renderInputComponent = (inputType: string, question: Question) => {
+    const answerValue =
+      question.answers && question.answers[0]
+        ? question.answers[0].value
+        : null;
+
     switch (inputType) {
       case "number":
         return (
           <NumberInput
+            value={answerValue}
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       case "string":
         return (
           <StringInput
+            value={answerValue || ""}
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       case "boolean":
         return (
           <InputCheckBox
+            value={answerValue === "true"}
             onChange={(boolValue) => handleInputChange(question.uid, boolValue)}
           />
         );
       case "date":
+        const dateValue = answerValue
+          ? dayjs(answerValue, "DD/MM/YYYY")
+          : undefined;
+
         return (
           <InputCalendar
+            value={dateValue}
             onChange={(date) => {
               const formattedDate = date ? date.format("DD/MM/YYYY") : null;
               handleInputChange(question.uid, formattedDate);
@@ -138,6 +160,7 @@ const EditQuestions = () => {
           : [];
         return (
           <InputListBox
+            value={answerValue ? { name: answerValue } : undefined}
             options={parsedOptions}
             onChange={(selectedOption) =>
               handleInputChange(question.uid, selectedOption.name)
@@ -147,6 +170,7 @@ const EditQuestions = () => {
       case "percent":
         return (
           <InputPercentage
+            value={answerValue || undefined}
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
@@ -159,12 +183,14 @@ const EditQuestions = () => {
       case "GooglePlaces":
         return (
           <StringInput
+            value={answerValue || ""}
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
       case "amount":
         return (
           <InputAmount
+            value={Number(answerValue)}
             onChange={(value) =>
               handleInputChange(question.uid, value.toString())
             }
@@ -173,6 +199,7 @@ const EditQuestions = () => {
       case "MultiUnitNumber":
         return (
           <InputMultiUnitNumber
+            value={answerValue || undefined}
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
@@ -192,6 +219,11 @@ const EditQuestions = () => {
   useEffect(() => {
     setIsBackDisabled(currentStep === 1 && currentQuestionIndex === 0);
   }, [currentStep, currentQuestionIndex]);
+
+  useEffect(() => {
+    setCurrentStep(1);
+    setCurrentQuestionIndex(0);
+  }, [dispatch, currentSectionStep]);
 
   return (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2 mt-[20px]">
@@ -243,8 +275,8 @@ const EditQuestions = () => {
                   currentQuestionIndex,
                   currentQuestionIndex + questionsPerPage
                 )
-                .map((question: Question, index: number) => (
-                  <div key={index} className="mb-6">
+                .map((question: Question) => (
+                  <div key={question.uid} className="mb-6">
                     <label className="block px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
                       {question.label}
                     </label>

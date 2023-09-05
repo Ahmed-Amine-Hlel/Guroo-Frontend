@@ -36,6 +36,7 @@ const answersSlice = createSlice({
     setAnswer: (state, action) => {
       state.answers[action.payload.questionUid] = action.payload.value;
     },
+    resetAnswers: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -55,6 +56,6 @@ const answersSlice = createSlice({
   },
 });
 
-export const { setAnswer } = answersSlice.actions;
+export const { setAnswer, resetAnswers } = answersSlice.actions;
 
 export default answersSlice.reducer;

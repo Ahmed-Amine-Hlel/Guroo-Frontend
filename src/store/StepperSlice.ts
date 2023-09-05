@@ -14,6 +14,7 @@ const stepperSlice = createSlice({
   name: "stepper",
   initialState,
   reducers: {
+    resetCurrentStep: () => initialState,
     setCurrentStep: (state, action: PayloadAction<number>) => {
       state.currentStep = action.payload;
     },
@@ -30,6 +31,10 @@ const stepperSlice = createSlice({
   },
 });
 
-export const { setCurrentStep, incrementStep, decrementStep } =
-  stepperSlice.actions;
+export const {
+  resetCurrentStep,
+  setCurrentStep,
+  incrementStep,
+  decrementStep,
+} = stepperSlice.actions;
 export default stepperSlice.reducer;

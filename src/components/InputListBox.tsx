@@ -16,13 +16,19 @@ export default function InputListBox({
   options,
   onChange,
 }: InputListBoxProps) {
-  const [selected, setSelected] = useState<OptionType>({
-    name: (value && value.name) || options[0]?.name || "",
-  });
+  const [selected, setSelected] = useState<OptionType | null>(null);
 
   useEffect(() => {
     setSelected(value || options[0] || null);
   }, [value, options]);
+
+  useEffect(() => {
+    if (selected) {
+      onChange(selected);
+    }
+  }, [selected]);
+
+  // console.log("InputListBox Props:", { value, options });
 
   // console.log("Value prop passed to InputListBox:", value);
   // console.log("Options passed to InputListBox:", options);
@@ -32,8 +38,10 @@ export default function InputListBox({
       <Listbox
         value={selected}
         onChange={(newSelected) => {
-          setSelected(newSelected);
-          onChange(newSelected);
+          if (newSelected) {
+            setSelected(newSelected);
+            onChange(newSelected);
+          }
         }}
       >
         <div className="relative">
@@ -77,8 +85,9 @@ export default function InputListBox({
                   >
                     {({ selected, active }) => (
                       <div
-                        className={`flex justify-between items-center w-full px-6 h-[45px] rounded-[56px] ${active ? "bg-[#faf5ff]" : ""
-                          } ${selected ? "bg-[#faf5ff]" : ""}`}
+                        className={`flex justify-between items-center w-full px-6 h-[45px] rounded-[56px] ${
+                          active ? "bg-[#faf5ff]" : ""
+                        } ${selected ? "bg-[#faf5ff]" : ""}`}
                       >
                         <span
                           className={`block truncate text-base text-[#6D3B9E] font-[500] font-plus-jakarta-sans leading-6`}

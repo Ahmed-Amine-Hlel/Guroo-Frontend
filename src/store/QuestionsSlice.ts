@@ -13,6 +13,9 @@ interface QuestionsState {
   loading: boolean;
   error: string | null;
   aiResponses: AIResponses;
+  // hasNetSalaryBeenFetched: boolean;
+  // hasPredictLoyerBeenFetched: boolean;
+  // hasCotisationsSalarialesBeenFetched: boolean;
 }
 
 const initialState: QuestionsState = {
@@ -20,6 +23,9 @@ const initialState: QuestionsState = {
   loading: false,
   error: null,
   aiResponses: {},
+  // hasNetSalaryBeenFetched: false,
+  // hasPredictLoyerBeenFetched: false,
+  // hasCotisationsSalarialesBeenFetched: false,
 };
 
 const gurooSectionService = new GurooSectionService();
@@ -81,7 +87,20 @@ export const fetchCotisationsSalariales = createAsyncThunk(
 const questionsSlice = createSlice({
   name: "questions",
   initialState,
-  reducers: {},
+  reducers: {
+    // setNetSalaryFetchedFlag: (state, action: PayloadAction<boolean>) => {
+    //   state.hasNetSalaryBeenFetched = action.payload;
+    // },
+    // setPredictLoyerFetchedFlag: (state, action: PayloadAction<boolean>) => {
+    //   state.hasPredictLoyerBeenFetched = action.payload;
+    // },
+    // setCotisationsSalarialesFetchedFlag: (
+    //   state,
+    //   action: PayloadAction<boolean>
+    // ) => {
+    //   state.hasCotisationsSalarialesBeenFetched = action.payload;
+    // },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSectionsForStep.pending, (state) => {
@@ -143,5 +162,11 @@ const questionsSlice = createSlice({
       );
   },
 });
+
+// export const {
+//   setNetSalaryFetchedFlag,
+//   setPredictLoyerFetchedFlag,
+//   setCotisationsSalarialesFetchedFlag,
+// } = questionsSlice.actions;
 
 export default questionsSlice.reducer;
