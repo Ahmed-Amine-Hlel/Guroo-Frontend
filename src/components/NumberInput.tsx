@@ -60,11 +60,11 @@ const NumberInput: React.FC<NumberInputProps> = ({
             onMouseLeave={() => setIsHover(false)}
           />
           {isHover ? (
-            <span className="absolute flex items-center right-[-32%] top-[-30px] bg-[#902818] text-white px-[12px] py-[8px] rounded-[8px] ">
+            <span className="absolute flex items-center right-[5px] top-[-30px] bg-[#902818] text-white px-[12px] py-[8px] rounded-[8px] ">
               <span className="font-Inter text-[12px] font-medium">
                 Votre montant doit être inférieur
               </span>
-              <span className="absolute bottom-[-10px]">
+              <span className="absolute bottom-[-10px] right-[20px]">
                 <VscTriangleDown color="#902818" />
               </span>
             </span>
