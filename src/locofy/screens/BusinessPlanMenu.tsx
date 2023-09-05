@@ -15,9 +15,11 @@ import { useEffect } from "react";
 import {
   deleteBusinessPlanAsync,
   getBusinessPlanAsync,
+  resetCurrentQuestionsWithAnswers,
 } from "../../store/businessPlan/businessPlanSlice";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
+import { resetCurrentStep } from "../../store/StepperSlice";
 
 const BusinessPlanMenu = () => {
   const dispatch = useAppDispatch();
@@ -234,9 +236,11 @@ const BusinessPlanMenu = () => {
                     <img
                       src={editIcon}
                       alt="edit-icon"
-                      onClick={() =>
-                        navigate(`/edit-business-plan/${plan.uid}`)
-                      }
+                      onClick={() => {
+                        dispatch(resetCurrentStep());
+                        dispatch(resetCurrentQuestionsWithAnswers());
+                        navigate(`/edit-business-plan/${plan.uid}`);
+                      }}
                       className="cursor-pointer"
                     />
                   </div>

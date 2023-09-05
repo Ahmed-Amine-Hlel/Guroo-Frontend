@@ -69,7 +69,7 @@ export const getBusinessPlanQuestionsWithAnswersAsync = createAsyncThunk(
           businessPlanUid,
         }
       );
-      // console.log("Questions + Answers :", response);
+      console.log("Questions + Answers :", response);
       return response;
     } catch (error) {
       throw new Error(`Fetching questions with answers failed: ${error}`);
@@ -118,7 +118,11 @@ export const deleteBusinessPlanAsync = createAsyncThunk(
 const businessPlanSlice = createSlice({
   name: "businessPlan",
   initialState,
-  reducers: {},
+  reducers: {
+    resetCurrentQuestionsWithAnswers: (state) => {
+      state.currentQuestionsWithAnswers = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getBusinessPlanAsync.pending, (state) => {
@@ -202,5 +206,7 @@ const businessPlanSlice = createSlice({
       });
   },
 });
+
+export const { resetCurrentQuestionsWithAnswers } = businessPlanSlice.actions;
 
 export default businessPlanSlice.reducer;

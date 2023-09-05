@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/hooks";
 import { createBusinessPlanAsync } from "../../store/businessPlan/businessPlanSlice";
+import { resetAnswers } from "../../store/answersSlice";
+import { resetCurrentStep } from "../../store/StepperSlice";
 
 const CreateBusinessPlan = () => {
   const navigate = useNavigate();
@@ -15,6 +17,8 @@ const CreateBusinessPlan = () => {
     if (newBusiness.title && newBusiness.description) {
       dispatch(createBusinessPlanAsync(newBusiness)).then((action) => {
         if (createBusinessPlanAsync.fulfilled.match(action)) {
+          dispatch(resetCurrentStep());
+          dispatch(resetAnswers());
           navigate("/new-business-plan");
         } else {
           console.error(action.error);
@@ -25,12 +29,18 @@ const CreateBusinessPlan = () => {
   return (
     <div className="flex flex-col items-center gap-[16px] min-h-[calc(100%_-_65px)] bg-[#f4edfb] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans ">
       <div>
-        <h1 className='text-[24px] md:text-[26px] lg:text-[32px] xl:text-[36px] font-bold text-foundation-purple-dark-active mb-[30px]'>Créer un nouveau business plan</h1>
+        <h1 className="text-[24px] md:text-[26px] lg:text-[32px] xl:text-[36px] font-bold text-foundation-purple-dark-active mb-[30px]">
+          Créer un nouveau business plan
+        </h1>
       </div>
-      <div className='transition-all ease-in-out duration-600 bg-white shadow-2xl w-[350px] md:w-[450px] lg:w-[470px] xl:w-[500px] p-[25px] border border-gainsboro rounded-[16px]'>
-
-        <div className='mb-5'>
-          <label htmlFor="title" className='block px-[16px] mb-[12px] text-[14px] text-foundation-purple-darker'>Titre</label>
+      <div className="transition-all ease-in-out duration-600 bg-white shadow-2xl w-[350px] md:w-[450px] lg:w-[470px] xl:w-[500px] p-[25px] border border-gainsboro rounded-[16px]">
+        <div className="mb-5">
+          <label
+            htmlFor="title"
+            className="block px-[16px] mb-[12px] text-[14px] text-foundation-purple-darker"
+          >
+            Titre
+          </label>
           <input
             type="text"
             className="text-[14px] h-[56px] block w-full px-[24px] py-[16px] bg-white border border-gainsboro 
@@ -44,8 +54,13 @@ const CreateBusinessPlan = () => {
             }
           />
         </div>
-        <div className='mb-5'>
-          <label htmlFor="title" className='block px-[16px] mb-[12px] text-[14px] text-foundation-purple-darker'>Description</label>
+        <div className="mb-5">
+          <label
+            htmlFor="title"
+            className="block px-[16px] mb-[12px] text-[14px] text-foundation-purple-darker"
+          >
+            Description
+          </label>
           <textarea
             className="text-[14px] resize-none min-h-[150px] mt-1 block w-full px-[24px] py-[16px] bg-white border border-gainsboro 
                        rounded-[16px] text-sm shadow-sm text-foundation-purple-darker
@@ -56,18 +71,16 @@ const CreateBusinessPlan = () => {
             onChange={(e) =>
               setNewBusiness({ ...newBusiness, description: e.target.value })
             }
-          >
-
-          </textarea>
+          ></textarea>
         </div>
-        <div className='flex'>
+        <div className="flex">
           <button
-            className='h-[56px] w-full text-center text-white rounded-[48px] bg-foundation-purple-normal hover:bg-foundation-purple-normal-hover'
-            onClick={handleCreateBusiness}>
+            className="h-[56px] w-full text-center text-white rounded-[48px] bg-foundation-purple-normal hover:bg-foundation-purple-normal-hover"
+            onClick={handleCreateBusiness}
+          >
             Ajouter
           </button>
         </div>
-
       </div>
     </div>
   );
