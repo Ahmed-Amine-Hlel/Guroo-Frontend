@@ -72,6 +72,10 @@ const Questions = () => {
   //console.log("Current Business Plan ID:", currentBusinessPlanId);
   const answers = useAppSelector((state) => state.answers.answers);
 
+  const markBusinessPlanAsDoneUseCase = new MarkBusinessPlanAsDoneUseCase(
+    businessPlanService
+  );
+
   //   const hasNetSalaryBeenFetched = useAppSelector(
   //     (state) => state.questions.hasNetSalaryBeenFetched
   //   );
@@ -253,14 +257,54 @@ const Questions = () => {
     );
   };
 
-  const handleNext = () => {
-    /* Show Questions */
-    /* console.log("Questions >>>>>> ", ); */
+  //   const handleNext = () => {
+  //     /* Show Questions */
+  //     /* console.log("Questions >>>>>> ", ); */
 
-    /* Dispatch answers */
+  //     /* Dispatch answers */
 
-    /* -------------------------------------------------------------- */
+  //     /* -------------------------------------------------------------- */
 
+  //     const formattedAnswers = blocks[currentStep - 1]?.questions
+  //       .slice(currentQuestionIndex, currentQuestionIndex + questionsPerPage)
+  //       .map((question: Question) => ({
+  //         value: answers[question.uid],
+  //         questionId: question.uid,
+  //         businessPlanId: currentBusinessPlanId,
+  //       }));
+
+  //     console.log("Formatted Answers:", formattedAnswers);
+  //     // console.log(answers);
+
+  //     if (formattedAnswers && currentBusinessPlanId) {
+  //       dispatch(submitAnswersAsync(formattedAnswers as Answer[]));
+  //     } else {
+  //       console.error("Failed to format answers or missing business plan ID.");
+  //     }
+
+  //     /* ------------------------------------------------------------- */
+
+  //     const currentBlockQuestions = blocks[currentStep - 1]?.questions || [];
+  //     if (
+  //       currentQuestionIndex + questionsPerPage <
+  //       currentBlockQuestions.length
+  //     ) {
+  //       // There are more questions in the current block to display
+  //       setCurrentQuestionIndex((prev) => prev + questionsPerPage);
+  //     } else {
+  //       // Move to the next block and reset the question index
+  //       if (currentStep < blocks.length) {
+  //         setCurrentStep((prev) => prev + 1);
+  //         setCurrentQuestionIndex(0);
+  //       } else {
+  //         dispatch(incrementStep());
+  //       }
+  //     }
+
+  //     triggerApiCalls();
+  //   };
+  const handleNext = async () => {
+    // Prepare the answers for dispatch
     const formattedAnswers = blocks[currentStep - 1]?.questions
       .slice(currentQuestionIndex, currentQuestionIndex + questionsPerPage)
       .map((question: Question) => ({
@@ -270,15 +314,12 @@ const Questions = () => {
       }));
 
     console.log("Formatted Answers:", formattedAnswers);
-    // console.log(answers);
 
     if (formattedAnswers && currentBusinessPlanId) {
       dispatch(submitAnswersAsync(formattedAnswers as Answer[]));
     } else {
       console.error("Failed to format answers or missing business plan ID.");
     }
-
-    /* ------------------------------------------------------------- */
 
     const currentBlockQuestions = blocks[currentStep - 1]?.questions || [];
     if (
@@ -288,16 +329,33 @@ const Questions = () => {
       // There are more questions in the current block to display
       setCurrentQuestionIndex((prev) => prev + questionsPerPage);
     } else {
-      // Move to the next block and reset the question index
       if (currentStep < blocks.length) {
+        // Move to the next block and reset the question index
         setCurrentStep((prev) => prev + 1);
         setCurrentQuestionIndex(0);
       } else {
+        // Check if we're on the last section
+        const isLastSection = sectionStep === 7; // Adjust the number if 7 is not the last section
+        if (isLastSection) {
+          await handleLastSectionCompletion();
+          return;
+        }
         dispatch(incrementStep());
       }
     }
 
     triggerApiCalls();
+  };
+
+  const handleLastSectionCompletion = async () => {
+    if (currentBusinessPlanId) {
+      try {
+        await markBusinessPlanAsDoneUseCase.execute(currentBusinessPlanId);
+        navigate("/payment");
+      } catch (error) {
+        console.error("Error marking the business plan as done:", error);
+      }
+    }
   };
 
   const handleBack = () => {
