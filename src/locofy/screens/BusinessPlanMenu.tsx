@@ -1,5 +1,4 @@
 import { BsFillPlusCircleFill, BsGrid } from "react-icons/bs";
-import { FaExclamationCircle } from "react-icons/fa";
 import { PiListBulletsBold } from "react-icons/pi";
 import { IoIosArrowDown } from "react-icons/io";
 import starLogo from "../../assets/icons/star.svg";
@@ -11,21 +10,21 @@ import questionMark from "../../assets/icons/question-mark-icon.svg";
 import editIcon from "../../assets/icons/edit-icon.svg";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { useEffect } from "react";
 import {
-  deleteBusinessPlanAsync,
   getBusinessPlanAsync,
   resetCurrentQuestionsWithAnswers,
 } from "../../store/businessPlan/businessPlanSlice";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "antd";
 import { resetCurrentStep } from "../../store/StepperSlice";
 import NoData from "../../components/NoData";
-
+import { useEffect, useState } from 'react'
+import Modal from "../../components/Modal";
 const BusinessPlanMenu = () => {
   const dispatch = useAppDispatch();
   const { loading, user } = useAppSelector((state) => state.auth);
   const { businessPlan } = useAppSelector((state) => state.businessPlan);
+  const [open, setOpen] = useState<boolean>(false)
+  const [uid, setUid] = useState<string>("")
 
   console.log("businessPlan", businessPlan);
 
@@ -36,62 +35,17 @@ const BusinessPlanMenu = () => {
   }, [dispatch]);
 
   const handleDeleteBp = (uid: string) => {
-    Modal.confirm({
-      title: (
-        <div
-          style={{
-            color: "#41245e",
-            fontSize: "1.25rem",
-            fontFamily: "Plus Jakarta Sans, sans-serif",
-          }}
-        >
-          Are you sure you want to delete this business plan?
-        </div>
-      ),
-      content: (
-        <div
-          style={{
-            color: "#252B48",
-            fontSize: "1rem",
-            fontFamily: "Inter, sans-serif",
-          }}
-        >
-          This action cannot be undone.
-        </div>
-      ),
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      icon: (
-        <FaExclamationCircle
-          style={{
-            color: "#eb5757",
-            fontSize: "2rem",
-            position: "absolute",
-            top: "20px",
-            right: "20px",
-          }}
-        />
-      ),
-      width: "35%",
-      style: {
-        top: "40%",
-      },
-      bodyStyle: {
-        fontSize: "2rem",
-      },
-      onOk() {
-        console.log("delete id ", uid);
-        dispatch(deleteBusinessPlanAsync(uid));
-      },
-      onCancel() {
-        console.log("Cancel");
-      },
-    });
+    setOpen(true)
+    setUid(uid)
   };
 
   return (
     <div className="flex flex-col md:flex-row gap-[16px] min-h-[calc(100%_-_65px)] bg-[#f4edfb] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans ">
+      <Modal
+        uid={uid}
+        open={open}
+        setOpen={setOpen}
+      />
       <div className="flex flex-col md:w-[450px] rounded-[16px] py-[16px] bg-white max-h-screen">
         <div className="flex flex-col gap-[10px] text-white mx-[16px] p-[16px] rounded-[8px] mb-[16px] bg-gradient-to-r from-[#6441A5] from-0% to-[#914FD2] to-100%">
           <div className="flex items-center gap-[5px] bg-[#914FD2] w-max py-[5px] px-[8px] rounded-full">
