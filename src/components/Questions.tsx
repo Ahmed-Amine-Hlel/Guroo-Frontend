@@ -54,7 +54,8 @@ const Questions = () => {
   const [isBackDisabled, setIsBackDisabled] = useState<boolean>(true);
   const loading = useAppSelector((state) => state.questions.loading);
   const aiResponses = useAppSelector((state) => state.questions.aiResponses);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isSubmitting] = useState<boolean>(false);
+  // const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [questionsPerPage] = useState<number>(5);

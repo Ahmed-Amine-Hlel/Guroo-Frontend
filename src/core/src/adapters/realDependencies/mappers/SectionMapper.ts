@@ -8,6 +8,7 @@ export class SectionMapper implements Mapper<Section, any> {
   toDomain(raw: any): Section {
     return {
       id: raw.id,
+      labels: raw.labels,
       blocks: raw.blocks.map((blockData: any) =>
         this.blockMapper.toDomain(blockData)
       ),

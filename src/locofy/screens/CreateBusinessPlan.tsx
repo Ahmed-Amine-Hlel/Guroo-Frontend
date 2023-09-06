@@ -4,7 +4,6 @@ import { useAppDispatch } from "../../hooks/hooks";
 import { createBusinessPlanAsync } from "../../store/businessPlan/businessPlanSlice";
 import { resetAnswers } from "../../store/answersSlice";
 import { resetCurrentStep } from "../../store/StepperSlice";
-import { AiOutlineArrowRight } from "react-icons/ai";
 import { FiArrowRight } from "react-icons/fi";
 
 const CreateBusinessPlan = () => {
@@ -47,7 +46,6 @@ const CreateBusinessPlan = () => {
       </div>
       <div className="transition-all ease-in-out duration-600 w-[350px] md:w-[450px] lg:w-[470px] xl:w-[500px]">
         <div className="mb-[18px]">
-
           <input
             type="text"
             placeholder="Le nom de votre entreprise"
@@ -85,9 +83,7 @@ const CreateBusinessPlan = () => {
             onClick={handleCreateBusiness}
           >
             <span>Je me lance</span>
-            <FiArrowRight
-              className="text-[20px] mt-1"
-            />
+            <FiArrowRight className="text-[20px] mt-1" />
           </button>
         </div>
       </div>
