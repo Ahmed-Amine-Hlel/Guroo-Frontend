@@ -105,16 +105,59 @@ const Questions = () => {
     }
   };
 
+  // const reformatData = () => {
+  //   const blocksWithQuestions: Block[] = [];
+  //   if (section?.blocks) {
+  //     for (let block of section?.blocks as Block[]) {
+  //       extractBlocksWithQuestions(block, blocksWithQuestions);
+  //     }
+  //   }
+  //   // console.log(blocksWithQuestions);
+  //   setBlocks(blocksWithQuestions);
+  // };
+
+  const centre_revenu_mapping = {
+    Restaurant: 5,
+    Bar: 11,
+    Club: 17,
+    Lounge: 23,
+    "Beach Club": 29,
+  };
+
+  const centre_revenu_uids = {
+    Restaurant: "36535beb-bd48-4e1d-8c96-786796e7ccf8",
+    Bar: "1b6aa579-49ae-4acc-9f30-2699b7af5f9c",
+    Club: "1c2fbce6-b0f8-4401-b07f-9fbc88a28c63",
+    Lounge: "69f59b57-5639-4db9-aeeb-e5b300bc02e7",
+    "Beach Club": "2dcca647-f4c0-4373-a828-459b9a005d03",
+  };
+
   const reformatData = () => {
     const blocksWithQuestions: Block[] = [];
     if (section?.blocks) {
       for (let block of section?.blocks as Block[]) {
+        // Check if the block should be skipped based on the Centre de revenu answers
+        const blockId = block.id;
+        const skipBlock = Object.keys(centre_revenu_mapping).some((label) => {
+          const questionUid = (centre_revenu_uids as { [key: string]: string })[
+            label
+          ];
+          const blockIdToCheck = (
+            centre_revenu_mapping as { [key: string]: number }
+          )[label];
+
+          // If the answer for this label is false and the block id matches the one to check, we skip this block
+          return answers[questionUid] === "false" && blockIdToCheck === blockId;
+        });
+        if (skipBlock) continue; // Skip this block and its nested blocks
+
         extractBlocksWithQuestions(block, blocksWithQuestions);
       }
     }
-    // console.log(blocksWithQuestions);
     setBlocks(blocksWithQuestions);
   };
+
+  console.log("redux answers : ", answers);
 
   const renderInputComponent = (inputType: InputType, question: Question) => {
     // const handleParseObjectOptions = (optionsString: string) => {
@@ -146,7 +189,9 @@ const Questions = () => {
       "e2b91075-2585-4658-b6ce-30a17fba368b",
     ];
 
-    const hasAIPinkBorder: boolean = aiBoxUids.includes(question.uid) ? true : false;
+    const hasAIPinkBorder: boolean = aiBoxUids.includes(question.uid)
+      ? true
+      : false;
 
     const handleParseObjectOptions = (optionsString: string) => {
       let correctedOptionsString = optionsString
@@ -202,10 +247,10 @@ const Questions = () => {
       case "list":
         const parsedOptions = question.options
           ? question.options
-            .slice(1, -1)
-            .split(",")
-            .map((str) => str.trim())
-            .map((option) => ({ name: option }))
+              .slice(1, -1)
+              .split(",")
+              .map((str) => str.trim())
+              .map((option) => ({ name: option }))
           : [];
         return (
           <InputListBox
@@ -400,7 +445,7 @@ const Questions = () => {
 
   useEffect(() => {
     reformatData();
-  }, [section]);
+  }, [section, answers]);
 
   useEffect(() => {
     setIsBackDisabled(currentStep === 1 && currentQuestionIndex === 0);
@@ -499,10 +544,11 @@ const Questions = () => {
             <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
               <div>
                 <HiMiniArrowLeft
-                  className={`text-[24px] ${isBackDisabled
-                    ? "opacity-50 cursor-default"
-                    : "hover:cursor-pointer"
-                    }`}
+                  className={`text-[24px] ${
+                    isBackDisabled
+                      ? "opacity-50 cursor-default"
+                      : "hover:cursor-pointer"
+                  }`}
                   onClick={!isBackDisabled ? handleBack : undefined}
                 />
               </div>
@@ -515,7 +561,7 @@ const Questions = () => {
                   <div key={index} className="flex items-center">
                     <span className="">
                       {index > 0 &&
-                        index <
+                      index <
                         blocks[currentStep - 1]?.label.split("-").length ? (
                         <BsArrowRight className="text-md mr-2" />
                       ) : (
