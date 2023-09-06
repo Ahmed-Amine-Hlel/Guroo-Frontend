@@ -58,7 +58,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .custom-shadow {
-  box-shadow: 0px 3.629821538925171px 133.39593505859375px 0px rgba(217, 169, 255, 0.65);
+  box-shadow: 0px 3.629821538925171px 133.39593505859375px 0px
+    rgba(217, 169, 255, 0.65);
 }
 
 .btn-shadow {
@@ -71,7 +72,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .ai-card-bg {
-  background-image: url(ai-bg.png);
+  background-image: url(/ai-bg.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -102,21 +103,19 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 0;
 }
 
-
 .edit-thumb::-webkit-scrollbar {
   width: 8px;
 }
 
 .edit-thumb::-webkit-scrollbar-track {
-  background: #DDC8F1;
+  background: #ddc8f1;
   border-radius: 8px;
 }
 
 .edit-thumb::-webkit-scrollbar-thumb {
-  background: #914FD2;
+  background: #914fd2;
   border-radius: 8px;
 }
-
 
 .form-shadow {
   box-shadow: 0px 4px 149px 0px rgba(217, 169, 255, 0.25);
@@ -126,23 +125,32 @@ input[type="number"]::-webkit-outer-spin-button {
   --borderWidth: 2px;
   background: white;
   position: relative;
-  border-radius: 76px
+  border-radius: 76px;
 }
 
 .gradient-border:after {
-  content: '';
+  content: "";
   position: absolute;
   top: calc(-1 * var(--borderWidth));
   left: calc(-1 * var(--borderWidth));
   height: calc(100% + var(--borderWidth) * 2);
   width: calc(100% + var(--borderWidth) * 2);
-  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  background: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82
+  );
   border-radius: 76px;
   z-index: -1;
   animation: animatedgradient 3s ease alternate infinite;
   background-size: 300% 300%;
 }
-
 
 @keyframes animatedgradient {
   0% {
