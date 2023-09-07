@@ -213,8 +213,9 @@ const Questions = () => {
       case "number":
         return (
           <NumberInput
-            value={answers[question.uid] || "0"}
+            value={answers[question.uid]}
             onChange={(value) => handleInputChange(question.uid, value)}
+            validation={question.validation}
           />
         );
       case "string":

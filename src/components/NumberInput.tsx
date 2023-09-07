@@ -5,28 +5,64 @@ interface NumberInputProps {
   reducedwidth?: boolean;
   onChange?: (value: string) => void;
   value?: string | null;
+  validation?: string | null;
 }
+
+const parseValidationString = (validation: string | null) => {
+  if (!validation) return {};
+
+  let result: { min?: number; max?: number } = {};
+  const pairs = validation.split("|");
+
+  pairs.forEach((pair) => {
+    const [key, value] = pair.split(":");
+    if (key === "min") result.min = parseInt(value);
+    if (key === "max") result.max = parseInt(value);
+  });
+
+  return result;
+};
 
 const NumberInput: React.FC<NumberInputProps> = ({
   reducedwidth = false,
   onChange,
-  value: propValue = "0",
+  value: incomingValue,
+  validation,
 }) => {
-  const [value, setValue] = useState<string | null>(propValue);
+  // console.log("Received validation prop:", validation);
+
   const [isValid, setIsValid] = useState(true);
   const [isHover, setIsHover] = useState(false);
+  const parsedValidation = parseValidationString(validation || null);
+  // console.log("Parsed validation:", parsedValidation);
+
+  const defaultValue =
+    incomingValue ||
+    (parsedValidation && parsedValidation.min
+      ? parsedValidation.min.toString()
+      : "0");
+  // console.log("Calculated defaultValue:", defaultValue);
+
+  const [value, setValue] = useState<string | null>(defaultValue);
 
   useEffect(() => {
-    if (value !== null && (Number(value) < 0 || Number(value) > 100)) {
-      setIsValid(false);
-    } else {
+    let valid = true;
+    if (!value) {
       setIsValid(true);
+      return;
     }
-  }, [value]);
+    if (parsedValidation.min && Number(value) < parsedValidation.min) {
+      valid = false;
+    }
+    if (parsedValidation.max && Number(value) > parsedValidation.max) {
+      valid = false;
+    }
+    setIsValid(valid);
+  }, [value, parsedValidation]);
 
   useEffect(() => {
     if (onChange) {
-      onChange(propValue || "0");
+      onChange(defaultValue);
     }
   }, []);
 
@@ -41,8 +77,13 @@ const NumberInput: React.FC<NumberInputProps> = ({
   return (
     <div className="relative flex items-center w-full">
       <input
-        value={value === null ? "" : value}
+        // value={value === null ? "" : value}
+        value={value || ""}
         onChange={(e) => {
+          if (e.target.value === "") {
+            setValue(null);
+            return;
+          }
           setValue(e.target.value);
           onChange && onChange(e.target.value);
         }}
@@ -62,7 +103,11 @@ const NumberInput: React.FC<NumberInputProps> = ({
           {isHover ? (
             <span className="absolute flex items-center right-[5px] top-[-30px] bg-[#902818] text-white px-[12px] py-[8px] rounded-[8px] ">
               <span className="font-Inter text-[12px] font-medium">
-                Votre montant doit être inférieur
+                {parsedValidation.min && Number(value) < parsedValidation.min
+                  ? `La valeur doit être supérieure ou égale à ${parsedValidation.min}`
+                  : parsedValidation.max && Number(value) > parsedValidation.max
+                  ? `La valeur doit être inférieure ou égal à ${parsedValidation.max}`
+                  : `Erreur de validation`}
               </span>
               <span className="absolute bottom-[-10px] right-[20px]">
                 <VscTriangleDown color="#902818" />
