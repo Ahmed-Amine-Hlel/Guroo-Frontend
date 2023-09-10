@@ -24,7 +24,7 @@ const parseValidationString = (validation: string | null) => {
 };
 
 const NumberInput: React.FC<NumberInputProps> = ({
-  reducedwidth = false,
+  // reducedwidth = false,
   onChange,
   value: incomingValue,
   validation,
@@ -104,8 +104,8 @@ const NumberInput: React.FC<NumberInputProps> = ({
                 {parsedValidation.min && Number(value) < parsedValidation.min
                   ? `La valeur doit être supérieure ou égale à ${parsedValidation.min}`
                   : parsedValidation.max && Number(value) > parsedValidation.max
-                    ? `La valeur doit être inférieure ou égal à ${parsedValidation.max}`
-                    : `Erreur de validation`}
+                  ? `La valeur doit être inférieure ou égal à ${parsedValidation.max}`
+                  : `Erreur de validation`}
               </span>
               <span className="absolute bottom-[-10px] right-[20px]">
                 <VscTriangleDown color="#902818" />
