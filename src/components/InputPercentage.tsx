@@ -69,7 +69,7 @@ const InputPercentage = ({ coloredAiBorder, onChange, value = "0%" }: InputPerce
       <img
         src="/Percent.svg"
         alt="Percent Icon"
-        className="hover:cursor-pointer absolute right-[20px] z-50"
+        className="hover:cursor-pointer absolute right-[20px] z-40"
       />
     </div>
   );
