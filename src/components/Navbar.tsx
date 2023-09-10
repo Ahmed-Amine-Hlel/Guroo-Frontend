@@ -2,19 +2,22 @@ import logo from "../assets/logo.svg";
 import { LuSearch, LuSettings } from "react-icons/lu";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { useAppSelector } from "../hooks/hooks";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { loading, user } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const isAuthenticated = !!user;
-  console.log(user);
+  // console.log(user);
   return (
     <div className="transition-all ease-in-out duration-400 flex justify-between items-center px-[20px] md:px-[100px] py-[10px] relative w-full h-[65px]">
       <div>
         <img
           src={logo}
           alt="logo"
-          className="object-contain w-[135px] md:w-[170px]"
+          className="object-contain w-[135px] md:w-[170px] hover:cursor-pointer"
+          onClick={() => navigate("/business-plan")}
         />
       </div>
       {isAuthenticated && (

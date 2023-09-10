@@ -133,32 +133,65 @@ const Questions = () => {
     "Beach Club": "2dcca647-f4c0-4373-a828-459b9a005d03",
   };
 
+  type SkipMapping = {
+    [key: string]: string[];
+  };
+
   const reformatData = () => {
-    const blocksWithQuestions: Block[] = [];
+    let updatedBlocks: Block[] = [];
     if (section?.blocks) {
-      for (let block of section?.blocks as Block[]) {
-        // Check if the block should be skipped based on the Centre de revenu answers
-        const blockId = block.id;
-        const skipBlock = Object.keys(centre_revenu_mapping).some((label) => {
-          const questionUid = (centre_revenu_uids as { [key: string]: string })[
-            label
-          ];
-          const blockIdToCheck = (
-            centre_revenu_mapping as { [key: string]: number }
-          )[label];
+      updatedBlocks = section.blocks.map((block) => {
+        let newBlock = { ...block };
+        // Handle special case for "Rythme de croisière"
+        if (block.label.trim() === "Rythme de croisière") {
+          const answer = answers["1394f36f-5b61-49dd-a09d-dae236783426"];
+          const skipUids: SkipMapping = {
+            "0": [
+              "e17af1af-229e-47d7-949f-0abad2c06e2a",
+              "44374399-d905-4a6e-b74d-5b8349f9f142",
+              "d19ad169-ae7e-43f8-9b8c-163cc1572520",
+            ],
+            "1": [
+              "44374399-d905-4a6e-b74d-5b8349f9f142",
+              "d19ad169-ae7e-43f8-9b8c-163cc1572520",
+            ],
+            "2": ["d19ad169-ae7e-43f8-9b8c-163cc1572520"],
+          };
+          const filteredQuestions = block.questions.filter((q) => {
+            if (skipUids[answer] && skipUids[answer].includes(q.uid)) {
+              return false; // skip this question
+            }
+            return true;
+          });
+          newBlock.questions = filteredQuestions;
+        }
+        return newBlock;
+      });
+    }
 
-          // If the answer for this label is false and the block id matches the one to check, we skip this block
-          return answers[questionUid] === "false" && blockIdToCheck === blockId;
-        });
-        if (skipBlock) continue; // Skip this block and its nested blocks
+    // Existing Centre de revenu logic
+    const blocksWithQuestions: Block[] = [];
+    for (let block of updatedBlocks) {
+      const skipBlock = Object.keys(centre_revenu_mapping).some((label) => {
+        const questionUid = (centre_revenu_uids as { [key: string]: string })[
+          label
+        ];
+        const blockIdToCheck = (
+          centre_revenu_mapping as { [key: string]: number }
+        )[label];
 
+        // If the answer for this label is false and the block id matches the one to check, we skip this block
+        return answers[questionUid] === "false" && blockIdToCheck === block.id;
+      });
+      if (!skipBlock) {
         extractBlocksWithQuestions(block, blocksWithQuestions);
       }
     }
+
     setBlocks(blocksWithQuestions);
   };
 
- /*  console.log("redux answers : ", answers); */
+  // console.log("redux answers : ", answers);
 
   const renderInputComponent = (inputType: InputType, question: Question) => {
     // const handleParseObjectOptions = (optionsString: string) => {
@@ -249,10 +282,10 @@ const Questions = () => {
       case "list":
         const parsedOptions = question.options
           ? question.options
-            .slice(1, -1)
-            .split(",")
-            .map((str) => str.trim())
-            .map((option) => ({ name: option }))
+              .slice(1, -1)
+              .split(",")
+              .map((str) => str.trim())
+              .map((option) => ({ name: option }))
           : [];
         return (
           <InputListBox
@@ -546,10 +579,11 @@ const Questions = () => {
             <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
               <div>
                 <HiMiniArrowLeft
-                  className={`text-[24px] ${isBackDisabled
+                  className={`text-[24px] ${
+                    isBackDisabled
                       ? "opacity-50 cursor-default"
                       : "hover:cursor-pointer"
-                    }`}
+                  }`}
                   onClick={!isBackDisabled ? handleBack : undefined}
                 />
               </div>
@@ -562,7 +596,7 @@ const Questions = () => {
                   <div key={index} className="flex items-center">
                     <span className="">
                       {index > 0 &&
-                        index <
+                      index <
                         blocks[currentStep - 1]?.label.split("-").length ? (
                         <BsArrowRight className="text-md mr-2" />
                       ) : (
