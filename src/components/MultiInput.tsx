@@ -102,7 +102,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
   }, [dateValue, numberValue, amountValue]);
 
   return (
-    <div className="flex flex-row gap-[25px] w-full">
+    <div className="flex flex-row gap-[5px] w-full">
       {options?.Date && (
         <InputCalendar
           reducedwidth
@@ -125,11 +125,13 @@ const MultiInput: React.FC<MultiInputProps> = ({
       )}
 
       {options?.Montant && (
-        <InputAmount
-          reducedwidth
-          value={amountValue}
-          onChange={(value) => setAmountValue(Number(value))}
-        />
+        <div className="w-full">
+          <InputAmount
+            reducedwidth
+            value={amountValue}
+            onChange={(value) => setAmountValue(Number(value))}
+          />
+        </div>
       )}
     </div>
   );

@@ -16,7 +16,7 @@ interface InputCalendarProps {
   value?: dayjs.Dayjs | null;
 }
 
-const StyledDatePicker = styled(DatePicker)<InputCalendarProps>`
+const StyledDatePicker = styled(DatePicker) <InputCalendarProps>`
   &.ant-picker,
   &.ant-picker-focused {
     border: none;
@@ -26,7 +26,7 @@ const StyledDatePicker = styled(DatePicker)<InputCalendarProps>`
     padding: 0;
     .ant-picker-input {
       border-radius: 76px;
-      width: ${(props) => (props.reducedwidth ? "140px" : "100%")};
+      width: 100%;
 
       background: #fff;
       box-shadow: none !important;

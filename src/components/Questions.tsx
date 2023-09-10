@@ -158,7 +158,7 @@ const Questions = () => {
     setBlocks(blocksWithQuestions);
   };
 
-  console.log("redux answers : ", answers);
+ /*  console.log("redux answers : ", answers); */
 
   const renderInputComponent = (inputType: InputType, question: Question) => {
     // const handleParseObjectOptions = (optionsString: string) => {
@@ -249,10 +249,10 @@ const Questions = () => {
       case "list":
         const parsedOptions = question.options
           ? question.options
-              .slice(1, -1)
-              .split(",")
-              .map((str) => str.trim())
-              .map((option) => ({ name: option }))
+            .slice(1, -1)
+            .split(",")
+            .map((str) => str.trim())
+            .map((option) => ({ name: option }))
           : [];
         return (
           <InputListBox
@@ -546,11 +546,10 @@ const Questions = () => {
             <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
               <div>
                 <HiMiniArrowLeft
-                  className={`text-[24px] ${
-                    isBackDisabled
+                  className={`text-[24px] ${isBackDisabled
                       ? "opacity-50 cursor-default"
                       : "hover:cursor-pointer"
-                  }`}
+                    }`}
                   onClick={!isBackDisabled ? handleBack : undefined}
                 />
               </div>
@@ -563,7 +562,7 @@ const Questions = () => {
                   <div key={index} className="flex items-center">
                     <span className="">
                       {index > 0 &&
-                      index <
+                        index <
                         blocks[currentStep - 1]?.label.split("-").length ? (
                         <BsArrowRight className="text-md mr-2" />
                       ) : (
