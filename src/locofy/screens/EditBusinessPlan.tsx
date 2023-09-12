@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useEffect } from "react";
 import { getBusinessPlanQuestionsWithAnswersAsync } from "../../store/businessPlan/businessPlanSlice";
 import EditQuestions from "../../components/EditQuestions";
+import ChatBot from "../../components/ChatBot";
 
 const EditBusinessPlan = () => {
   const dispatch = useAppDispatch();
@@ -40,6 +41,7 @@ const EditBusinessPlan = () => {
 
   return (
     <div className="bg-[#E9E9E9] min-h-[calc(100%_-_65px)] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans">
+      <ChatBot />
       <div className="text-[#572F7E] flex items-center gap-4 mb-[25px]">
         <div
           onClick={() => navigate("/business-plan")}

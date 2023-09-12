@@ -27,6 +27,9 @@ const CreateBusinessPlan = () => {
       });
     }
   };
+
+  const isButtonDisabled = !newBusiness.title || !newBusiness.description;
+
   return (
     <div
       className="flex flex-col items-center justify-center gap-[16px] min-h-[calc(100%_-_65px)] bg-[#f4edfb] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans"
@@ -49,13 +52,14 @@ const CreateBusinessPlan = () => {
           <input
             type="text"
             placeholder="Le nom de votre entreprise"
-            className="text-[14px] h-[56px] block w-full px-[24px] py-[16px] 
-                      bg-white border-[1px] border-gray-warm-200 
-                      rounded-[76px] text-sm shadow-sm text-foundation-purple-darker
-                      placeholder-foundation-purple-dark
-                      focus:outline-none focus:border-foundation-purple-light-hover focus:ring-1 focus:ring-foundation-purple-light-hover
-                      invalid:border-pink-500 invalid:text-pink-600
-                      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+            className={`text-[14px] h-[56px] block w-full px-[24px] py-[16px] 
+            bg-white border-[1px] border-gray-warm-200 
+            rounded-[76px] text-sm shadow-sm text-foundation-purple-darker
+            placeholder-foundation-purple-dark
+            focus:placeholder-opacity-50
+            focus:outline-none focus:border-foundation-purple-light-hover focus:ring-1 focus:ring-foundation-purple-light-hover
+            invalid:border-pink-500 invalid:text-pink-600
+            focus:invalid:border-pink-500 focus:invalid:ring-pink-500`}
             value={newBusiness.title}
             onChange={(e) =>
               setNewBusiness({ ...newBusiness, title: e.target.value })
@@ -65,12 +69,13 @@ const CreateBusinessPlan = () => {
         <div className="mb-[30px]">
           <textarea
             placeholder="Une courte description ...."
-            className="text-[14px] resize-none min-h-[140px] mt-1 block w-full px-[24px] py-[16px] bg-white border border-gainsboro 
-                      rounded-[24px] text-sm shadow-sm text-foundation-purple-darker
-                      focus:outline-none focus:border-foundation-purple-light-hover focus:ring-1 focus:ring-foundation-purple-light-hover
-                      invalid:border-pink-500 invalid:text-pink-600
-                      placeholder-foundation-purple-dark
-                      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+            className={`text-[14px] resize-none min-h-[140px] mt-1 block w-full px-[24px] py-[16px] bg-white border border-gainsboro 
+                        rounded-[24px] text-sm shadow-sm text-foundation-purple-darker
+                        focus:placeholder-opacity-50
+                        focus:outline-none focus:border-foundation-purple-light-hover focus:ring-1 focus:ring-foundation-purple-light-hover
+                        invalid:border-pink-500 invalid:text-pink-600
+                        placeholder-foundation-purple-dark
+                        focus:invalid:border-pink-500 focus:invalid:ring-pink-500`}
             value={newBusiness.description}
             onChange={(e) =>
               setNewBusiness({ ...newBusiness, description: e.target.value })
@@ -79,8 +84,11 @@ const CreateBusinessPlan = () => {
         </div>
         <div className="flex justify-center">
           <button
-            className="flex items-center justify-center gap-[8px] h-[56px] w-[202px] px-[16px] py-[10px] text-center text-white rounded-[48px] bg-gradient-to-r from-foundation-purple-normal from-[45.47%] to-foundation-purple-hover to-[137.9%]"
+            className={`flex items-center justify-center gap-[8px] h-[56px] w-[202px] px-[16px] py-[10px] text-center text-white rounded-[48px] bg-gradient-to-r from-foundation-purple-normal from-[45.47%] to-foundation-purple-hover to-[137.9%] ${
+              isButtonDisabled ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             onClick={handleCreateBusiness}
+            disabled={isButtonDisabled}
           >
             <span>Je me lance</span>
             <FiArrowRight className="text-[20px] mt-1" />

@@ -1,6 +1,6 @@
 import logo from "../assets/logo.svg";
-import { LuSearch, LuSettings } from "react-icons/lu";
-import { IoNotificationsOutline } from "react-icons/io5";
+// import { LuSearch, LuSettings } from "react-icons/lu";
+// import { IoNotificationsOutline } from "react-icons/io5";
 import { useAppSelector } from "../hooks/hooks";
 import { useNavigate } from "react-router-dom";
 
@@ -23,18 +23,18 @@ const Navbar = () => {
       {isAuthenticated && (
         <div className="flex gap-[15px]">
           <div className="flex gap-[5px]">
-            <div className="flex items-center justify-center rounded-full w-10 h-10 hover:cursor-pointer hover:bg-[#f8f2fe]">
+            {/*  <div className="flex items-center justify-center rounded-full w-10 h-10 hover:cursor-pointer hover:bg-[#f8f2fe]">
               <LuSearch color="rgba(65, 36, 94, 0.52)" size={22} />
             </div>
             <div className="flex items-center justify-center rounded-full w-10 h-10 hover:cursor-pointer hover:bg-[#f8f2fe]">
               <LuSettings color="rgba(65, 36, 94, 0.52)" size={22} />
-            </div>
+            </div> 
             <div className="flex items-center justify-center rounded-full w-10 h-10 hover:cursor-pointer hover:bg-[#f8f2fe]">
               <IoNotificationsOutline
                 color="rgba(65, 36, 94, 0.52)"
                 size={22}
               />
-            </div>
+            </div>*/}
           </div>
           <div>
             <div className="flex items-center justify-center rounded-full bg-[#f4edfb] w-10 h-10  hover:cursor-pointer hover:bg-[#efe5f8]">
