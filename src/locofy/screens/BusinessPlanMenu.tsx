@@ -4,8 +4,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import starLogo from "../../assets/icons/star.svg";
 import coinIcon from "../../assets/icons/coin-icon.svg";
 import fileIcon from "../../assets/icons/file-icon.svg";
-import downloadIcon from "../../assets/icons/download-icon.svg";
-import notificationIcon from "../../assets/icons/notification-icon.svg";
+// import downloadIcon from "../../assets/icons/download-icon.svg";
+// import notificationIcon from "../../assets/icons/notification-icon.svg";
 import questionMark from "../../assets/icons/question-mark-icon.svg";
 import editIcon from "../../assets/icons/edit-icon.svg";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -57,13 +57,17 @@ const BusinessPlanMenu = () => {
             Acheter des nouveaux crédits de modification
           </div>
           <button
-            onClick={() => navigate("/create-business-plan")}
-            className="flex justify-center items-center gap-2 text-[14px] px-[20px] py-[15px] bg-[#914FD2] rounded-[8px] text-white font-medium hover:bg-[#8347bd] cursor-not-allowed opacity-90"
+            className="flex justify-center gap-2 text-[14px] px-[30px] py-[15px] bg-white rounded-[8px] text-[#41245E] font-medium cursor-not-allowed opacity-60"
             disabled
           >
-            <BsFillPlusCircleFill className="text-[20px]" />
-            <span>Démarrer un autre business plan</span>
+            <span>Acheter du crédit</span>
+            <img src={coinIcon} alt="coin-icon" />
           </button>
+
+          {/* <button className="flex justify-center gap-2 text-[14px] px-[30px] py-[15px] bg-white rounded-[8px] text-[#41245E] font-medium">
+            <span>Acheter du crédit</span>
+            <img src={coinIcon} alt="coin-icon" />
+          </button> */}
         </div>
         <div className="flex flex-col h-full">
           <div className="flex items-center gap-[16px] px-[16px] py-[12px] border-l-2 border-l-[#8347BD] bg-[#cfcfcf1a] hover:cursor-pointer">
@@ -79,7 +83,7 @@ const BusinessPlanMenu = () => {
               </div>
             </div>
           </div>
-
+          {/*
           <div className="flex items-center gap-[16px] px-[16px] py-[12px] border-l-2 border-l-white hover:border-l-[#8347BD] hover:bg-[#cfcfcf1a] hover:cursor-pointer">
             <div className="opacity-60 bg-[#f4edfb] flex items-center justify-center rounded-full w-10 h-10">
               <img src={coinIcon} alt="coin-icon" />
@@ -104,7 +108,7 @@ const BusinessPlanMenu = () => {
                 Retrouvez vos derniers téléchargements
               </div>
             </div>
-          </div>
+          </div> 
           <div className="flex items-center gap-[16px] px-[16px] py-[12px] border-l-2 border-l-white hover:border-l-[#8347BD] hover:bg-[#cfcfcf1a] hover:cursor-pointer">
             <div className="opacity-60 bg-[#f4edfb] flex items-center justify-center rounded-full w-10 h-10">
               <img src={notificationIcon} alt="notification-icon" />
@@ -116,7 +120,7 @@ const BusinessPlanMenu = () => {
               </div>
             </div>
           </div>
-
+          */}
           <div className="mt-auto flex items-center gap-[16px] px-[16px] py-[12px] border-l-2 border-l-white hover:border-l-[#8347BD] hover:bg-[#cfcfcf1a] hover:cursor-pointer">
             <div className="opacity-60 bg-[#f4edfb] flex items-center justify-center rounded-full w-10 h-10">
               <img src={questionMark} alt="question-icon" />
