@@ -9,6 +9,7 @@ import NewBusinessPlan from "./locofy/screens/NewBusinessPlan";
 import PayementScreen from "./locofy/screens/PayementScreen";
 import PrePayementScreen from "./locofy/screens/PrePayementScreen";
 import EditBusinessPlan from "./locofy/screens/EditBusinessPlan";
+import MSTable from "./components/MSTable.tsx";
 // import MSTable from "./components/MSTable";
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   return (
     <>
       <div className="h-screen">
-        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID!}>
+        {/*<GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID!}>
           {!pathsWithoutNavbar.includes(location.pathname) && <Navbar />}
           <Routes>
             <Route path={"/"} element={<AuthScreen />} />
@@ -34,8 +35,8 @@ function App() {
               element={<EditBusinessPlan />}
             />
           </Routes>
-        </GoogleOAuthProvider>
-        {/* <MSTable /> */}
+        </GoogleOAuthProvider>*/}
+        <MSTable />
       </div>
     </>
   );

@@ -16,7 +16,7 @@ const DropDown = () => {
 
     const [selectedItem, setSelectedItem] = useState<string>(items[0])
     return (
-        <Menu as="div" className="w-[140px] relative inline-block text-left">
+        <Menu as="div" className="w-full relative inline-block text-left">
             <div>
                 <Menu.Button className="flex items-center justify-between text-start px-[12px] w-[100%] h-[45px] bg-light-p-hover border-[1px] 
     border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px] 
