@@ -2,9 +2,18 @@ import { BsCheckLg } from "react-icons/bs";
 import stepsData from "../fixtures/stepsData";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { setCurrentStep } from "../store/StepperSlice";
+import { useEffect, useState } from "react";
 
 const Stepper = () => {
   const currentStep = useAppSelector((state) => state.stepper.currentStep);
+  const [progress, setProgress] = useState(0);
+  const sectionId = `section${currentStep}`;
+
+  const currentSectionProgress = useAppSelector(
+    (state) => state.answers.progress[sectionId]
+  );
+
+  console.log(currentSectionProgress);
 
   const renderStepIcon = (stepNumber: number) => {
     const baseClass =
@@ -57,21 +66,26 @@ const Stepper = () => {
   };
 
   const dispatch = useAppDispatch();
-  const progress = "50%";
+
+  useEffect(() => {
+    const roundedProgress = Math.floor(currentSectionProgress);
+    setProgress(roundedProgress);
+  }, [currentSectionProgress]);
 
   return (
     <>
       <div className="flex flex-col items-center w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-max md:h-[792px] bg-white rounded-2xl border-[1px] border-solid border-foundation-purple-light-hover overflow-hidden text-left text-lg text-foundation-purple-dark-active font-plus-jakarta-sans">
         <div className="flex flex-col items-start w-full h-[76px] border-b-[1px] border-solid border-foundation-purple-light-hover text-xs text-lightslategray">
           <div className="flex flex-col items-start justify-center h-full gap-[8px] ml-[37px]">
-            <div className="tracking-[-0.02em] leading-[18px] font-medium w-[246px]">
-              Vous êtes à 12% d’avoir terminé les questions
+            <div className="tracking-[-0.02em] leading-[18px] font-medium">
+              Vous êtes à {progress}% d’avoir terminé les questions
             </div>
             <div className="w-[245px] flex flex-row items-center justify-start">
               <div className="flex-1 relative rounded-lg h-2">
                 <div className="absolute w-full top-[0px] right-[0px] left-[0px] rounded bg-foundation-purple-light-hover h-2" />
                 <div
-                  className={`absolute w-[${progress}] top-[0px] rounded-tl rounded-tr-none rounded-br-none rounded-bl bg-foundation-purple-normal h-2`}
+                  style={{ width: `${progress}%` }}
+                  className={`absolute  top-[0px] rounded-tl rounded-tr-none rounded-br-none rounded-bl bg-foundation-purple-normal h-2`}
                 />
               </div>
             </div>
