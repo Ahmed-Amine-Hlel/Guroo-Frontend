@@ -26,7 +26,7 @@ const EditBusinessPlan = () => {
   console.log(currentBusinessPlan);
 
   const currentStep = useAppSelector((state) => state.stepper.currentStep);
-  console.log("currentStep", currentStep);
+  // console.log("currentStep", currentStep);
 
   useEffect(() => {
     if (uid) {

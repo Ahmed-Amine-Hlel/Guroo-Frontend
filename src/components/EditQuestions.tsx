@@ -114,6 +114,21 @@ const EditQuestions = () => {
         ? question.answers[0].value
         : null;
 
+    const handleParseObjectOptions = (optionsString: string) => {
+      let correctedOptionsString = optionsString
+        .replace(/(\w[\w\s-]*\w):/g, '"$1":')
+        .replace(/‘/g, '"')
+        .replace(/’/g, '"');
+
+      try {
+        return JSON.parse(correctedOptionsString);
+      } catch (error) {
+        console.error("Error parsing options:", error);
+        console.error("Options:", correctedOptionsString);
+        return {};
+      }
+    };
+
     switch (inputType) {
       case "number":
         return (
@@ -175,8 +190,19 @@ const EditQuestions = () => {
           />
         );
       case "MultiInput":
+        const parsedOptionsForMultiInput = handleParseObjectOptions(
+          question.options || ""
+        );
+
+        const parsedValue = answerValue
+          ? JSON.parse(answerValue.replace(/'/g, '"'))
+          : {};
+        console.log("Parsed value : ", parsedValue);
+
         return (
           <MultiInput
+            value={parsedValue}
+            options={parsedOptionsForMultiInput}
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );

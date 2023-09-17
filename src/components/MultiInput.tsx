@@ -39,7 +39,8 @@ const MultiInput: React.FC<MultiInputProps> = ({
   options,
   onChange,
 }) => {
-  const [dateValue, setDateValue] = useState<string>(value?.Date || "");
+  const reformattedDate = dayjs(value?.Date, "DD/MM/YYYY").format("MM/DD/YYYY");
+  const [dateValue, setDateValue] = useState<string>(reformattedDate || "");
   const [numberValue, setNumberValue] = useState<number>(
     value?.["Durée  Amort (Années)"] || 0
   );
@@ -55,37 +56,24 @@ const MultiInput: React.FC<MultiInputProps> = ({
     }, 300)
   ).current;
 
-  // console.log("Options", options);
-  // useEffect(() => {
-  //   const newValue: any = {};
-
-  //   if (options?.Date) newValue.Date = dateValue;
-  //   if (options!["Durée  Amort (Années)"])
-  //     newValue["Durée  Amort (Années)"] = numberValue.toString();
-  //   if (options?.Montant) newValue.Montant = amountValue.toString();
-
-  //   const newValueString = JSON.stringify(newValue);
-
-  //   if (newValueString !== prevValueRef.current) {
-  //     debouncedOnChange(newValueString);
-  //     prevValueRef.current = newValueString;
-  //   }
-  // }, [dateValue, numberValue, amountValue]);
-
   useEffect(() => {
     const newValue: any = {};
 
-    if (options?.Date) newValue.Date = dateValue;
-    if (options!["Durée  Amort (Années)"])
-      newValue["Durée  Amort (Années)"] = numberValue; // No need to convert to string
-    if (options?.Montant) newValue.Montant = amountValue; // No need to convert to string
+    if (options?.Date) {
+      const databaseFormatDate = dayjs(dateValue, "MM/DD/YYYY").format(
+        "DD/MM/YYYY"
+      );
+      newValue.Date = databaseFormatDate;
+    }
+    if (options?.["Durée  Amort (Années)"]) {
+      newValue["Durée  Amort (Années)"] = numberValue;
+    }
+    if (options?.Montant) newValue.Montant = amountValue;
 
     let newValueString = JSON.stringify(newValue)
       .replace(/"/g, "'")
       .replace(/\\'/g, "'");
 
-    // Remove single quotes around numbers for 'Montant' and 'Durée  Amort (Années)'
-    // Remove single quotes around numbers for 'Montant' and 'Durée  Amort (Années)'
     newValueString = newValueString.replace(
       /'Durée  Amort (Années)': '(\d+)'/g,
       "'Durée  Amort (Années)': $1"
@@ -106,9 +94,13 @@ const MultiInput: React.FC<MultiInputProps> = ({
       {options?.Date && (
         <InputCalendar
           reducedwidth
-          value={dayjs(dateValue).isValid() ? dayjs(dateValue) : null}
+          value={
+            dayjs(dateValue, "MM/DD/YYYY").isValid()
+              ? dayjs(dateValue, "MM/DD/YYYY")
+              : null
+          }
           onChange={(date) => {
-            const formattedDate = date ? date.format("DD/MM/YYYY") : "";
+            const formattedDate = date ? date.format("MM/DD/YYYY") : "";
             if (formattedDate) {
               setDateValue(formattedDate);
             }
@@ -116,7 +108,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
         />
       )}
 
-      {options!["Durée  Amort (Années)"] && (
+      {options?.["Durée  Amort (Années)"] && (
         <NumberInput
           reducedwidth
           value={numberValue.toString()}
