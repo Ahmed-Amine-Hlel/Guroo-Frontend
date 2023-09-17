@@ -21,7 +21,11 @@ import InputAmount from "./InputAmount";
 import InputMultiUnitNumber from "./InputMultiUnitNumber";
 import { Question } from "../core/src/domain/entities/Question";
 import { FadeLoader } from "react-spinners";
-import { setAnswer, submitAnswersAsync } from "../store/answersSlice";
+import {
+  setAnswer,
+  submitAnswersAsync,
+  updateProgress,
+} from "../store/answersSlice";
 import QuestionAiBox from "./QuestionAiBox";
 import { Answer } from "../core/src/domain/entities/Answer";
 import { useNavigate } from "react-router-dom";
@@ -76,6 +80,42 @@ const Questions = () => {
   const markBusinessPlanAsDoneUseCase = new MarkBusinessPlanAsDoneUseCase(
     businessPlanService
   );
+
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // const totalQuestionsInCurrentSection =
+  //   blocks[currentStep - 1]?.questions.length;
+  // const answeredQuestionsInCurrentSection = blocks[
+  //   currentStep - 1
+  // ]?.questions.filter((q) => answers[q.uid]).length;
+  // const progressPercentage =
+  //   (answeredQuestionsInCurrentSection / totalQuestionsInCurrentSection) * 100;
+
+  // console.log("Total Questions:", totalQuestionsInCurrentSection);
+  // console.log("Answered Questions:", answeredQuestionsInCurrentSection);
+  // console.log("Progress Percentage:", progressPercentage);
+
+  // Calculate the total number of questions in the entire section
+  // const totalQuestionsInCurrentSection = blocks.reduce(
+  //   (acc, block) => acc + block.questions.length,
+  //   0
+  // );
+
+  // // Calculate the number of answered questions in the entire section
+  // const answeredQuestionsInCurrentSection = blocks.reduce(
+  //   (acc, block) => acc + block.questions.filter((q) => answers[q.uid]).length,
+  //   0
+  // );
+
+  // const progressPercentage =
+  //   (answeredQuestionsInCurrentSection / totalQuestionsInCurrentSection) * 100;
+
+  // console.log("Total Questions:", totalQuestionsInCurrentSection);
+  // console.log("Answered Questions:", answeredQuestionsInCurrentSection);
+  // console.log("Progress Percentage:", progressPercentage);
+
+  // console.log("Section Step :  ", sectionStep);
+
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   //   const hasNetSalaryBeenFetched = useAppSelector(
   //     (state) => state.questions.hasNetSalaryBeenFetched
@@ -418,6 +458,33 @@ const Questions = () => {
 
     if (formattedAnswers && currentBusinessPlanId) {
       dispatch(submitAnswersAsync(formattedAnswers as Answer[]));
+      const totalQuestionsInCurrentSection = blocks.reduce(
+        (acc, block) => acc + block.questions.length,
+        0
+      );
+
+      // Calculate the number of answered questions in the entire section
+      const answeredQuestionsInCurrentSection = blocks.reduce(
+        (acc, block) =>
+          acc + block.questions.filter((q) => answers[q.uid]).length,
+        0
+      );
+
+      const progressPercentage =
+        (answeredQuestionsInCurrentSection / totalQuestionsInCurrentSection) *
+        100;
+
+      // console.log("Total Questions:", totalQuestionsInCurrentSection);
+      // console.log("Answered Questions:", answeredQuestionsInCurrentSection);
+      // console.log("Progress Percentage:", progressPercentage);
+
+      // Dispatch the updateProgress action to update the Redux state
+      dispatch(
+        updateProgress({
+          sectionId: `section${sectionStep}`,
+          answeredCount: progressPercentage,
+        })
+      );
     } else {
       console.error("Failed to format answers or missing business plan ID.");
     }
