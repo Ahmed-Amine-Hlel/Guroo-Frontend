@@ -1,4 +1,4 @@
-import {Fragment, SetStateAction ,Dispatch} from 'react'
+import {Fragment, SetStateAction, Dispatch} from 'react'
 import {Menu, Transition} from '@headlessui/react'
 import {FaChevronDown} from 'react-icons/fa';
 
@@ -6,19 +6,20 @@ interface DropDownProps {
     items: string[];
     selectedItem: string
     setSelectedItem?: Dispatch<SetStateAction<string>>;
+    className?: string
+
 }
 
-function classNames(...classes: any) {
-    return classes.filter(Boolean).join(' ')
-}
 
-const DropDown = ({items, selectedItem, setSelectedItem}: DropDownProps) => {
+const DropDown = ({items, selectedItem, setSelectedItem, className}: DropDownProps) => {
     return (
         <Menu as="div" className="w-full relative inline-block text-left">
             <div>
-                <Menu.Button className="flex items-center justify-between text-start px-[12px] w-[100%] h-[45px] bg-light-p-hover border-[1px] 
+                <Menu.Button className={
+                    `flex items-center justify-between text-start px-[12px] w-[100%] h-[40px] bg-light-p-hover 
     border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px] 
-    focus:outline-none text-[14px] text-[#41245eeb]">
+    focus:outline-none text-[14px] text-[#41245eeb] ${className}`
+                }>
                     {selectedItem && selectedItem}
                     <FaChevronDown className="mr-1 h-[12px] w-[15px] text-[#572F7E] opacity-60" aria-hidden="true"/>
                 </Menu.Button>
@@ -34,24 +35,19 @@ const DropDown = ({items, selectedItem, setSelectedItem}: DropDownProps) => {
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    className="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-[#FCF9FF] focus:outline-none">
                     <div className="py-1">
                         {
                             items && items.map((item, index) => (
                                 <Menu.Item key={index}>
-                                    {({active}) => (
-                                        <div
-                                            className={classNames(
-                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                'block px-4 py-2 text-sm cursor-pointer'
-                                            )}
-                                            onClick={() => {
-                                                setSelectedItem?.(item)
-                                            }}
-                                        >
-                                            {item}
-                                        </div>
-                                    )}
+                                    <div
+                                        className="hover:bg-[#FAF5FF] block px-4 py-2 text-sm cursor-pointer text-foundation-purple-normal"
+                                        onClick={() => {
+                                            setSelectedItem?.(item)
+                                        }}
+                                    >
+                                        {item}
+                                    </div>
                                 </Menu.Item>
                             ))
                         }
