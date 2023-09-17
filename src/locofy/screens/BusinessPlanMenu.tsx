@@ -86,7 +86,7 @@ const BusinessPlanMenu = () => {
   }, [selectedFilter, businessPlan]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-[16px] min-h-[calc(100%_-_65px)] bg-[#f4edfb] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans ">
+    <div className="flex flex-col md:flex-row gap-[16px] min-h-[calc(100%_-_65px)] xs:max-h-[calc(100%_-_65px)] md:max-h-[calc(100%_-_65px)] bg-[#f4edfb] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans ">
       <Modal uid={uid} open={open} setOpen={setOpen} />
       <div className="flex flex-col md:w-[450px] rounded-[16px] py-[16px] bg-white max-h-screen">
         <div className="flex flex-col gap-[10px] text-white mx-[16px] p-[16px] rounded-[8px] mb-[16px] bg-gradient-to-r from-[#6441A5] from-0% to-[#914FD2] to-100%">
@@ -180,7 +180,7 @@ const BusinessPlanMenu = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full max-h-screen">
         <div className="flex flex-col gap-4 lg:gap-0 lg:flex-row  justify-between lg:items-center rounded-[16px] px-[18px] py-[22px] bg-white mb-[22px]">
           <div className="text-[16px] md:text-[18px] lg:text-[26px]">
             Voici vos business-plan,{" "}
@@ -227,7 +227,7 @@ const BusinessPlanMenu = () => {
             <PiListBulletsBold size={28} color="rgba(131, 71, 189, 1)" />
           </div>
         </div>
-        <div className="overflow-y-auto qb-thumb max-h-[34rem]">
+        <div className="overflow-y-auto qb-thumb">
           {businessPlan?.length === 0 ? (
             <NoData />
           ) : (
