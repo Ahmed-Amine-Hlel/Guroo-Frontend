@@ -67,13 +67,15 @@ const EditBusinessPlan = () => {
           </div>
 
           <div className="flex items-center gap-[12px]">
-            <div className="flex items-center">
-              <div className="rounded-[8px] px-[12px] py-[8px] text-[12px] text-[#914FD2] bg-[#ddc8f1] ">
-                {currentBusinessPlan?.availableRevisions} modifications
-                restantes
+            {currentBusinessPlan?.isPaid && (
+              <div className="flex items-center">
+                <div className="rounded-[8px] px-[12px] py-[8px] text-[12px] text-[#914FD2] bg-[#ddc8f1] ">
+                  {currentBusinessPlan?.availableRevisions} modifications
+                  restantes
+                </div>
+                <VscTriangleRight className="ms-[-6px] text-[#ddc8f1] " />
               </div>
-              <VscTriangleRight className="ms-[-6px] text-[#ddc8f1] " />
-            </div>
+            )}
 
             <button className="flex items-center bg-gradient-to-r from-[#914FD2] from-0% to-[#7D1EE7] to-100% rounded-[45px] px-[12px] py-[8px] text-white gap-[8px] hover:cursor-pointer">
               <span className="text-[12px]">Enregistrer les modifications</span>

@@ -1,5 +1,5 @@
 import { PaymentService } from "../domain/adapters/PaymentService";
-import { PaymentPrice } from "../domain/entities/Payment";
+import { PaymentPrice } from "../domain/entities/PaymentPrice";
 
 export class FetchPaymentPrices {
   private paymentService: PaymentService;

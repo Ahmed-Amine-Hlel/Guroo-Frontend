@@ -1,4 +1,4 @@
-import { PaymentPrice } from "../entities/Payment";
+import { PaymentPrice } from "../entities/PaymentPrice";
 
 export interface CheckoutSessionResponse {
   stripe_checkout_url: string;

@@ -279,9 +279,11 @@ const BusinessPlanMenu = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
-                    {plan.availableRevisions} modifications restantes
-                  </div>
+                  {plan.isPaid && (
+                    <div className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
+                      {plan.availableRevisions} modifications restantes
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

@@ -3,7 +3,7 @@ import {
   PaymentService,
 } from "../../domain/adapters/PaymentService";
 import api from "../../domain/adapters/api";
-import { PaymentPrice } from "../../domain/entities/Payment";
+import { PaymentPrice } from "../../domain/entities/PaymentPrice";
 
 class GurooPaymentService implements PaymentService {
   async fetchPaymentPrices(): Promise<PaymentPrice[]> {

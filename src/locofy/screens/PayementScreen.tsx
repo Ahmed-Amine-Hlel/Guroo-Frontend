@@ -4,7 +4,7 @@ import { FetchPaymentPrices } from "../../core/src/usecases/FetchPaymentPrices";
 import { InitiateCheckoutSession } from "../../core/src/usecases/InitiateCheckoutSession";
 import GurooPaymentService from "../../core/src/adapters/realDependencies/GurooPaymentService";
 import { useEffect } from "react";
-import { PaymentPrice } from "../../core/src/domain/entities/Payment";
+import { PaymentPrice } from "../../core/src/domain/entities/PaymentPrice";
 
 const PayementScreen = () => {
   const [prices, setPrices] = useState<PaymentPrice[]>([]);

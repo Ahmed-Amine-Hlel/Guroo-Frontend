@@ -1,11 +1,19 @@
+import { Payment } from "./Payment";
+
 export interface BusinessPlan {
-  createdAt?: string;
-  description?: string;
   uid?: string;
-  isDone?: boolean;
-  availableRevisions?: number;
-  section?: number;
-  title: string;
-  updatedAt?: string;
   userId?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  title: string;
+  description?: string;
+  section?: number;
+  isDone?: boolean;
+  isRevision?: boolean;
+  isPaid?: boolean;
+  doneAt?: Date;
+  availableRevisions?: number;
+  parentId?: string;
+  children?: BusinessPlan[];
+  payments?: Payment[];
 }
