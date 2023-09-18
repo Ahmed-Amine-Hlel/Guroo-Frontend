@@ -3,15 +3,15 @@ import { Payment } from "./Payment";
 export interface BusinessPlan {
   uid?: string;
   userId?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
   title: string;
   description?: string;
   section?: number;
   isDone?: boolean;
   isRevision?: boolean;
   isPaid?: boolean;
-  doneAt?: Date;
+  doneAt?: string;
   availableRevisions?: number;
   parentId?: string;
   children?: BusinessPlan[];
