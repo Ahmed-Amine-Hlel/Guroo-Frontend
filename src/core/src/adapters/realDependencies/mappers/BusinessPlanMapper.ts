@@ -5,7 +5,7 @@ export class BusinessPlanMapper implements Mapper<BusinessPlan> {
   toDomain(raw: any): BusinessPlan {
     const {
       uid,
-      userId,
+      userUid,
       createdAt,
       updatedAt,
       title,
@@ -22,7 +22,7 @@ export class BusinessPlanMapper implements Mapper<BusinessPlan> {
     } = raw;
     return {
       uid,
-      userId,
+      userUid,
       createdAt,
       updatedAt,
       title,

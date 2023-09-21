@@ -10,4 +10,5 @@ export interface BusinessPlanService {
   createBusinessPlan(businessPlan: BusinessPlan): Promise<BusinessPlan>;
   deleteBusinessPlans(uid: string): Promise<string>;
   markBusinessPlanAsDone(uid: string): Promise<any>;
+  createBusinessPlanRevision(businessPlanUid: string): Promise<BusinessPlan>;
 }

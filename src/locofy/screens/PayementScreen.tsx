@@ -1,19 +1,22 @@
 import { useState } from "react";
-import { useAppSelector } from "../../hooks/hooks";
+// import { useAppSelector } from "../../hooks/hooks";
 import { FetchPaymentPrices } from "../../core/src/usecases/FetchPaymentPrices";
 import { InitiateCheckoutSession } from "../../core/src/usecases/InitiateCheckoutSession";
 import GurooPaymentService from "../../core/src/adapters/realDependencies/GurooPaymentService";
 import { useEffect } from "react";
 import { PaymentPrice } from "../../core/src/domain/entities/PaymentPrice";
+import { useParams } from "react-router-dom";
 
 const PayementScreen = () => {
   const [prices, setPrices] = useState<PaymentPrice[]>([]);
 
-  const currentBusinessPlan = useAppSelector(
-    (state) => state.businessPlan.currentBusinessPlan
-  );
+  // const currentBusinessPlan = useAppSelector(
+  //   (state) => state.businessPlan.currentBusinessPlan
+  // );
 
-  const currentBusinessPlanId = currentBusinessPlan?.uid;
+  // const currentBusinessPlanId = currentBusinessPlan?.uid;
+
+  const { businessPlanId } = useParams<{ businessPlanId: string }>();
 
   const paymentService = new GurooPaymentService();
 
@@ -40,7 +43,7 @@ const PayementScreen = () => {
       return;
     }
 
-    if (!currentBusinessPlanId) {
+    if (!businessPlanId) {
       console.error("No business plan ID found");
       return;
     }
@@ -48,7 +51,7 @@ const PayementScreen = () => {
     try {
       const session = await initiateCheckoutSessionUseCase.execute(
         price.id,
-        currentBusinessPlanId
+        businessPlanId
       );
       if (session && session.stripe_checkout_url) {
         window.location.href = session.stripe_checkout_url;
@@ -57,7 +60,7 @@ const PayementScreen = () => {
       }
       console.log(session);
       console.log("Price ID : ", price.id);
-      console.log(currentBusinessPlanId);
+      console.log(businessPlanId);
     } catch (error) {
       console.error("Failed to initiate checkout:", error);
     }

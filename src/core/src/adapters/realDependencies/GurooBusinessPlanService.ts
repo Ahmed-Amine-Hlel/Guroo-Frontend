@@ -77,4 +77,18 @@ export class GurooBusinessPlanService implements BusinessPlanService {
       throw Error("Marking BusinessPlan as done failed");
     }
   }
+
+  async createBusinessPlanRevision(
+    businessPlanUid: string
+  ): Promise<BusinessPlan> {
+    try {
+      const response = await api.get(
+        `/business-plan/revision/${businessPlanUid}`
+      );
+      return this.businessPlanMapper.toDomain(response.data);
+    } catch (e) {
+      console.log(e);
+      throw Error("Creating BusinessPlan revision failed");
+    }
+  }
 }

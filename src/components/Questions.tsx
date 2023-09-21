@@ -74,7 +74,7 @@ const Questions = () => {
   );
 
   const currentBusinessPlanId = currentBusinessPlan?.uid;
-  //console.log("Current Business Plan ID:", currentBusinessPlanId);
+  console.log("Current Business Plan ID:", currentBusinessPlanId);
   const answers = useAppSelector((state) => state.answers.answers);
 
   const markBusinessPlanAsDoneUseCase = new MarkBusinessPlanAsDoneUseCase(
@@ -519,7 +519,7 @@ const Questions = () => {
     if (currentBusinessPlanId) {
       try {
         await markBusinessPlanAsDoneUseCase.execute(currentBusinessPlanId);
-        navigate("/payment");
+        navigate(`/payment/${currentBusinessPlanId}`);
       } catch (error) {
         console.error("Error marking the business plan as done:", error);
       }

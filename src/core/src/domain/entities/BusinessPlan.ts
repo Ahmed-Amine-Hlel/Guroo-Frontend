@@ -2,7 +2,7 @@ import { Payment } from "./Payment";
 
 export interface BusinessPlan {
   uid?: string;
-  userId?: string;
+  userUid?: string;
   createdAt?: string;
   updatedAt?: string;
   title: string;

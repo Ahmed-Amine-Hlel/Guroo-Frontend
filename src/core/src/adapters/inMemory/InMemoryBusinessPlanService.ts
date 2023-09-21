@@ -32,4 +32,18 @@ export class InMemoryBusinessPlanService implements BusinessPlanService {
     this.businessPlans = this.businessPlans.filter((bp) => bp.uid !== id);
     return Promise.resolve(`BusinessPlan with ID ${id} deleted successfully.`);
   }
+
+  async createBusinessPlanRevision(
+    businessPlanUid: string
+  ): Promise<BusinessPlan> {
+    const businessPlan = this.businessPlans.find(
+      (bp) => bp.uid === businessPlanUid
+    );
+    if (!businessPlan) {
+      throw new Error("Business Plan not found.");
+    }
+    const revision = { ...businessPlan, uid: Math.random().toString() };
+    this.businessPlans.push(revision);
+    return revision;
+  }
 }
