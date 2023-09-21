@@ -245,14 +245,14 @@ const BusinessPlanMenu = () => {
                                     : `flex flex-col gap-[10px]`
                             }
                         >
-                            {sortedBusinessPlans?.map((plan) => (
+                            {sortedBusinessPlans?.map((plan, index: number) => (
                                 <div
                                     key={plan.uid}
-                                    className={`h-max flex flex-col justify-between gap-[14px] rounded-[16px] w-full bg-white p-[12px] ${displayType === 'grid' ? 'h-[165px]' : ''} `}
+                                    className={`flex flex-col justify-between gap-[14px] rounded-[16px] w-full bg-white p-[12px] ${displayType === 'grid' ? 'h-[165px]' : ''}`}
                                 >
                                     <div
                                         className={
-                                            displayType === "grid" ? "" : "flex items-center"
+                                            displayType === "grid" ? "flex flex-col h-full" : "flex items-center"
                                         }
                                     >
                                         <div>
@@ -262,7 +262,7 @@ const BusinessPlanMenu = () => {
                                             </div>
                                         </div>
                                         <div
-                                            className={`flex justify-between w-full text-[#5C3C7C] ${plan.isPaid || plan.isRevision ? 'items-center' : 'h-full items-end'} ${displayType === "grid" ? '-mb-3' : ''}`}>
+                                            className={`flex items-center justify-between w-full text-[#5C3C7C] ${displayType === 'grid' ? 'mt-auto' : ''}`}>
                                             <div className="text-[20px]">{plan.title}</div>
                                             <div
                                                 className={`ms-auto relative flex gap-1.5 items-center ${
@@ -288,7 +288,7 @@ const BusinessPlanMenu = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    {(plan.isPaid || plan.isRevision) && (
+                                    {(index % 2 === 0) && (
                                         <div
                                             className="w-full text-[#914FD2] text-[10px] p-[10px] bg-[#FAF5FF] rounded-[4px]">
                                             {plan.availableRevisions} modifications restantes
