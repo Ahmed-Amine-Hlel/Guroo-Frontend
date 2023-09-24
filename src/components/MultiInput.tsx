@@ -1,10 +1,10 @@
-import InputCalendar from "./InputCalendar";
-import InputAmount from "./InputAmount";
-import NumberInput from "./NumberInput";
-import { useEffect, useState, useRef } from "react";
 import dayjs from "dayjs";
+import { useEffect, useRef, useState } from "react";
+import InputAmount from "./InputAmount";
+import InputCalendar from "./InputCalendar";
+import NumberInput from "./NumberInput";
 
-function debounce<F extends (...args: any[]) => any>(
+function debounce<F extends (...args: unknown[]) => unknown>(
   func: F,
   wait: number
 ): (...args: Parameters<F>) => void {
@@ -57,7 +57,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
   ).current;
 
   useEffect(() => {
-    const newValue: any = {};
+    const newValue: unknown = {};
 
     if (options?.Date) {
       const databaseFormatDate = dayjs(dateValue, "MM/DD/YYYY").format(
@@ -75,7 +75,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
       .replace(/\\'/g, "'");
 
     newValueString = newValueString.replace(
-      /'Durée  Amort (Années)': '(\d+)'/g,
+      /'Durée {2}Amort (Années)': '(\d+)'/g,
       "'Durée  Amort (Années)': $1"
     );
     newValueString = newValueString.replace(
@@ -87,7 +87,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
       debouncedOnChange(newValueString);
       prevValueRef.current = newValueString;
     }
-  }, [dateValue, numberValue, amountValue]);
+  }, [dateValue, numberValue, amountValue, options, debouncedOnChange]);
 
   return (
     <div className="flex flex-row gap-[5px] w-full">

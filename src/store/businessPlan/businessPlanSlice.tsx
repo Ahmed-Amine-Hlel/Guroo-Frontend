@@ -1,18 +1,18 @@
 // src/redux/businessPlanSlice.ts
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BusinessPlan } from "../../core/src/domain/entities/BusinessPlan";
 import {
   BusinessPlanQuestionsWithAnswersResponse,
   GurooBusinessPlanService,
 } from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
 import { BusinessPlanMapper } from "../../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
-import { GetBusinessPlans } from "../../core/src/usecases/GetBusinessPlans";
+import { BusinessPlan } from "../../core/src/domain/entities/BusinessPlan";
 import { CreateBusinessPlanUseCase } from "../../core/src/usecases/CreateBusinessPlanUseCase";
 import { DeleteBusinessPlan } from "../../core/src/usecases/DeleteBusinessPlanUseCase";
 import {
   GetBusinessPlanQuestionsWithAnswers,
   GetQuestionsWithAnswersRequest,
 } from "../../core/src/usecases/GetBusinessPlanQuestionsWithAnswers";
+import { GetBusinessPlans } from "../../core/src/usecases/GetBusinessPlans";
 
 interface businessPlanState {
   businessPlan: BusinessPlan[] | null;
@@ -152,6 +152,7 @@ const businessPlanSlice = createSlice({
           state,
           action: PayloadAction<BusinessPlanQuestionsWithAnswersResponse>
         ) => {
+          // console.log("Updating questionsWithAnswers with:", action.payload);
           state.loadingQuestionsWithAnswers = false;
           state.currentQuestionsWithAnswers = action.payload;
         }

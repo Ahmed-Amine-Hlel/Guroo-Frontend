@@ -1,11 +1,11 @@
 import { Button, DatePicker } from "antd";
-import styled, { createGlobalStyle } from "styled-components";
-import { useState } from "react";
-import "dayjs/locale/fr";
 import locale from "antd/es/date-picker/locale/fr_FR";
 import dayjs from "dayjs";
-import { IoCloseSharp } from "react-icons/io5";
+import "dayjs/locale/fr";
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import { useState } from "react";
+import { IoCloseSharp } from "react-icons/io5";
+import styled, { createGlobalStyle } from "styled-components";
 
 dayjs.extend(localizedFormat);
 dayjs.locale("fr");
@@ -16,7 +16,7 @@ interface InputCalendarProps {
   value?: dayjs.Dayjs | null;
 }
 
-const StyledDatePicker = styled(DatePicker) <InputCalendarProps>`
+const StyledDatePicker = styled(DatePicker)<InputCalendarProps>`
   &.ant-picker,
   &.ant-picker-focused {
     border: none;

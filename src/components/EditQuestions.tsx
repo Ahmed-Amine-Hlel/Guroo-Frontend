@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { FadeLoader } from "react-spinners";
 import { HiMiniArrowLeft, HiMiniArrowRight } from "react-icons/hi2";
+import { FadeLoader } from "react-spinners";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 // import QuestionAiBox from "./QuestionAiBox";
-import StringInput from "./StringInput";
-import InputMultiUnitNumber from "./InputMultiUnitNumber";
+import { Block } from "../core/src/domain/entities/Block";
+import { Question } from "../core/src/domain/entities/Question";
 import InputAmount from "./InputAmount";
-import MultiInput from "./MultiInput";
-import InputPercentage from "./InputPercentage";
-import InputListBox from "./InputListBox";
 import InputCalendar from "./InputCalendar";
 import InputCheckBox from "./InputCheckBox";
+import InputListBox from "./InputListBox";
+import InputMultiUnitNumber from "./InputMultiUnitNumber";
+import InputPercentage from "./InputPercentage";
+import MultiInput from "./MultiInput";
 import NumberInput from "./NumberInput";
-import { Question } from "../core/src/domain/entities/Question";
-import { Block } from "../core/src/domain/entities/Block";
+import StringInput from "./StringInput";
 // import data from "../../public/data.json";
-import { BsArrowRight } from "react-icons/bs";
 import dayjs from "dayjs";
+import { BsArrowRight } from "react-icons/bs";
 import { incrementStep } from "../store/StepperSlice";
+import { resetAnswers, setAnswer } from "../store/answersSlice";
+
 const EditQuestions = () => {
   const isLoadingQuestionsWithAnswers = useAppSelector(
     (state) => state.businessPlan.loadingQuestionsWithAnswers
@@ -26,6 +28,7 @@ const EditQuestions = () => {
   const questionsWithAnswers = useAppSelector(
     (state) => state.businessPlan.currentQuestionsWithAnswers
   );
+  // const { businessPlanId } = useParams<{ businessPlanId: string }>();
 
   const dispatch = useAppDispatch();
   const currentSectionStep = useAppSelector(
@@ -40,6 +43,17 @@ const EditQuestions = () => {
   const [questionsPerPage] = useState<number>(5);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [currentStep, setCurrentStep] = useState<number>(1);
+  // const answers = useAppSelector((state) => state.answers.answers);
+  const currentAnswers = useAppSelector((state) => state.answers.answers);
+  // const [currentAnswers, setCurrentAnswers] = useState<AnswerMap>({});
+
+  // console.log("Frais d'établissement : ", currentAnswers);
+
+  // console.log(currentAnswers);
+
+  // console.log("questionsWithAnswers : ", questionsWithAnswers);
+  // console.log("currentAnswers :", currentAnswers);
+
   const extractBlocksWithQuestions = (
     block: Block,
     result: Block[] = [],
@@ -54,7 +68,7 @@ const EditQuestions = () => {
       result.push(clonedBlock);
     }
 
-    for (let subBlock of block.blocks) {
+    for (const subBlock of block.blocks) {
       extractBlocksWithQuestions(subBlock, result, currentLabel);
     }
   };
@@ -62,11 +76,11 @@ const EditQuestions = () => {
   const reformatData = () => {
     const blocksWithQuestions: Block[] = [];
     if (questionsWithAnswers?.blocks) {
-      for (let block of questionsWithAnswers?.blocks as Block[]) {
+      for (const block of questionsWithAnswers?.blocks as Block[]) {
         extractBlocksWithQuestions(block, blocksWithQuestions);
       }
     }
-    console.log(blocksWithQuestions);
+    // console.log(blocksWithQuestions);
     setBlocks(blocksWithQuestions);
   };
 
@@ -109,13 +123,10 @@ const EditQuestions = () => {
   };
 
   const renderInputComponent = (inputType: string, question: Question) => {
-    const answerValue =
-      question.answers && question.answers[0]
-        ? question.answers[0].value
-        : null;
+    const answerValue = currentAnswers[question.uid] as string | undefined;
 
     const handleParseObjectOptions = (optionsString: string) => {
-      let correctedOptionsString = optionsString
+      const correctedOptionsString = optionsString
         .replace(/(\w[\w\s-]*\w):/g, '"$1":')
         .replace(/‘/g, '"')
         .replace(/’/g, '"');
@@ -151,7 +162,7 @@ const EditQuestions = () => {
             onChange={(boolValue) => handleInputChange(question.uid, boolValue)}
           />
         );
-      case "date":
+      case "date": {
         const dateValue = answerValue
           ? dayjs(answerValue, "DD/MM/YYYY")
           : undefined;
@@ -165,7 +176,8 @@ const EditQuestions = () => {
             }}
           />
         );
-      case "list":
+      }
+      case "list": {
         const parsedOptions = question.options
           ? question.options
               .slice(1, -1)
@@ -182,6 +194,7 @@ const EditQuestions = () => {
             }
           />
         );
+      }
       case "percent":
         return (
           <InputPercentage
@@ -189,7 +202,7 @@ const EditQuestions = () => {
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
-      case "MultiInput":
+      case "MultiInput": {
         const parsedOptionsForMultiInput = handleParseObjectOptions(
           question.options || ""
         );
@@ -206,6 +219,7 @@ const EditQuestions = () => {
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
+      }
       case "GooglePlaces":
         return (
           <StringInput
@@ -234,9 +248,61 @@ const EditQuestions = () => {
     }
   };
 
-  const handleInputChange = (questionUid: string, value: any) => {
-    console.log(questionUid, value);
+  // type AnswerMap = {
+  //   [key: string]: unknown;
+  // };
+
+  // useEffect(() => {
+  //   const initialAnswers: AnswerMap = {};
+  //   questionsWithAnswers?.blocks.forEach((block) => {
+  //     block.questions.forEach((question) => {
+  //       if (question.answers && question.answers[0]) {
+  //         initialAnswers[question.uid] = question.answers[0].value;
+  //       }
+  //     });
+  //   });
+  //   setCurrentAnswers(initialAnswers);
+  // }, [questionsWithAnswers]);
+
+  const handleInputChange = (questionUid: string, value: unknown) => {
+    dispatch(setAnswer({ questionUid, value }));
   };
+
+  useEffect(() => {
+    dispatch(resetAnswers());
+    if (questionsWithAnswers?.blocks) {
+      questionsWithAnswers.blocks.forEach((block) => {
+        block.questions.forEach((question) => {
+          if (question.answers && question.answers[0]) {
+            if (question.inputType === "MultiInput") {
+              // Parse the value if it's of type "MultiInput"
+              try {
+                const parsedValue = JSON.parse(
+                  question.answers[0].value.replace(/'/g, '"')
+                );
+                dispatch(
+                  setAnswer({
+                    questionUid: question.uid,
+                    value: parsedValue,
+                  })
+                );
+              } catch (error) {
+                // Handle parsing error here if needed
+                console.error("Error parsing MultiInput value:", error);
+              }
+            } else {
+              dispatch(
+                setAnswer({
+                  questionUid: question.uid,
+                  value: question.answers[0].value,
+                })
+              );
+            }
+          }
+        });
+      });
+    }
+  }, [questionsWithAnswers, dispatch]);
 
   useEffect(() => {
     reformatData();
@@ -307,9 +373,6 @@ const EditQuestions = () => {
                       {question.label}
                     </label>
                     {renderInputComponent(question.inputType, question)}
-                    {/* {aiResponses[question.uid] && (
-                        <QuestionAiBox message={aiResponses[question.uid]} />
-                      )} */}
                   </div>
                 ))}
             </div>

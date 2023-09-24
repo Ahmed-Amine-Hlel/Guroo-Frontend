@@ -1,39 +1,38 @@
+import { useCallback, useEffect, useState } from "react";
 import { HiMiniArrowLeft, HiMiniArrowRight } from "react-icons/hi2";
-import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import {
   // fetchCotisationsSalariales,
   fetchNetSalary,
   fetchPredictLoyer,
   fetchSectionsForStep,
-  //   setNetSalaryFetchedFlag,
 } from "../store/QuestionsSlice";
 import { incrementStep } from "../store/StepperSlice";
-import NumberInput from "./NumberInput";
-import StringInput from "./StringInput";
-import InputCheckBox from "./InputCheckBox";
 import InputCalendar from "./InputCalendar";
+import InputCheckBox from "./InputCheckBox";
 import InputListBox from "./InputListBox";
 import InputPercentage from "./InputPercentage";
 import MultiInput from "./MultiInput";
+import NumberInput from "./NumberInput";
+import StringInput from "./StringInput";
 // import InputGooglePlaces from "./InputGooglePlaces";
-import InputAmount from "./InputAmount";
-import InputMultiUnitNumber from "./InputMultiUnitNumber";
-import { Question } from "../core/src/domain/entities/Question";
+import { BsArrowRight } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
+import { GurooBusinessPlanService } from "../core/src/adapters/realDependencies/GurooBusinessPlanService";
+import { BusinessPlanMapper } from "../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
+import { Answer } from "../core/src/domain/entities/Answer";
+import { Block } from "../core/src/domain/entities/Block";
+import { Question } from "../core/src/domain/entities/Question";
+import { MarkBusinessPlanAsDoneUseCase } from "../core/src/usecases/MarkBusinessPlanAsDoneUseCase";
 import {
   setAnswer,
   submitAnswersAsync,
   updateProgress,
 } from "../store/answersSlice";
+import InputAmount from "./InputAmount";
+import InputMultiUnitNumber from "./InputMultiUnitNumber";
 import QuestionAiBox from "./QuestionAiBox";
-import { Answer } from "../core/src/domain/entities/Answer";
-import { useNavigate } from "react-router-dom";
-import { GurooBusinessPlanService } from "../core/src/adapters/realDependencies/GurooBusinessPlanService";
-import { BusinessPlanMapper } from "../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
-import { MarkBusinessPlanAsDoneUseCase } from "../core/src/usecases/MarkBusinessPlanAsDoneUseCase";
-import { Block } from "../core/src/domain/entities/Block";
-import { BsArrowRight } from "react-icons/bs";
 
 type InputType =
   | "number"
@@ -50,6 +49,22 @@ type InputType =
 const businessPlanService = new GurooBusinessPlanService(
   new BusinessPlanMapper()
 );
+
+const centre_revenu_mapping = {
+  Restaurant: 5,
+  Bar: 11,
+  Club: 17,
+  Lounge: 23,
+  "Beach Club": 29,
+};
+
+const centre_revenu_uids = {
+  Restaurant: "36535beb-bd48-4e1d-8c96-786796e7ccf8",
+  Bar: "1b6aa579-49ae-4acc-9f30-2699b7af5f9c",
+  Club: "1c2fbce6-b0f8-4401-b07f-9fbc88a28c63",
+  Lounge: "69f59b57-5639-4db9-aeeb-e5b300bc02e7",
+  "Beach Club": "2dcca647-f4c0-4373-a828-459b9a005d03",
+};
 
 const Questions = () => {
   const dispatch = useAppDispatch();
@@ -127,24 +142,23 @@ const Questions = () => {
   //     (state) => state.questions.hasCotisationsSalarialesBeenFetched
   //   );
 
-  const extractBlocksWithQuestions = (
-    block: Block,
-    result: Block[] = [],
-    parentLabel: string = ""
-  ): void => {
-    const currentLabel = parentLabel
-      ? `${parentLabel}-${block.label}`
-      : block.label;
+  const extractBlocksWithQuestions = useCallback(
+    (block: Block, result: Block[] = [], parentLabel: string = ""): void => {
+      const currentLabel = parentLabel
+        ? `${parentLabel}-${block.label}`
+        : block.label;
 
-    if (block.questions.length > 0) {
-      const clonedBlock = { ...block, blocks: [], label: currentLabel };
-      result.push(clonedBlock);
-    }
+      if (block.questions.length > 0) {
+        const clonedBlock = { ...block, blocks: [], label: currentLabel };
+        result.push(clonedBlock);
+      }
 
-    for (let subBlock of block.blocks) {
-      extractBlocksWithQuestions(subBlock, result, currentLabel);
-    }
-  };
+      for (const subBlock of block.blocks) {
+        extractBlocksWithQuestions(subBlock, result, currentLabel);
+      }
+    },
+    []
+  );
 
   // const reformatData = () => {
   //   const blocksWithQuestions: Block[] = [];
@@ -157,31 +171,15 @@ const Questions = () => {
   //   setBlocks(blocksWithQuestions);
   // };
 
-  const centre_revenu_mapping = {
-    Restaurant: 5,
-    Bar: 11,
-    Club: 17,
-    Lounge: 23,
-    "Beach Club": 29,
-  };
-
-  const centre_revenu_uids = {
-    Restaurant: "36535beb-bd48-4e1d-8c96-786796e7ccf8",
-    Bar: "1b6aa579-49ae-4acc-9f30-2699b7af5f9c",
-    Club: "1c2fbce6-b0f8-4401-b07f-9fbc88a28c63",
-    Lounge: "69f59b57-5639-4db9-aeeb-e5b300bc02e7",
-    "Beach Club": "2dcca647-f4c0-4373-a828-459b9a005d03",
-  };
-
   type SkipMapping = {
     [key: string]: string[];
   };
 
-  const reformatData = () => {
+  const reformatData = useCallback(() => {
     let updatedBlocks: Block[] = [];
     if (section?.blocks) {
       updatedBlocks = section.blocks.map((block) => {
-        let newBlock = { ...block };
+        const newBlock = { ...block };
         // Handle special case for "Rythme de croisière"
         if (block.label.trim() === "Rythme de croisière") {
           const answer = answers["1394f36f-5b61-49dd-a09d-dae236783426"];
@@ -211,7 +209,7 @@ const Questions = () => {
 
     // Existing Centre de revenu logic
     const blocksWithQuestions: Block[] = [];
-    for (let block of updatedBlocks) {
+    for (const block of updatedBlocks) {
       const skipBlock = Object.keys(centre_revenu_mapping).some((label) => {
         const questionUid = (centre_revenu_uids as { [key: string]: string })[
           label
@@ -229,7 +227,7 @@ const Questions = () => {
     }
 
     setBlocks(blocksWithQuestions);
-  };
+  }, [section, answers, extractBlocksWithQuestions, setBlocks]);
 
   // console.log("redux answers : ", answers);
 
@@ -268,7 +266,7 @@ const Questions = () => {
       : false;
 
     const handleParseObjectOptions = (optionsString: string) => {
-      let correctedOptionsString = optionsString
+      const correctedOptionsString = optionsString
         .replace(/(\w[\w\s-]*\w):/g, '"$1":')
         .replace(/‘/g, '"')
         .replace(/’/g, '"');
@@ -319,7 +317,7 @@ const Questions = () => {
             }}
           />
         );
-      case "list":
+      case "list": {
         const parsedOptions = question.options
           ? question.options
               .slice(1, -1)
@@ -340,6 +338,7 @@ const Questions = () => {
             }
           />
         );
+      }
       case "percent":
         return (
           <InputPercentage
@@ -348,7 +347,7 @@ const Questions = () => {
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
-      case "MultiInput":
+      case "MultiInput": {
         const parsedOptionsForMultiInput = handleParseObjectOptions(
           question.options || ""
         );
@@ -359,6 +358,7 @@ const Questions = () => {
             onChange={(value) => handleInputChange(question.uid, value)}
           />
         );
+      }
       case "GooglePlaces":
         return (
           <StringInput
@@ -388,7 +388,7 @@ const Questions = () => {
     }
   };
 
-  const handleInputChange = (questionUid: string, value: any) => {
+  const handleInputChange = (questionUid: string, value: unknown) => {
     dispatch(
       setAnswer({
         questionUid,
@@ -458,6 +458,7 @@ const Questions = () => {
 
     if (formattedAnswers && currentBusinessPlanId) {
       dispatch(submitAnswersAsync(formattedAnswers as Answer[]));
+
       const totalQuestionsInCurrentSection = blocks.reduce(
         (acc, block) => acc + block.questions.length,
         0
@@ -547,7 +548,7 @@ const Questions = () => {
 
   useEffect(() => {
     reformatData();
-  }, [section, answers]);
+  }, [section, answers, reformatData]);
 
   useEffect(() => {
     setIsBackDisabled(currentStep === 1 && currentQuestionIndex === 0);
@@ -557,13 +558,7 @@ const Questions = () => {
     dispatch(fetchSectionsForStep(sectionStep));
     setCurrentStep(1);
     setCurrentQuestionIndex(0);
-  }, [
-    dispatch,
-    sectionStep,
-    fetchSectionsForStep,
-    setCurrentStep,
-    setCurrentQuestionIndex,
-  ]);
+  }, [dispatch, sectionStep, setCurrentStep, setCurrentQuestionIndex]);
 
   //   useEffect(() => {
   //     const town = answers["0f7b07a6-0a75-4df1-8e11-4e164712c7b4"];

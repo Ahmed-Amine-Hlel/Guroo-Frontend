@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { GurooAnswerService } from "../core/src/adapters/realDependencies/GurooAnswerService";
-import { SubmitAnswersUseCase } from "../core/src/usecases/SubmitAnswersUseCase";
 import { Answer } from "../core/src/domain/entities/Answer";
+import { SubmitAnswersUseCase } from "../core/src/usecases/SubmitAnswersUseCase";
 
 interface AnswersState {
+  //TODO create better types for answers
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   answers: Record<string, any>;
   loading: boolean;
   error: string | null;

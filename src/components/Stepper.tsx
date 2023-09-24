@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
 import stepsData from "../fixtures/stepsData";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { setCurrentStep } from "../store/StepperSlice";
-import { useEffect, useState } from "react";
 
 const Stepper = () => {
   const currentStep = useAppSelector((state) => state.stepper.currentStep);
@@ -13,7 +13,7 @@ const Stepper = () => {
     (state) => state.answers.progress[sectionId]
   );
 
-  console.log(currentSectionProgress);
+  // console.log(currentSectionProgress);
 
   const renderStepIcon = (stepNumber: number) => {
     const baseClass =

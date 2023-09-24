@@ -1,20 +1,22 @@
-import { HiMiniArrowLeft } from "react-icons/hi2";
 import { FiEdit2, FiSave } from "react-icons/fi";
+import { HiMiniArrowLeft } from "react-icons/hi2";
 import { VscTriangleRight } from "react-icons/vsc";
 import Stepper from "../../components/Stepper";
 // import Questions from "../../components/Questions";
-import { useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useEffect } from "react";
-import { getBusinessPlanQuestionsWithAnswersAsync } from "../../store/businessPlan/businessPlanSlice";
-import EditQuestions from "../../components/EditQuestions";
+import { useNavigate, useParams } from "react-router-dom";
 import ChatBot from "../../components/ChatBot";
+import EditQuestions from "../../components/EditQuestions";
+import { Answer } from "../../core/src/domain/entities/Answer";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { submitAnswersAsync } from "../../store/answersSlice";
+import { getBusinessPlanQuestionsWithAnswersAsync } from "../../store/businessPlan/businessPlanSlice";
 
 const EditBusinessPlan = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { uid } = useParams();
-  console.log("uid", uid);
+  // console.log("uid", uid);
 
   const allBusinessPlans = useAppSelector(
     (state) => state.businessPlan.businessPlan
@@ -23,10 +25,28 @@ const EditBusinessPlan = () => {
   const currentBusinessPlan = allBusinessPlans?.find(
     (plan) => plan.uid === uid
   );
-  console.log(currentBusinessPlan);
+  // console.log(currentBusinessPlan);
 
   const currentStep = useAppSelector((state) => state.stepper.currentStep);
   // console.log("currentStep", currentStep);
+
+  const answers = useAppSelector((state) => state.answers.answers);
+
+  const handleSendAllAnswers = () => {
+    // Format all answers
+    const formattedAnswers = Object.keys(answers).map((questionUid) => ({
+      value: answers[questionUid],
+      questionId: questionUid,
+      businessPlanId: uid,
+    }));
+
+    // Dispatch the answers to the backend
+    if (formattedAnswers.length > 0 && uid) {
+      dispatch(submitAnswersAsync(formattedAnswers as Answer[]));
+    } else {
+      console.error("No answers to format or missing business plan ID.");
+    }
+  };
 
   useEffect(() => {
     if (uid) {
@@ -36,6 +56,7 @@ const EditBusinessPlan = () => {
           businessPlanUid: uid,
         })
       );
+      // console.log("currentStep ", currentStep);
     }
   }, [uid, currentStep, dispatch]);
 
@@ -77,7 +98,12 @@ const EditBusinessPlan = () => {
               </div>
             )}
 
-            <button className="flex items-center bg-gradient-to-r from-[#914FD2] from-0% to-[#7D1EE7] to-100% rounded-[45px] px-[12px] py-[8px] text-white gap-[8px] hover:cursor-pointer">
+            <button
+              onClick={() => {
+                handleSendAllAnswers();
+              }}
+              className="flex items-center bg-gradient-to-r from-[#914FD2] from-0% to-[#7D1EE7] to-100% rounded-[45px] px-[12px] py-[8px] text-white gap-[8px] hover:cursor-pointer"
+            >
               <span className="text-[12px]">Enregistrer les modifications</span>
               <FiSave className="text-[14px]" />
             </button>
