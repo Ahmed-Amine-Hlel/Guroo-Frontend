@@ -274,30 +274,12 @@ const EditQuestions = () => {
       questionsWithAnswers.blocks.forEach((block) => {
         block.questions.forEach((question) => {
           if (question.answers && question.answers[0]) {
-            if (question.inputType === "MultiInput") {
-              // Parse the value if it's of type "MultiInput"
-              try {
-                const parsedValue = JSON.parse(
-                  question.answers[0].value.replace(/'/g, '"')
-                );
-                dispatch(
-                  setAnswer({
-                    questionUid: question.uid,
-                    value: parsedValue,
-                  })
-                );
-              } catch (error) {
-                // Handle parsing error here if needed
-                console.error("Error parsing MultiInput value:", error);
-              }
-            } else {
-              dispatch(
-                setAnswer({
-                  questionUid: question.uid,
-                  value: question.answers[0].value,
-                })
-              );
-            }
+            dispatch(
+              setAnswer({
+                questionUid: question.uid,
+                value: question.answers[0].value,
+              })
+            );
           }
         });
       });
