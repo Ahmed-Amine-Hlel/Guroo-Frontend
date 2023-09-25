@@ -1,12 +1,6 @@
 import { BsPlus } from "react-icons/bs";
-import DatePicker from "./DatePicker";
-import DropDown from "./DropDown";
-import { useState } from "react";
 
 const CFTable = () => {
-  const [items] = useState<string[]>(["CDI", "CDD", "Freelance"]);
-  const [selectedItem, setSelectedItem] = useState<string>(items[0]);
-
   return (
     <div className="flex flex-col md:flex-row gap-[16px] min-h-screen bg-[#f4edfb] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans">
       <div className="px-[37px] py-[44px] bg-white rounded-[16px] w-full">
