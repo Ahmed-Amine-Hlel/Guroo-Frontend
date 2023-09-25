@@ -1,14 +1,16 @@
-import "./App.css";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Route, Routes, useLocation } from "react-router-dom";
+import "./App.css";
 import Navbar from "./components/Navbar";
 import AuthScreen from "./locofy/screens/AuthScreen";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import BusinessPlanMenu from "./locofy/screens/BusinessPlanMenu";
 import CreateBusinessPlan from "./locofy/screens/CreateBusinessPlan";
+import EditBusinessPlan from "./locofy/screens/EditBusinessPlan";
+import FailPayement from "./locofy/screens/FailPayement";
 import NewBusinessPlan from "./locofy/screens/NewBusinessPlan";
 import PayementScreen from "./locofy/screens/PayementScreen";
 import PrePayementScreen from "./locofy/screens/PrePayementScreen";
-import EditBusinessPlan from "./locofy/screens/EditBusinessPlan";
+import SuccessPayement from "./locofy/screens/SuccessPayement";
 
 function App() {
   const location = useLocation();
@@ -17,7 +19,7 @@ function App() {
 
   const isPathInList = (path: string, pathsList: string[]) => {
     const segments = path.split("/").filter(Boolean);
-    for (let knownPath of pathsList) {
+    for (const knownPath of pathsList) {
       const knownSegments = knownPath.split("/").filter(Boolean);
       if (segments.length !== knownSegments.length) continue;
       let match = true;
@@ -56,8 +58,12 @@ function App() {
             path={"/edit-business-plan/:uid"}
             element={<EditBusinessPlan />}
           />
+          <Route path={"/success-payment"} element={<SuccessPayement />} />
+          <Route path={"/fail-payment"} element={<FailPayement />} />
         </Routes>
       </GoogleOAuthProvider>
+      {/* <MSTable />
+      <CFTable /> */}
     </div>
   );
 }

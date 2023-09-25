@@ -47,10 +47,6 @@ const EditQuestions = () => {
   const currentAnswers = useAppSelector((state) => state.answers.answers);
   // const [currentAnswers, setCurrentAnswers] = useState<AnswerMap>({});
 
-  // console.log("Frais d'établissement : ", currentAnswers);
-
-  // console.log(currentAnswers);
-
   // console.log("questionsWithAnswers : ", questionsWithAnswers);
   // console.log("currentAnswers :", currentAnswers);
 
@@ -123,7 +119,8 @@ const EditQuestions = () => {
   };
 
   const renderInputComponent = (inputType: string, question: Question) => {
-    const answerValue = currentAnswers[question.uid] as string | undefined;
+    const answerValue = currentAnswers[question.uid];
+    // console.log("answerValue : ", answerValue);
 
     const handleParseObjectOptions = (optionsString: string) => {
       const correctedOptionsString = optionsString
@@ -210,8 +207,8 @@ const EditQuestions = () => {
         const parsedValue = answerValue
           ? JSON.parse(answerValue.replace(/'/g, '"'))
           : {};
-        console.log("Parsed value : ", parsedValue);
-
+        // console.log("answerValue : ", answerValue);
+        // console.log("parsedValue : ", parsedValue);
         return (
           <MultiInput
             value={parsedValue}
@@ -268,26 +265,51 @@ const EditQuestions = () => {
     dispatch(setAnswer({ questionUid, value }));
   };
 
+  const extractBlocksWithQuestionsAnswers = (
+    block: Block,
+    result: Block[] = []
+  ): void => {
+    if (block.questions.length > 0) {
+      const clonedBlock = { ...block, blocks: [] };
+      result.push(clonedBlock);
+    }
+
+    for (const subBlock of block.blocks) {
+      extractBlocksWithQuestionsAnswers(subBlock, result);
+    }
+  };
+
+  const reformatQuestionsWithAnswers = () => {
+    const blocksWithQuestionsAnswers: Block[] = [];
+    if (questionsWithAnswers?.blocks) {
+      for (const block of questionsWithAnswers?.blocks as Block[]) {
+        extractBlocksWithQuestionsAnswers(block, blocksWithQuestionsAnswers);
+      }
+    }
+
+    blocksWithQuestionsAnswers.forEach((block) => {
+      block.questions.forEach((question) => {
+        if (question.answers && question.answers[0]) {
+          dispatch(
+            setAnswer({
+              questionUid: question.uid,
+              value: question.answers[0].value,
+            })
+          );
+        }
+      });
+    });
+  };
+
   useEffect(() => {
     dispatch(resetAnswers());
-    if (questionsWithAnswers?.blocks) {
-      questionsWithAnswers.blocks.forEach((block) => {
-        block.questions.forEach((question) => {
-          if (question.answers && question.answers[0]) {
-            dispatch(
-              setAnswer({
-                questionUid: question.uid,
-                value: question.answers[0].value,
-              })
-            );
-          }
-        });
-      });
-    }
-  }, [questionsWithAnswers, dispatch]);
+    reformatQuestionsWithAnswers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, questionsWithAnswers]);
 
   useEffect(() => {
     reformatData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionsWithAnswers]);
 
   useEffect(() => {
