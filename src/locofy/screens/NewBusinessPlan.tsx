@@ -23,7 +23,7 @@ const NewBusinessPlan = () => {
 
         <div
           className={`${
-            !isCompact ? "flex justify-center w-full" : "flex flex-1"
+            !isCompact ? "flex justify-center" : "flex flex-1"
           }`}
         >
           {/* <Questions isCompact={isCompact} /> */}

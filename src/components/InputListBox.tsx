@@ -44,7 +44,7 @@ export default function InputListBox({
           }
         }}
       >
-        <div className="relative">
+        <div>
           <Listbox.Button className="relative w-full cursor-default rounded-[76px] bg-white pt-4 pb-4 pl-6 pr-6 text-left border-[0.50px] border-[#E7E5E4] focus:outline-none hover:shadow-custom sm:text-sm">
             <span className="block truncate text-base text-[#6D3B9E] font-[500] font-plus-jakarta-sans leading-6 break-words pl-[14px]">
               {selected && selected.name}

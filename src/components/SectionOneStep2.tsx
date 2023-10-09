@@ -71,7 +71,7 @@ const SectionOneStep2 = ({
             <HiMiniArrowLeft
               className={`text-[24px] ${"hover:cursor-pointer"}`}
               onClick={handleBack}
-              // onClick={!isBackDisabled ? handleBack : undefined}
+            // onClick={!isBackDisabled ? handleBack : undefined}
             />
           </div>
           <div className="text-[24px] font-bold">
