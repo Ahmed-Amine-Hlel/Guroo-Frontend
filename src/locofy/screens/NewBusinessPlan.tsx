@@ -1,10 +1,11 @@
 import Stepper from "../../components/Stepper";
-import Questions from "../../components/Questions";
+// import Questions from "../../components/Questions";
 import ChatBot from "../../components/ChatBot";
 import { useState } from "react";
+import QuestionsScreen from "./QuestionsScreen";
 
 const NewBusinessPlan = () => {
-  const [isCompact, setIsCompact] = useState(true);
+  const [isCompact, setIsCompact] = useState(false);
 
   return (
     <div className="flex items-center justify-center bg-purple-light min-h-[calc(100%_-_65px)] py-[40px] font-plus-jakarta-sans">
@@ -25,7 +26,8 @@ const NewBusinessPlan = () => {
             !isCompact ? "flex justify-center w-full" : "flex flex-1"
           }`}
         >
-          <Questions isCompact={isCompact} />
+          {/* <Questions isCompact={isCompact} /> */}
+          <QuestionsScreen />
         </div>
       </div>
     </div>

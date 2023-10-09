@@ -26,7 +26,7 @@ export default function InputListBox({
     if (selected) {
       onChange(selected);
     }
-  }, [selected]);
+  }, [onChange, selected]);
 
   // console.log("InputListBox Props:", { value, options });
 
@@ -73,8 +73,8 @@ export default function InputListBox({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="z-50 absolute w-full mt-[14px] py-[15px] rounded-[24px] bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              <Listbox.Options className="max-h-[175px] rounded-[24px] listbox-options  overflow-y-auto ">
+            <div className="!z-50 absolute w-full mt-[14px] py-[15px] rounded-[24px] bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="max-h-[175px] rounded-[24px] listbox-options overflow-y-auto">
                 {options.map((option, optionIdx) => (
                   <Listbox.Option
                     key={optionIdx}

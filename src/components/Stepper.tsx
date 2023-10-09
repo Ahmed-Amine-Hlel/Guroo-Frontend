@@ -80,10 +80,11 @@ const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
   return (
     <>
       <div
-        className={`relative flex flex-col items-center ${!isCompact
-          ? "w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px]"
-          : "w-[90px]"
-          } h-max md:h-[792px] bg-white rounded-2xl border-[1px] border-solid border-foundation-purple-light-hover text-left text-lg text-foundation-purple-dark-active font-plus-jakarta-sans`}
+        className={`relative flex flex-col items-center ${
+          !isCompact
+            ? "w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px]"
+            : "w-[90px]"
+        } h-max md:h-[792px] bg-white rounded-2xl border-[1px] border-solid border-foundation-purple-light-hover text-left text-lg text-foundation-purple-dark-active font-plus-jakarta-sans`}
       >
         <div className="flex flex-col items-start w-full h-[76px] border-b-[1px] border-solid border-foundation-purple-light-hover text-xs text-lightslategray">
           {!isCompact ? (
@@ -100,11 +101,11 @@ const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
                   />
                 </div>
               </div>
-              <div className="flex items-start justify-center">
+              {/* <div className="flex items-start justify-center">
                 <button onClick={() => setIsCompact(!isCompact)}>
                   <img src="/arrow-narrow-left.svg" width={28} height={28} />
                 </button>
-              </div>
+              </div> */}
             </div>
           ) : (
             <div className="flex items-center justify-center w-full h-full">
@@ -118,12 +119,17 @@ const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
           {stepsData.map((step, index) => (
             <div key={step.id} className="flex items-start w-full">
               <div className="flex flex-col items-center mr-4">
-                {isCompact ?
-                  <Tooltip placement="right" title={step.labels} color="#6D3B9E" >
+                {isCompact ? (
+                  <Tooltip
+                    placement="right"
+                    title={step.labels}
+                    color="#6D3B9E"
+                  >
                     {renderStepIcon(index + 1)}
-                  </Tooltip> :
+                  </Tooltip>
+                ) : (
                   renderStepIcon(index + 1)
-                }
+                )}
 
                 {index !== stepsData.length - 1 && (
                   <div
@@ -133,8 +139,9 @@ const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
               </div>
 
               <div
-                className={`${!isCompact ? "flex flex-col gap-2 flex-grow mt-2" : "hidden"
-                  }`}
+                className={`${
+                  !isCompact ? "flex flex-col gap-2 flex-grow mt-2" : "hidden"
+                }`}
               >
                 <b
                   className="tracking-[-0.02em] leading-[24px] cursor-pointer hover:text-[#8347bd]"

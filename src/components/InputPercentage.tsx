@@ -45,16 +45,21 @@ const StyledInputNumber = styled(InputNumber)`
   }
 `;
 
-const InputPercentage = ({ coloredAiBorder, onChange, value = "0%" }: InputPercentageProps) => {
+const InputPercentage = ({
+  coloredAiBorder,
+  onChange,
+  value = "0%",
+}: InputPercentageProps) => {
   useEffect(() => {
-    if (value === "0%") {
-      onChange("0%");
-    }
+    onChange(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="relative flex items-center w-full">
-      <Wrapper className={`w-full ${coloredAiBorder ? 'gradient-border z-50' : ''}`}>
+      <Wrapper
+        className={`w-full ${coloredAiBorder ? "gradient-border z-50" : ""}`}
+      >
         <StyledInputNumber
           parser={(value) => (value ? value.replace("%", "") : "")}
           className="w-full"

@@ -3,6 +3,6 @@ export interface Answer {
   createdAt: string;
   updatedAt: string;
   value: string;
-  questionId: string;
+  rowNumber: string;
   businessPlanId: string;
 }

@@ -46,7 +46,7 @@ const answersSlice = createSlice({
   initialState,
   reducers: {
     setAnswer: (state, action) => {
-      state.answers[action.payload.questionUid] = action.payload.value;
+      state.answers[action.payload.rowNumber] = action.payload.value;
     },
     resetAnswers: () => initialState,
     updateProgress: (state, action) => {
