@@ -5,8 +5,12 @@ import { useState } from "react";
 
 const MSTable = () => {
   const [items] = useState<string[]>(["CDI", "CDD", "Freelance"]);
-
   const [selectedItem, setSelectedItem] = useState<string>(items[0]);
+  const [rows, setRows] = useState<number[]>([]);
+
+  const addRow = () => {
+    setRows([...rows, rows.length + 1]);
+  };
 
   return (
     <div className="flex flex-col md:flex-row gap-[16px] min-h-full bg-[#f4edfb] font-plus-jakarta-sans ">
@@ -90,7 +94,7 @@ const MSTable = () => {
               </div>
             </div>
             <div className="px-[24px] py-[17px] bg-ghostwhite-200 rounded-[16px]">
-              <div className="grid grid-cols-9 gap-[8px] mb-[16px]">
+              <div className="grid grid-cols-9 gap-[8px] mb-[16px] overflow-y-auto max-h-[360px]">
                 <div className="h-[79px] bg-[#d9b2ff75] rounded-[8px] flex items-center px-[13px]">
                   <div className="font-bold text-center w-full text-dark-p">
                     Fonction
@@ -166,220 +170,93 @@ const MSTable = () => {
                   </div>
                 </div>
 
-                {/* Line - 2 - */}
+                {/* Row ---------------------------------------------------------------------------------------------------- Begin */}
 
-                <div className="h-[45px] bg-light-p-hover border-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px] flex items-center px-[18px]">
-                  <div className=" w-full text-[14px] text-foundation-purple-normal-hover">
-                    Serveur
-                  </div>
-                </div>
-                <div className="flex items-center w-full justify-center">
-                  <input
-                    name="input-1-1"
-                    type="text"
-                    className="px-2 text-center w-full h-[45px] bg-light-p-hover border-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                    value={"2"}
-                  />
-                </div>
-                <div className="flex justify-between col-span-4">
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-1-2"
-                      type="text"
-                      className="px-2 w-full h-[45px] bg-light-p-hover border-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75] rounded-tl-[8px] rounded-bl-[8px]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"3426 €"}
-                    />
-                  </div>
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-1-3"
-                      type="text"
-                      className="px-2 w-[100%] h-[45px] bg-light-p-hover border-b-[1px] border-t-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"2332 €"}
-                    />
-                  </div>
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-1-4"
-                      type="text"
-                      className="px-2 w-[100%] h-[45px] bg-light-p-hover border-l-[1px] border-b-[1px] border-t-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"2920 €"}
-                    />
-                  </div>
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-1-5"
-                      type="text"
-                      className="px-2 w-[100%] h-[45px] bg-light-p-hover border-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75] rounded-tr-[8px] rounded-br-[8px]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"1721 €"}
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-between col-span-2">
-                  <DatePicker
-                    name="input-1-6"
-                    className="rounded-tl-[8px] rounded-bl-[8px] border-[1px]"
-                  />
-                  <DatePicker
-                    name="input-1-7"
-                    className="rounded-tr-[8px] rounded-br-[8px] border-t-[1px] border-b-[1px] border-r-[1px]"
-                  />
-                </div>
-                <div className="flex items-center justify-start">
-                  <DropDown
-                    items={items}
-                    selectedItem={selectedItem}
-                    setSelectedItem={setSelectedItem}
-                  />
-                </div>
+                {rows.map((row) => (
+                  <>
+                    {/* <div className="h-[45px] bg-light-p-hover border-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px] flex items-center px-[18px]">
+                      <div className="w-full text-[14px] text-foundation-purple-normal-hover">
+                        Serveur
+                      </div>
+                    </div> */}
+                    <div className="flex items-center w-full justify-center">
+                      <input
+                        name={`input-${row}-1`}
+                        type="text"
+                        className="px-2 text-center w-full h-[45px] bg-light-p-hover border-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px] focus:outline-none text-[14px] text-[#41245eeb]"
+                        // value={""}
+                      />
+                    </div>
+                    <div className="flex items-center w-full justify-center">
+                      <input
+                        name={`input-${row}-2`}
+                        type="text"
+                        className="px-2 text-center w-full h-[45px] bg-light-p-hover border-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px] focus:outline-none text-[14px] text-[#41245eeb]"
+                        value={"2"}
+                      />
+                    </div>
+                    <div className="flex justify-between col-span-4">
+                      <div className="flex items-center w-full justify-center">
+                        <input
+                          name={`input-${row}-3`}
+                          type="text"
+                          className="px-2 w-full h-[45px] bg-light-p-hover border-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] rounded-tl-[8px] rounded-bl-[8px] focus:outline-none text-[14px] text-[#41245eeb]"
+                          value={"3426 €"}
+                        />
+                      </div>
+                      <div className="flex items-center w-full justify-center">
+                        <input
+                          name={`input-${row}-4`}
+                          type="text"
+                          className="px-2 w-[100%] h-[45px] bg-light-p-hover border-b-[1px] border-t-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] focus:outline-none text-[14px] text-[#41245eeb]"
+                          value={"2332 €"}
+                        />
+                      </div>
+                      <div className="flex items-center w-full justify-center">
+                        <input
+                          name={`input-${row}-5`}
+                          type="text"
+                          className="px-2 w-[100%] h-[45px] bg-light-p-hover border-l-[1px] border-b-[1px] border-t-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] focus:outline-none text-[14px] text-[#41245eeb]"
+                          value={"2920 €"}
+                        />
+                      </div>
+                      <div className="flex items-center w-full justify-center">
+                        <input
+                          name={`input-${row}-6`}
+                          type="text"
+                          className="px-2 w-[100%] h-[45px] bg-light-p-hover border-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] rounded-tr-[8px] rounded-br-[8px] focus:outline-none text-[14px] text-[#41245eeb]"
+                          value={"1721 €"}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex justify-between col-span-2">
+                      <DatePicker
+                        name={`input-${row}-7`}
+                        className="rounded-tl-[8px] rounded-bl-[8px] border-[1px]"
+                      />
+                      <DatePicker
+                        name={`input-${row}-8`}
+                        className="rounded-tr-[8px] rounded-br-[8px] border-t-[1px] border-b-[1px] border-r-[1px]"
+                      />
+                    </div>
+                    <div className="flex items-center justify-start">
+                      <DropDown
+                        items={items}
+                        selectedItem={selectedItem}
+                        setSelectedItem={setSelectedItem}
+                      />
+                    </div>
+                  </>
+                ))}
 
-                {/* Line - 3 -  */}
-
-                <div className="h-[45px] bg-light-p-hover border-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px] flex items-center px-[18px]">
-                  <div className=" w-full text-[14px] text-foundation-purple-normal-hover">
-                    Responsable de salle
-                  </div>
-                </div>
-                <div className="flex items-center w-full justify-center">
-                  <input
-                    name="input-2-1"
-                    type="text"
-                    className="px-2 text-center w-full h-[45px] bg-light-p-hover border-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                    value={"2"}
-                  />
-                </div>
-                <div className="flex justify-between col-span-4">
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-2-2"
-                      type="text"
-                      className="px-2 w-full h-[45px] bg-light-p-hover border-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75] rounded-tl-[8px] rounded-bl-[8px]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"3426 €"}
-                    />
-                  </div>
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-2-3"
-                      type="text"
-                      className="px-2 w-[100%] h-[45px] bg-light-p-hover border-b-[1px] border-t-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"2332 €"}
-                    />
-                  </div>
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-2-4"
-                      type="text"
-                      className="px-2 w-[100%] h-[45px] bg-light-p-hover border-l-[1px] border-b-[1px] border-t-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"2920 €"}
-                    />
-                  </div>
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-2-5"
-                      type="text"
-                      className="px-2 w-[100%] h-[45px] bg-light-p-hover border-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75] rounded-tr-[8px] rounded-br-[8px]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"1721 €"}
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-between col-span-2">
-                  <DatePicker className="rounded-tl-[8px] rounded-bl-[8px] border-[1px]" />
-                  <DatePicker className="rounded-tr-[8px] rounded-br-[8px] border-t-[1px] border-b-[1px] border-r-[1px]" />
-                </div>
-                <div className="flex items-center justify-start">
-                  <DropDown items={items} selectedItem={selectedItem} />
-                </div>
-                {/* Line - 4 -  */}
-                <div className="h-[45px] bg-light-p-hover border-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px] flex items-center px-[18px]">
-                  <div className=" w-full text-[14px] text-foundation-purple-normal-hover">
-                    Plongeur
-                  </div>
-                </div>
-                <div className="flex items-center w-full justify-center">
-                  <input
-                    name="input-3-1"
-                    type="text"
-                    className="px-2 text-center w-full h-[45px] bg-light-p-hover border-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                    value={"2"}
-                  />
-                </div>
-                <div className="flex justify-between col-span-4">
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-3-2"
-                      type="text"
-                      className="px-2 w-full h-[45px] bg-light-p-hover border-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75] rounded-tl-[8px] rounded-bl-[8px]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"3426 €"}
-                    />
-                  </div>
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-3-3"
-                      type="text"
-                      className="px-2 w-[100%] h-[45px] bg-light-p-hover border-b-[1px] border-t-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"2332 €"}
-                    />
-                  </div>
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-3-4"
-                      type="text"
-                      className="px-2 w-[100%] h-[45px] bg-light-p-hover border-l-[1px] border-b-[1px] border-t-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"2920 €"}
-                    />
-                  </div>
-                  <div className="flex items-center w-full justify-center">
-                    <input
-                      name="input-3-5"
-                      type="text"
-                      className="px-2 w-[100%] h-[45px] bg-light-p-hover border-[1px]
-                  border-foundation-purple-light-active bg-[#d9b2ff75] rounded-tr-[8px] rounded-br-[8px]
-                  focus:outline-none text-[14px] text-[#41245eeb]"
-                      value={"1721 €"}
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-between col-span-2">
-                  <DatePicker className="rounded-tl-[8px] rounded-bl-[8px] border-[1px]" />
-                  <DatePicker className="rounded-tr-[8px] rounded-br-[8px] border-t-[1px] border-b-[1px] border-r-[1px]" />
-                </div>
-                <div className="flex items-center justify-start">
-                  <DropDown items={items} selectedItem={selectedItem} />
-                </div>
-
-                {/* Rest  */}
+                {/* Row ---------------------------------------------------------------------------------------------------- End */}
               </div>
 
-              <div className="flex items-center justify-start  lg:justify-end w-full lg:px-[24px] mb-[10px]">
-                <button className="flex items-center justify-center gap-[8px] h-[40px] px-[32px] border-[1px] border-foundation-purple-normal bg-gradient-to-r from-[#914FD2] from-48% to-[#946CBB] to-137% rounded-[45px] text-white hover:cursor-pointer">
+              <div className="flex items-center justify-start lg:justify-end w-full lg:px-[24px] mb-[10px]">
+                <button
+                  onClick={addRow}
+                  className="flex items-center justify-center gap-[8px] h-[40px] px-[32px] border-[1px] border-foundation-purple-normal bg-gradient-to-r from-[#914FD2] from-48% to-[#946CBB] to-137% rounded-[45px] text-white hover:cursor-pointer"
+                >
                   <span className="block text-[14px]">
                     Ajouter un nouveau salaire
                   </span>
