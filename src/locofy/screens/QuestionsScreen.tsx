@@ -57,7 +57,9 @@ const QuestionsScreen = () => {
 
   return (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
+
       {renderActiveSection()}
+
 
       <div className="w-full flex justify-center mt-auto">
         <button

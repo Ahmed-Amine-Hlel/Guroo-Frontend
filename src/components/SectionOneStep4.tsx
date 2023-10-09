@@ -38,7 +38,7 @@ const SectionOneStep4 = ({
             <HiMiniArrowLeft
               className={`text-[24px] ${"hover:cursor-pointer"}`}
               onClick={handleBack}
-              // onClick={!isBackDisabled ? handleBack : undefined}
+            // onClick={!isBackDisabled ? handleBack : undefined}
             />
           </div>
           <div className="text-[24px] font-bold">
@@ -107,7 +107,9 @@ const SectionOneStep4 = ({
 
             <InputPercentage
               // coloredAiBorder={hasAIPinkBorder}
-              value={"0%"}
+              value={answers["401"]
+                ? answers["401"]
+                : "0%"}
               onChange={(value) => handleInputChange("401", value)}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
