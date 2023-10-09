@@ -3,7 +3,7 @@ import { BsCheckLg } from "react-icons/bs";
 import stepsData from "../fixtures/stepsData";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { setCurrentStep } from "../store/StepperSlice";
-
+import Tooltip from "antd/lib/tooltip";
 interface StepperProps {
   isCompact: boolean;
   setIsCompact: React.Dispatch<React.SetStateAction<boolean>>;
@@ -80,11 +80,10 @@ const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
   return (
     <>
       <div
-        className={`flex flex-col items-center ${
-          !isCompact
-            ? "w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px]"
-            : "w-[90px]"
-        } h-max md:h-[792px] bg-white rounded-2xl border-[1px] border-solid border-foundation-purple-light-hover overflow-hidden text-left text-lg text-foundation-purple-dark-active font-plus-jakarta-sans`}
+        className={`relative flex flex-col items-center ${!isCompact
+          ? "w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px]"
+          : "w-[90px]"
+          } h-max md:h-[792px] bg-white rounded-2xl border-[1px] border-solid border-foundation-purple-light-hover text-left text-lg text-foundation-purple-dark-active font-plus-jakarta-sans`}
       >
         <div className="flex flex-col items-start w-full h-[76px] border-b-[1px] border-solid border-foundation-purple-light-hover text-xs text-lightslategray">
           {!isCompact ? (
@@ -115,11 +114,17 @@ const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
             </div>
           )}
         </div>
-        <div className=" listbox-options flex flex-col items-start justify-start w-11/12 h-[580px] py-[2rem] px-5 gap-10 overflow-auto m-4 hide-scrollbar hover:scrollbar-width-thin hover:scrollbar-thumb-rounded-full scrollbar-thumb-gray-500 hover:scrollbar-thumb-gray-800 scrollbar-track-gray-300">
+        <div className="listbox-options flex flex-col items-start justify-start w-11/12 h-[580px] py-[2rem] px-5 gap-10 overflow-x-visible overflow-y-auto m-4 hide-scrollbar hover:scrollbar-width-thin hover:scrollbar-thumb-rounded-full scrollbar-thumb-gray-500 hover:scrollbar-thumb-gray-800 scrollbar-track-gray-300">
           {stepsData.map((step, index) => (
             <div key={step.id} className="flex items-start w-full">
               <div className="flex flex-col items-center mr-4">
-                {renderStepIcon(index + 1)}
+                {isCompact ?
+                  <Tooltip placement="right" title={step.labels} color="#6D3B9E" >
+                    {renderStepIcon(index + 1)}
+                  </Tooltip> :
+                  renderStepIcon(index + 1)
+                }
+
                 {index !== stepsData.length - 1 && (
                   <div
                     className={`${getLineColor(index + 1)} w-0.5 h-12`}
@@ -128,9 +133,8 @@ const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
               </div>
 
               <div
-                className={`${
-                  !isCompact ? "flex flex-col gap-2 flex-grow mt-2" : "hidden"
-                }`}
+                className={`${!isCompact ? "flex flex-col gap-2 flex-grow mt-2" : "hidden"
+                  }`}
               >
                 <b
                   className="tracking-[-0.02em] leading-[24px] cursor-pointer hover:text-[#8347bd]"
