@@ -33,6 +33,7 @@ import {
 import InputAmount from "./InputAmount";
 import InputMultiUnitNumber from "./InputMultiUnitNumber";
 import QuestionAiBox from "./QuestionAiBox";
+import MSTable from "./MSTable";
 
 type InputType =
   | "number"
@@ -66,7 +67,7 @@ const centre_revenu_uids = {
   "Beach Club": "2dcca647-f4c0-4373-a828-459b9a005d03",
 };
 
-const Questions = () => {
+const Questions = ({ isCompact }: { isCompact: boolean }) => {
   const dispatch = useAppDispatch();
   const sectionStep = useAppSelector((state) => state.stepper.currentStep);
   const section = useAppSelector((state) => state.questions.section);
@@ -628,6 +629,10 @@ const Questions = () => {
     //   );
     // }
   };
+
+  if (isCompact) {
+    return <MSTable />;
+  }
 
   return (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">

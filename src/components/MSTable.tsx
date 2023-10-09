@@ -9,7 +9,7 @@ const MSTable = () => {
   const [selectedItem, setSelectedItem] = useState<string>(items[0]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-[16px] min-h-screen bg-[#f4edfb] px-[20px] lg:px-[100px] py-[40px] font-plus-jakarta-sans ">
+    <div className="flex flex-col md:flex-row gap-[16px] min-h-full bg-[#f4edfb] font-plus-jakarta-sans ">
       <div className="px-[16px] py-[32px] bg-white rounded-[16px] w-full">
         <div className="px-[18px] flex flex-col md:flex-row items-center justify-between mb-[25px]">
           <div className="text-foundation-purple-normal text-[32px] text-center md:text-start md:text-[40px] font-bold mb-6 md:mb-0">
