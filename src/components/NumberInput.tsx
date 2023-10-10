@@ -11,7 +11,7 @@ interface NumberInputProps {
 const parseValidationString = (validation: string | null) => {
   if (!validation) return {};
 
-  let result: { min?: number; max?: number } = {};
+  const result: { min?: number; max?: number } = {};
   const pairs = validation.split("|");
 
   pairs.forEach((pair) => {
@@ -47,14 +47,20 @@ const NumberInput: React.FC<NumberInputProps> = ({
 
   useEffect(() => {
     let valid = true;
-    if (!value) {
+    if (value === null || value === undefined) {
       setIsValid(true);
       return;
     }
-    if (parsedValidation.min && Number(value) < parsedValidation.min) {
+    if (
+      parsedValidation.min !== undefined &&
+      Number(value) < parsedValidation.min
+    ) {
       valid = false;
     }
-    if (parsedValidation.max && Number(value) > parsedValidation.max) {
+    if (
+      parsedValidation.max !== undefined &&
+      Number(value) > parsedValidation.max
+    ) {
       valid = false;
     }
     setIsValid(valid);
@@ -64,6 +70,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
     if (onChange) {
       onChange(defaultValue);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const baseClasses = `w-full font-medium font-plus-jakarta-sans text-base leading-6 break-words bg-base-white relative rounded-[76px] shadow-[0px_1px_2px_rgba(16,_24,_40,_0.05)] box-border h-14 overflow-hidden flex flex-row py-4 px-6 items-center justify-start focus:outline-none`;

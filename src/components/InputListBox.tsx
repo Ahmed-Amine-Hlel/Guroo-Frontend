@@ -28,11 +28,6 @@ export default function InputListBox({
     }
   }, [onChange, selected]);
 
-  // console.log("InputListBox Props:", { value, options });
-
-  // console.log("Value prop passed to InputListBox:", value);
-  // console.log("Options passed to InputListBox:", options);
-
   return (
     <div className="bg[#f4edfb] w-full">
       <Listbox
