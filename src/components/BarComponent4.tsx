@@ -26,18 +26,17 @@ const BarComponent4 = ({
   };
 
   const isPetitDéjeunerSelected =
-    localStorage.getItem("restaurant-Petit-déjeuner") === "true";
+    localStorage.getItem("bar-Petit-déjeuner") === "true";
 
-  const isDéjeunerSelected =
-    localStorage.getItem("restaurant-Déjeuner") === "true";
+  const isDéjeunerSelected = localStorage.getItem("bar-Déjeuner") === "true";
 
-  const isDinerSelected = localStorage.getItem("restaurant-Diner") === "true";
+  const isDinerSelected = localStorage.getItem("bar-Diner") === "true";
 
   const isBrasserieMatinSelected =
-    localStorage.getItem("restaurant-Brasserie Matin") === "true";
+    localStorage.getItem("bar-Brasserie Matin") === "true";
 
   const isBrasserieApresMidiSelected =
-    localStorage.getItem("restaurant-Brasserie après midi") === "true";
+    localStorage.getItem("bar-Brasserie après midi") === "true";
 
   return (
     <>
@@ -71,8 +70,8 @@ const BarComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["55"] ?? 0}
-              onChange={(value) => handleInputChange("55", value)}
+              value={answers["104"] ?? 0}
+              onChange={(value) => handleInputChange("104", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -90,8 +89,8 @@ const BarComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["57"] ?? 0}
-              onChange={(value) => handleInputChange("57", value)}
+              value={answers["106"] ?? 0}
+              onChange={(value) => handleInputChange("106", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -109,8 +108,8 @@ const BarComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["59"] ?? 0}
-              onChange={(value) => handleInputChange("59", value)}
+              value={answers["108"] ?? 0}
+              onChange={(value) => handleInputChange("108", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -124,7 +123,7 @@ const BarComponent4 = ({
           <div className="mb-6">
             <QuestionAiBox
               message={
-                "Votre assistant Guroo vous aide encore  sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32."
+                "Votre assistant Guroo vous aide encore sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32"
               }
             />
           </div>
@@ -137,8 +136,8 @@ const BarComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["56"] ?? 0}
-              onChange={(value) => handleInputChange("56", value)}
+              value={answers["105"] ?? 0}
+              onChange={(value) => handleInputChange("105", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -156,8 +155,8 @@ const BarComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["58"] ?? 0}
-              onChange={(value) => handleInputChange("58", value)}
+              value={answers["107"] ?? 0}
+              onChange={(value) => handleInputChange("107", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">

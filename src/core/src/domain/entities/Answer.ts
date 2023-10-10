@@ -3,6 +3,6 @@ export interface Answer {
   createdAt: string;
   updatedAt: string;
   value: string;
-  rowNumber: string;
+  row_number: string;
   businessPlanId: string;
 }

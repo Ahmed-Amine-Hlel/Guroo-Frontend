@@ -18,7 +18,7 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
   useEffect(() => {
     boxContents.forEach((content) => {
       const initialValue = content === "Petit-déjeuner" ? "true" : "false";
-      localStorage.setItem(`restaurant-${content}`, initialValue);
+      localStorage.setItem(`bar-${content}`, initialValue);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -31,7 +31,7 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
 
     setSelectedBoxes(newState);
     localStorage.setItem(
-      `restaurant-${content}`,
+      `bar-${content}`,
       newState[content] ? "true" : "false"
     );
   };

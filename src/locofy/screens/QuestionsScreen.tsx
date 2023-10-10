@@ -1,25 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HiMiniArrowRight } from "react-icons/hi2";
 import SectionOneStep1 from "../../components/SectionOneStep1";
 import SectionOneStep2 from "../../components/SectionOneStep2";
 import SectionOneStep3 from "../../components/SectionOneStep3";
 import SectionOneStep4 from "../../components/SectionOneStep4";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import SectionTwoStep1 from "../../components/SectionTwoStep1";
 import RestaurantComponent1 from "../../components/RestaurantComponent1";
 import RestaurantComponent2 from "../../components/RestaurantComponent2";
 import RestaurantComponent3 from "../../components/RestaurantComponent3";
 import RestaurantComponent4 from "../../components/RestaurantComponent4";
 import RestaurantComponent5 from "../../components/RestaurantComponent5";
+import BarComponent1 from "../../components/BarComponent1";
+import BarComponent2 from "../../components/BarComponent2";
+import BarComponent3 from "../../components/BarComponent3";
+import BarComponent4 from "../../components/BarComponent4";
+import BarComponent5 from "../../components/BarComponent5";
+import SectionTwoStep2 from "../../components/SectionTwoStep2";
+import { submitAnswersAsync } from "../../store/answersSlice";
+import { Answer } from "../../core/src/domain/entities/Answer";
 
 const QuestionsScreen = () => {
   const [activeSection, setActiveSection] = useState(1);
   const [subStep, setSubStep] = useState(0);
+  const [activeBusinessType, setActiveBusinessType] = useState("Restaurant");
+  const dispatch = useAppDispatch();
 
   const handleBack = () => {
     if (activeSection === 6) {
-      if (isRestaurantSelected && subStep > 0) {
+      if (subStep > 0) {
         setSubStep(subStep - 1);
+        return;
+      }
+      if (subStep === 0 && activeBusinessType === "Bar") {
+        setActiveBusinessType("Restaurant");
+        setSubStep(4);
         return;
       }
     }
@@ -28,12 +43,22 @@ const QuestionsScreen = () => {
 
   const handleNext = () => {
     if (activeSection === 6) {
-      if (isRestaurantSelected && subStep < 4) {
+      if (subStep < 4) {
         setSubStep(subStep + 1);
+        return;
+      }
+      if (
+        subStep === 4 &&
+        activeBusinessType === "Restaurant" &&
+        isBarSelected
+      ) {
+        setActiveBusinessType("Bar");
+        setSubStep(0);
         return;
       }
     }
     setActiveSection(activeSection + 1);
+    submitAnswers();
   };
 
   const currentBusinessPlan = useAppSelector(
@@ -46,9 +71,19 @@ const QuestionsScreen = () => {
 
   const isRestaurantSelected = answers["39"] == "true";
   const isBarSelected = answers["40"] == "true";
-  const isClubSelected = answers["41"] == "true";
-  const isLoungeSelected = answers["42"] == "true";
-  const isBeachClubSelected = answers["43"] == "true";
+
+  useEffect(() => {
+    if (isRestaurantSelected) {
+      setActiveBusinessType("Restaurant");
+    } else if (isBarSelected) {
+      setActiveBusinessType("Bar");
+    } else {
+      setActiveBusinessType("");
+    }
+  }, [isRestaurantSelected, isBarSelected]);
+  // const isClubSelected = answers["41"] == "true";
+  // const isLoungeSelected = answers["42"] == "true";
+  // const isBeachClubSelected = answers["43"] == "true";
 
   const RestaurantWrapper = () => {
     switch (subStep) {
@@ -80,6 +115,45 @@ const QuestionsScreen = () => {
       case 4:
         return (
           <RestaurantComponent5
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  const BarWrapper = () => {
+    switch (subStep) {
+      case 0:
+        return (
+          <BarComponent1
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
+
+      case 1:
+        return <BarComponent2 handleBack={handleBack} />;
+      case 2:
+        return (
+          <BarComponent3
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
+      case 3:
+        return (
+          <BarComponent4
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
+
+      case 4:
+        return (
+          <BarComponent5
             currentBusinessPlanId={currentBusinessPlanId}
             handleBack={handleBack}
           />
@@ -122,26 +196,46 @@ const QuestionsScreen = () => {
         );
 
       case 6:
-        if (isRestaurantSelected) {
+        if (activeBusinessType === "Restaurant" && isRestaurantSelected) {
           return <RestaurantWrapper />;
         }
-        if (isBarSelected) {
-          return null;
-        }
-        if (isClubSelected) {
-          return null;
-        }
-        if (isLoungeSelected) {
-          return null;
-        }
-        if (isBeachClubSelected) {
-          return null;
+        if (activeBusinessType === "Bar" && isBarSelected) {
+          return <BarWrapper />;
         }
         return null;
-
       default:
         return null;
+
+      case 7:
+        return (
+          <SectionTwoStep2
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
     }
+  };
+
+  const submitAnswers = () => {
+    const formatAnswersForBackend = (
+      answers: Record<string, unknown>,
+      currentBusinessPlanId: string | undefined
+    ) => {
+      const formattedAnswers = Object.keys(answers).map((rowNumber) => ({
+        value: answers[rowNumber],
+        row_number: Number(rowNumber),
+        businessPlanUid: currentBusinessPlanId,
+      }));
+      return { answers: formattedAnswers };
+    };
+
+    const formattedAnswers = formatAnswersForBackend(
+      answers,
+      currentBusinessPlanId
+    );
+
+    console.log("Formated answers : ", formattedAnswers);
+    dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[]));
   };
 
   return (

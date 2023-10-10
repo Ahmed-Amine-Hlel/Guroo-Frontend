@@ -16,18 +16,18 @@ const BarComponent1 = ({
   const answers = useAppSelector((state) => state.answers.answers);
 
   const monthRowMap: { [key: string]: string } = {
-    Janvier: "76",
-    Février: "77",
-    Mars: "78",
-    Avril: "79",
-    Mai: "80",
-    Juin: "81",
-    Juillet: "82",
-    Août: "83",
-    Septembre: "84",
-    Octobre: "85",
-    Novembre: "86",
-    Décembre: "87",
+    Janvier: "125",
+    Février: "126",
+    Mars: "127",
+    Avril: "128",
+    Mai: "129",
+    Juin: "130",
+    Juillet: "131",
+    Août: "132",
+    Septembre: "133",
+    Octobre: "134",
+    Novembre: "135",
+    Décembre: "136",
   };
 
   const selectedMonths = Object.keys(monthRowMap).filter(
@@ -88,7 +88,7 @@ const BarComponent1 = ({
           </label>
 
           <InputListBox
-            value={answers["74"] ? { name: answers["74"] } : { name: "0" }}
+            value={answers["123"] ? { name: answers["123"] } : { name: "0" }}
             options={[
               { name: "0" },
               { name: "1" },
@@ -100,7 +100,7 @@ const BarComponent1 = ({
               { name: "7" },
             ]}
             onChange={(selectedOption) => {
-              handleInputChange("74", selectedOption.name);
+              handleInputChange("123", selectedOption.name);
             }}
           />
         </div>

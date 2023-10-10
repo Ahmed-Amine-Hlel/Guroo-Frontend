@@ -11,6 +11,7 @@ import NewBusinessPlan from "./locofy/screens/NewBusinessPlan";
 import PayementScreen from "./locofy/screens/PayementScreen";
 import PrePayementScreen from "./locofy/screens/PrePayementScreen";
 import SuccessPayement from "./locofy/screens/SuccessPayement";
+// import MSTable from "./components/MSTable";
 
 function App() {
   const location = useLocation();
@@ -62,7 +63,7 @@ function App() {
           <Route path={"/fail-payment"} element={<FailPayement />} />
         </Routes>
       </GoogleOAuthProvider>
-      {/* <MSTable />
+      {/*<MSTable />
       <CFTable /> */}
     </div>
   );

@@ -56,8 +56,8 @@ const BarComponent5 = ({
           </label>
 
           <InputPercentage
-            value={answers["90"] ? answers["90"] : "0%"}
-            onChange={(value) => handleInputChange("90", value)}
+            value={answers["139"] ? answers["139"] : "0%"}
+            onChange={(value) => handleInputChange("139", value)}
           />
 
           <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -68,7 +68,7 @@ const BarComponent5 = ({
         <div className="mb-6">
           <QuestionAiBox
             message={
-              "La nourriture représente en moyenne  76% du chiffre d’affaire des restaurateurs"
+              "La nourriture représente en moyenne  5% du chiffre d’affaire des bars"
             }
           />
         </div>
@@ -79,8 +79,8 @@ const BarComponent5 = ({
           </label>
 
           <InputPercentage
-            value={answers["91"] ? answers["91"] : "0%"}
-            onChange={(value) => handleInputChange("91", value)}
+            value={answers["140"] ? answers["140"] : "0%"}
+            onChange={(value) => handleInputChange("140", value)}
           />
 
           <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -90,7 +90,7 @@ const BarComponent5 = ({
         <div className="mb-6">
           <QuestionAiBox
             message={
-              "Les boissons représentent en moyenne 19% du chiffre d’affaire des restaurateurs"
+              "Les boissons représentent en moyenne 90% du chiffre d’affaire des bars"
             }
           />
         </div>
@@ -102,8 +102,8 @@ const BarComponent5 = ({
           </label>
 
           <InputPercentage
-            value={answers["92"] ? answers["92"] : "0%"}
-            onChange={(value) => handleInputChange("92", value)}
+            value={answers["141"] ? answers["141"] : "0%"}
+            onChange={(value) => handleInputChange("141", value)}
           />
 
           <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -113,7 +113,7 @@ const BarComponent5 = ({
         <div className="mb-6">
           <QuestionAiBox
             message={
-              "Le reste représente en moyenne 5% du chiffre d’affaire des restaurateurs"
+              "Le reste représente en moyenne 5% du chiffre d’affaire des bars"
             }
           />
         </div>
