@@ -59,7 +59,7 @@ const SectionOneStep1 = ({
           projet.
         </div>
       </div>
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[560px] mb-[10px]">
+      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[10px]">
         <div className="mb-10 w-full sm:px-[35spx]">
           <div className="mb-6">
             <label className="block px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">

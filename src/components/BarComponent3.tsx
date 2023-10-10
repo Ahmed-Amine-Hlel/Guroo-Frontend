@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { setAnswer } from "../store/answersSlice";
 import InputAmount from "./InputAmount";
 
-const RestaurantComponent3 = ({
+const BarComponent3 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -52,7 +52,7 @@ const RestaurantComponent3 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Restaurant
+            Bar
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -156,4 +156,4 @@ const RestaurantComponent3 = ({
   );
 };
 
-export default RestaurantComponent3;
+export default BarComponent3;

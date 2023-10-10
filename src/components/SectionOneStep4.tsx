@@ -38,7 +38,7 @@ const SectionOneStep4 = ({
             <HiMiniArrowLeft
               className={`text-[24px] ${"hover:cursor-pointer"}`}
               onClick={handleBack}
-            // onClick={!isBackDisabled ? handleBack : undefined}
+              // onClick={!isBackDisabled ? handleBack : undefined}
             />
           </div>
           <div className="text-[24px] font-bold">
@@ -52,7 +52,7 @@ const SectionOneStep4 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[560px] mb-[10px]">
+      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[10px]">
         <div className="w-full sm:px-[35spx] mb-[10px]">
           <label className="block px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
             Quelle structure juridique envisagée
@@ -107,9 +107,7 @@ const SectionOneStep4 = ({
 
             <InputPercentage
               // coloredAiBorder={hasAIPinkBorder}
-              value={answers["401"]
-                ? answers["401"]
-                : "0%"}
+              value={answers["401"] ? answers["401"] : "0%"}
               onChange={(value) => handleInputChange("401", value)}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">

@@ -2,6 +2,7 @@ import { HiMiniArrowLeft } from "react-icons/hi2";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { setAnswer } from "../store/answersSlice";
 import NumberInput from "./NumberInput";
+import QuestionAiBox from "./QuestionAiBox";
 
 const RestaurantComponent4 = ({
   currentBusinessPlanId,
@@ -61,7 +62,7 @@ const RestaurantComponent4 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[560px] mb-[24px]">
+      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[24px]">
         {/* petit déjeuner */}
         {isPetitDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
@@ -119,6 +120,15 @@ const RestaurantComponent4 = ({
           </div>
         )}
 
+        {isDinerSelected && (
+          <div className="mb-6">
+            <QuestionAiBox
+              message={
+                "Votre assistant Guroo vous aide encore  sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32."
+              }
+            />
+          </div>
+        )}
         {/* brasserie Matin */}
         {isBrasserieMatinSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">

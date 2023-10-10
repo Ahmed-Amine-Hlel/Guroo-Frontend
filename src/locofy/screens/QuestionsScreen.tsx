@@ -10,6 +10,7 @@ import RestaurantComponent1 from "../../components/RestaurantComponent1";
 import RestaurantComponent2 from "../../components/RestaurantComponent2";
 import RestaurantComponent3 from "../../components/RestaurantComponent3";
 import RestaurantComponent4 from "../../components/RestaurantComponent4";
+import RestaurantComponent5 from "../../components/RestaurantComponent5";
 
 const QuestionsScreen = () => {
   const [activeSection, setActiveSection] = useState(1);
@@ -21,10 +22,6 @@ const QuestionsScreen = () => {
         setSubStep(subStep - 1);
         return;
       }
-      if (isBarSelected) {
-        setSubStep(0);
-        return;
-      }
     }
     setActiveSection(activeSection - 1);
   };
@@ -33,10 +30,6 @@ const QuestionsScreen = () => {
     if (activeSection === 6) {
       if (isRestaurantSelected && subStep < 4) {
         setSubStep(subStep + 1);
-        return;
-      }
-      if (isBarSelected) {
-        setSubStep(0);
         return;
       }
     }
@@ -79,6 +72,14 @@ const QuestionsScreen = () => {
       case 3:
         return (
           <RestaurantComponent4
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
+
+      case 4:
+        return (
+          <RestaurantComponent5
             currentBusinessPlanId={currentBusinessPlanId}
             handleBack={handleBack}
           />
@@ -138,31 +139,6 @@ const QuestionsScreen = () => {
         }
         return null;
 
-      // case 6:
-      //   return (
-      //     <SectionTwoStep2
-      //       currentBusinessPlanId={currentBusinessPlanId}
-      //       handleBack={handleBack}
-      //     />
-      //   );
-
-      // case 7:
-      //   return <SectionTwoStep3 handleBack={handleBack} />;
-      // case 8:
-      //   return (
-      //     <SectionTwoStep4
-      //       currentBusinessPlanId={currentBusinessPlanId}
-      //       handleBack={handleBack}
-      //     />
-      //   );
-
-      // case 9:
-      //   return (
-      //     <SectionTwoStep5
-      //       currentBusinessPlanId={currentBusinessPlanId}
-      //       handleBack={handleBack}
-      //     />
-      //   );
       default:
         return null;
     }

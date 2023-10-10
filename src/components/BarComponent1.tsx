@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { setAnswer } from "../store/answersSlice";
 import InputMultiSelect from "./InputMultiSelect";
 
-const RestaurantComponent1 = ({
+const BarComponent1 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -72,7 +72,7 @@ const RestaurantComponent1 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Restaurant
+            Bar
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -120,4 +120,4 @@ const RestaurantComponent1 = ({
   );
 };
 
-export default RestaurantComponent1;
+export default BarComponent1;
