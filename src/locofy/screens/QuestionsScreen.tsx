@@ -4,7 +4,10 @@ import SectionOneStep1 from "../../components/SectionOneStep1";
 import SectionOneStep2 from "../../components/SectionOneStep2";
 import SectionOneStep3 from "../../components/SectionOneStep3";
 import SectionOneStep4 from "../../components/SectionOneStep4";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import {
+  // useAppDispatch,
+  useAppSelector,
+} from "../../hooks/hooks";
 import SectionTwoStep1 from "../../components/SectionTwoStep1";
 import RestaurantComponent1 from "../../components/RestaurantComponent1";
 import RestaurantComponent2 from "../../components/RestaurantComponent2";
@@ -17,14 +20,25 @@ import BarComponent3 from "../../components/BarComponent3";
 import BarComponent4 from "../../components/BarComponent4";
 import BarComponent5 from "../../components/BarComponent5";
 import SectionTwoStep2 from "../../components/SectionTwoStep2";
-import { submitAnswersAsync } from "../../store/answersSlice";
-import { Answer } from "../../core/src/domain/entities/Answer";
+import MSTable from "../../components/MSTable";
+import SectionTwoStep3 from "../../components/SectionTwoStep3";
+// import {
+//   submitAnswersAsync,
+// updateProgress
+// } from "../../store/answersSlice";
+// import { Answer } from "../../core/src/domain/entities/Answer";
+// import { setCurrentStep } from "../../store/StepperSlice";
 
-const QuestionsScreen = () => {
+interface QuestionsScreenProps {
+  setIsCompact: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
   const [activeSection, setActiveSection] = useState(1);
   const [subStep, setSubStep] = useState(0);
   const [activeBusinessType, setActiveBusinessType] = useState("Restaurant");
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+  // const sectionStep = useAppSelector((state) => state.stepper.currentStep);
 
   const handleBack = () => {
     if (activeSection === 6) {
@@ -58,6 +72,12 @@ const QuestionsScreen = () => {
       }
     }
     setActiveSection(activeSection + 1);
+    // dispatch(
+    //   updateProgress({
+    //     sectionId: `section${sectionStep}`,
+    //     answeredCount: progressPercentage,
+    //   })
+    // );
     submitAnswers();
   };
 
@@ -66,6 +86,7 @@ const QuestionsScreen = () => {
   );
 
   const currentBusinessPlanId = currentBusinessPlan?.uid;
+  // console.log("currentBusinessPlanId : ", currentBusinessPlanId);
 
   const answers = useAppSelector((state) => state.answers.answers);
 
@@ -166,6 +187,8 @@ const QuestionsScreen = () => {
   const renderActiveSection = () => {
     switch (activeSection) {
       case 1:
+        setIsCompact(false);
+        // dispatch(setCurrentStep(1));
         return (
           <SectionOneStep1 currentBusinessPlanId={currentBusinessPlanId} />
         );
@@ -191,6 +214,7 @@ const QuestionsScreen = () => {
           />
         );
       case 5:
+        // dispatch(setCurrentStep(2));
         return (
           <SectionTwoStep1 currentBusinessPlanId={currentBusinessPlanId} />
         );
@@ -213,6 +237,19 @@ const QuestionsScreen = () => {
             handleBack={handleBack}
           />
         );
+
+      case 8:
+        setIsCompact(true);
+        return null;
+
+      case 9:
+        setIsCompact(false);
+        return (
+          <SectionTwoStep3
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
     }
   };
 
@@ -223,10 +260,10 @@ const QuestionsScreen = () => {
     ) => {
       const formattedAnswers = Object.keys(answers).map((rowNumber) => ({
         value: answers[rowNumber],
-        row_number: Number(rowNumber),
-        businessPlanUid: currentBusinessPlanId,
+        rowNumber: Number(rowNumber),
+        businessPlanId: currentBusinessPlanId,
       }));
-      return { answers: formattedAnswers };
+      return formattedAnswers;
     };
 
     const formattedAnswers = formatAnswersForBackend(
@@ -235,10 +272,15 @@ const QuestionsScreen = () => {
     );
 
     console.log("Formated answers : ", formattedAnswers);
-    dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[]));
+    // dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[]));
   };
 
-  return (
+  return activeSection === 8 ? (
+    <>
+      {renderActiveSection()}
+      <MSTable handleNext={handleNext} />
+    </>
+  ) : (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
       <div className="relative">{renderActiveSection()}</div>
 

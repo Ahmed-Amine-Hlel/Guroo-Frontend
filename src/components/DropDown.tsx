@@ -1,27 +1,108 @@
-import {Fragment, SetStateAction, Dispatch} from 'react'
-import {Menu, Transition} from '@headlessui/react'
-import {FaChevronDown} from 'react-icons/fa';
+import { SetStateAction, Dispatch } from "react";
+import styled, { createGlobalStyle } from "styled-components";
+import { Select } from "antd";
 
-interface DropDownProps {
-    items: string[];
-    selectedItem: string
-    setSelectedItem?: Dispatch<SetStateAction<string>>;
-    className?: string
+const Wrapper = styled.div`
+  .ant-select-selector {
+    background-color: #fcf9ff !important;
+    width: 100% !important;
+    height: 43px !important;
+    display: flex !important;
+    align-items: center !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 
+  .ant-select-selection-item {
+    background-color: #fcf9ff !important;
+    font-size: 14px !important;
+    color: #41245eeb !important;
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+  }
+`;
+
+const GlobalStyles = createGlobalStyle`
+
+.ant-select-dropdown { 
+    border-radius: 8px !important;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08) !important;
 }
 
+.ant-select-item-option-content {
+    border-radius: 4px !important;
+    height: 35px !important;
+    display: flex !important;
+    align-items: center !important;
+    font-size: 14px !important;
+    color: #41245EEB !important;
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+}
 
-const DropDown = ({items, selectedItem, setSelectedItem, className}: DropDownProps) => {
-    return (
-        <Menu as="div" className="w-full relative inline-block text-left">
+.ant-select-item-option-active {
+    border-radius: 8px !important;
+    background-color: #faf5ff !important;
+    font-size: 14px !important;
+    color: #41245EEB !important;
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+.ant-select-item-option-selected {
+    border-radius: 10px !important;
+    background-color: #faf5ff !important;
+    font-size: 14px !important;
+    color: #41245EEB !important;
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+}   
+`;
+
+interface DropDownProps {
+  items: string[];
+  selectedItem: string;
+  setSelectedItem?: Dispatch<SetStateAction<string>>;
+  className?: string;
+}
+
+const DropDown = ({ items, selectedItem, setSelectedItem }: DropDownProps) => {
+  return (
+    <Wrapper
+      style={{
+        width: "100%",
+      }}
+    >
+      <GlobalStyles />
+      <Select
+        defaultValue={selectedItem ? items[0] : selectedItem}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+          borderRadius: "8px",
+          backgroundColor: "white",
+          border: "1px solid #DDC8F1",
+          color: "#6D3B9E",
+          overflow: "hidden",
+        }}
+        onChange={setSelectedItem}
+        options={items.map((item) => ({ label: item, value: item }))}
+      />
+    </Wrapper>
+  );
+};
+
+export default DropDown;
+
+{
+  /* <Menu as="div" className="w-full inline-block text-left">
             <div>
                 <Menu.Button className={
-                    `flex items-center justify-between text-start px-[12px] w-[100%] h-[40px] bg-light-p-hover 
+                    `flex items-center justify-between text-start px-[12px] w-[100%] h-[45px] bg-light-p-hover border 
     border-foundation-purple-light-active bg-[#d9b2ff75] rounded-[8px] 
     focus:outline-none text-[14px] text-[#41245eeb] ${className}`
                 }>
                     {selectedItem && selectedItem}
-                    <FaChevronDown className="mr-1 h-[12px] w-[15px] text-[#572F7E] opacity-60" aria-hidden="true"/>
+                    <FaChevronDown className="mr-1 h-[12px] w-[15px] text-[#572F7E] opacity-60" aria-hidden="true" />
                 </Menu.Button>
             </div>
 
@@ -35,7 +116,7 @@ const DropDown = ({items, selectedItem, setSelectedItem, className}: DropDownPro
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-[#FCF9FF] focus:outline-none">
+                    className="absolute z-50  mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-[#FCF9FF] focus:outline-none">
                     <div className="py-1">
                         {
                             items && items.map((item, index) => (
@@ -54,8 +135,5 @@ const DropDown = ({items, selectedItem, setSelectedItem, className}: DropDownPro
                     </div>
                 </Menu.Items>
             </Transition>
-        </Menu>
-    )
+        </Menu> */
 }
-
-export default DropDown

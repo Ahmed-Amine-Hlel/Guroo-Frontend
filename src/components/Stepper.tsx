@@ -152,7 +152,7 @@ const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
                 <div className="text-smi leading-[18px] font-medium text-lightslategray w-full">
                   {step.description}
                 </div>
-                {index <= currentStep && (
+                {/* {index <= currentStep && (
                   <div className="flex flex-row gap-2 text-center text-xs font-text-xs-medium">
                     {step.tags.map((tag) => {
                       if (index + 1 > currentStep) return null;
@@ -175,7 +175,7 @@ const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
                       );
                     })}
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           ))}

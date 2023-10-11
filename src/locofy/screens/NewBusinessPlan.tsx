@@ -6,7 +6,7 @@ import QuestionsScreen from "./QuestionsScreen";
 
 const NewBusinessPlan = () => {
   const [isCompact, setIsCompact] = useState(false);
-
+  console.log(isCompact);
   return (
     <div className="flex items-center justify-center bg-purple-light min-h-[calc(100%_-_65px)] py-[40px] font-plus-jakarta-sans">
       <ChatBot />
@@ -22,12 +22,10 @@ const NewBusinessPlan = () => {
         </div>
 
         <div
-          className={`${
-            !isCompact ? "flex justify-center" : "flex flex-1"
-          }`}
+          className={`${!isCompact ? "flex justify-center" : "flex flex-1"}`}
         >
           {/* <Questions isCompact={isCompact} /> */}
-          <QuestionsScreen />
+          <QuestionsScreen setIsCompact={setIsCompact} />
         </div>
       </div>
     </div>
