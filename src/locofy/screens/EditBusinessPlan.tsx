@@ -36,7 +36,7 @@ const EditBusinessPlan = () => {
     // Format all answers
     const formattedAnswers = Object.keys(answers).map((questionUid) => ({
       value: answers[questionUid],
-      questionId: questionUid,
+      rowNumber: questionUid,
       businessPlanId: uid,
     }));
 
@@ -111,7 +111,7 @@ const EditBusinessPlan = () => {
         </div>
         <div className="py-[35px] px-2 w-full grid grid-cols-1 xl:grid-cols-2 min-[1864px]:gap-[0px] gap-[50px]">
           <div className="flex justify-center w-full">
-            <Stepper />
+            <Stepper isCompact={false} setIsCompact={() => null} />
           </div>
 
           <div className="flex justify-center w-full">
