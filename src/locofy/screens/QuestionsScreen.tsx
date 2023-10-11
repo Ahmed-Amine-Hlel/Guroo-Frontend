@@ -27,6 +27,10 @@ import SectionTwoStep3 from "../../components/SectionTwoStep3";
 // updateProgress
 // } from "../../store/answersSlice";
 // import { Answer } from "../../core/src/domain/entities/Answer";
+import { MarkBusinessPlanAsDoneUseCase } from "../../core/src/usecases/MarkBusinessPlanAsDoneUseCase";
+import { useNavigate } from "react-router-dom";
+import { GurooBusinessPlanService } from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
+import { BusinessPlanMapper } from "../../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
 // import { setCurrentStep } from "../../store/StepperSlice";
 
 interface QuestionsScreenProps {
@@ -38,6 +42,14 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
   const [subStep, setSubStep] = useState(0);
   const [activeBusinessType, setActiveBusinessType] = useState("Restaurant");
   // const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const businessPlanService = new GurooBusinessPlanService(
+    new BusinessPlanMapper()
+  );
+
+  const markBusinessPlanAsDoneUseCase = new MarkBusinessPlanAsDoneUseCase(
+    businessPlanService
+  );
   // const sectionStep = useAppSelector((state) => state.stepper.currentStep);
 
   const handleBack = () => {
@@ -55,7 +67,13 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
     setActiveSection(activeSection - 1);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    if (activeSection === 9) {
+      submitAnswers();
+      await handleLastSectionCompletion();
+      return;
+    }
+
     if (activeSection === 6) {
       if (subStep < 4) {
         setSubStep(subStep + 1);
@@ -81,12 +99,23 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
     submitAnswers();
   };
 
+  const handleLastSectionCompletion = async () => {
+    if (currentBusinessPlanId) {
+      try {
+        await markBusinessPlanAsDoneUseCase.execute(currentBusinessPlanId);
+        navigate(`/payment/${currentBusinessPlanId}`);
+      } catch (error) {
+        console.error("Error marking the business plan as done:", error);
+      }
+    }
+  };
+
   const currentBusinessPlan = useAppSelector(
     (state) => state.businessPlan.currentBusinessPlan
   );
 
   const currentBusinessPlanId = currentBusinessPlan?.uid;
-  // console.log("currentBusinessPlanId : ", currentBusinessPlanId);
+  console.log("currentBusinessPlanId : ", currentBusinessPlanId);
 
   const answers = useAppSelector((state) => state.answers.answers);
 

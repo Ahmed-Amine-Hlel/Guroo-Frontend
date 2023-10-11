@@ -33,6 +33,7 @@ const PayementScreen = () => {
     }
 
     fetchPrices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handlePayment = async (nickname: string) => {
