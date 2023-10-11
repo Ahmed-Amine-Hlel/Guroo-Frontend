@@ -16,7 +16,12 @@ import SuccessPayement from "./locofy/screens/SuccessPayement";
 function App() {
   const location = useLocation();
 
-  const pathsWithoutNavbar = ["/payment/:businessPlanId", "/pre-payment"];
+  const pathsWithoutNavbar = [
+    "/payment/:businessPlanId",
+    "/pre-payment",
+    "/success-payment",
+    "/fail-payment",
+  ];
 
   const isPathInList = (path: string, pathsList: string[]) => {
     const segments = path.split("/").filter(Boolean);
