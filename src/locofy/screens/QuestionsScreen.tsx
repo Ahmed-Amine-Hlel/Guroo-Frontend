@@ -4,10 +4,7 @@ import SectionOneStep1 from "../../components/SectionOneStep1";
 import SectionOneStep2 from "../../components/SectionOneStep2";
 import SectionOneStep3 from "../../components/SectionOneStep3";
 import SectionOneStep4 from "../../components/SectionOneStep4";
-import {
-  // useAppDispatch,
-  useAppSelector,
-} from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import SectionTwoStep1 from "../../components/SectionTwoStep1";
 import RestaurantComponent1 from "../../components/RestaurantComponent1";
 import RestaurantComponent2 from "../../components/RestaurantComponent2";
@@ -22,11 +19,11 @@ import BarComponent5 from "../../components/BarComponent5";
 import SectionTwoStep2 from "../../components/SectionTwoStep2";
 import MSTable from "../../components/MSTable";
 import SectionTwoStep3 from "../../components/SectionTwoStep3";
-// import {
-//   submitAnswersAsync,
-// updateProgress
-// } from "../../store/answersSlice";
-// import { Answer } from "../../core/src/domain/entities/Answer";
+import {
+  submitAnswersAsync,
+  // updateProgress
+} from "../../store/answersSlice";
+import { Answer } from "../../core/src/domain/entities/Answer";
 import { MarkBusinessPlanAsDoneUseCase } from "../../core/src/usecases/MarkBusinessPlanAsDoneUseCase";
 import { useNavigate } from "react-router-dom";
 import { GurooBusinessPlanService } from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
@@ -41,7 +38,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
   const [activeSection, setActiveSection] = useState(1);
   const [subStep, setSubStep] = useState(0);
   const [activeBusinessType, setActiveBusinessType] = useState("Restaurant");
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const businessPlanService = new GurooBusinessPlanService(
     new BusinessPlanMapper()
@@ -301,7 +298,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
     );
 
     console.log("Formated answers : ", formattedAnswers);
-    // dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[]));
+    dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[]));
   };
 
   return activeSection === 8 ? (
