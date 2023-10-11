@@ -184,8 +184,9 @@ const PayementScreen = () => {
           </div>
           <div className="flex items-end h-full">
             <button
-              className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-white rounded-[8px] bg-[#914FD2] hover:bg-[#8347bd]"
+              className="flex justify-center items-center gap-[8px] text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] px-[20px] py-[12px] w-full text-white rounded-[8px] bg-[#914FD2] hover:bg-[#8347bd] opacity-50 cursor-not-allowed"
               onClick={() => handlePayment("classic")}
+              disabled
             >
               <span>Obtenir mon résumé gratuit</span>
               <span>
