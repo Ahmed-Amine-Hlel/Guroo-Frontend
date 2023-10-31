@@ -11,6 +11,8 @@ import NewBusinessPlan from "./locofy/screens/NewBusinessPlan";
 import PayementScreen from "./locofy/screens/PayementScreen";
 import PrePayementScreen from "./locofy/screens/PrePayementScreen";
 import SuccessPayement from "./locofy/screens/SuccessPayement";
+import MSTable from "./components/MSTable";
+import CFTable from "./components/CFTable";
 // import MSTable from "./components/MSTable";
 
 function App() {
@@ -65,6 +67,8 @@ function App() {
       </GoogleOAuthProvider>
       {/*<MSTable />
       <CFTable /> */}
+      {/* <MSTable handleNext={() => {}} /> */}
+      {/* <CFTable /> */}
     </div>
   );
 }

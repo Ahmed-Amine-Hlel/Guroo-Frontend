@@ -28,6 +28,7 @@ import { MarkBusinessPlanAsDoneUseCase } from "../../core/src/usecases/MarkBusin
 import { useNavigate } from "react-router-dom";
 import { GurooBusinessPlanService } from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
 import { BusinessPlanMapper } from "../../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
+import CFTable from "../../components/CFTable";
 // import { setCurrentStep } from "../../store/StepperSlice";
 
 interface QuestionsScreenProps {
@@ -298,13 +299,14 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
     );
 
     console.log("Formated answers : ", formattedAnswers);
-    dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[]));
+    /* dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[])); */
   };
 
   return activeSection === 8 ? (
     <>
       {renderActiveSection()}
       <MSTable handleNext={handleNext} />
+      {/*  <CFTable handleNext={handleNext} /> */}
     </>
   ) : (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">

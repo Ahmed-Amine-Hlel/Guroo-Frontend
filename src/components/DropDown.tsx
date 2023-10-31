@@ -27,6 +27,7 @@ const GlobalStyles = createGlobalStyle`
 .ant-select-dropdown { 
     border-radius: 8px !important;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08) !important;
+    width: max-content !important;
 }
 
 .ant-select-item-option-content {
@@ -79,10 +80,11 @@ const DropDown = ({ items, selectedItem, setSelectedItem }: DropDownProps) => {
           width: "100%",
           height: "100%",
           borderRadius: "8px",
-          backgroundColor: "white",
           border: "1px solid #DDC8F1",
           color: "#6D3B9E",
           overflow: "hidden",
+          whiteSpace: "nowrap",
+          textOverflow: "ellipsis",
         }}
         onChange={setSelectedItem}
         options={items.map((item) => ({ label: item, value: item }))}

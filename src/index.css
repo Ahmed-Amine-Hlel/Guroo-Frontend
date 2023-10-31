@@ -41,6 +41,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .qb-thumb::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 .qb-thumb::-webkit-scrollbar-track {
