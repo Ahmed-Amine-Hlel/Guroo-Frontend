@@ -19,9 +19,10 @@ import BarComponent2 from "../../components/BarComponent2";
 import BarComponent3 from "../../components/BarComponent3";
 import BarComponent4 from "../../components/BarComponent4";
 import BarComponent5 from "../../components/BarComponent5";
-import SectionTwoStep2 from "../../components/SectionTwoStep2";
 import MSTable from "../../components/MSTable";
+import SectionTwoStep2 from "../../components/SectionTwoStep2";
 import SectionTwoStep3 from "../../components/SectionTwoStep3";
+import SectionTwoStep4 from "../../components/SectionTwoStep4";
 // import {
 //   submitAnswersAsync,
 // updateProgress
@@ -267,13 +268,21 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
         );
 
       case 8:
+        return (
+          <SectionTwoStep3
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
+
+      case 9:
         setIsCompact(true);
         return null;
 
-      case 9:
+      case 10:
         setIsCompact(false);
         return (
-          <SectionTwoStep3
+          <SectionTwoStep4
             currentBusinessPlanId={currentBusinessPlanId}
             handleBack={handleBack}
           />
@@ -303,7 +312,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
     /* dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[])); */
   };
 
-  return activeSection === 8 ? (
+  return activeSection === 9 ? (
     <>
       {renderActiveSection()}
       <MSTable handleNext={handleNext} />
