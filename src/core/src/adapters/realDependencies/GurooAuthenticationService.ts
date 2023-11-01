@@ -13,7 +13,8 @@ export class GurooAuthenticationService implements AuthenticationService {
       const response = await api.post("/user/auth/google", { code: code });
       console.log("response:", this.userMapper.toDomain(response.data));
       return this.userMapper.toDomain(response.data);
-    } catch {
+    } catch (error) {
+      console.error("Error during Google authentication:", error);
       throw new AuthenticationServiceError.GoogleAuthFailed(
         "Google_Auth_Failed"
       );

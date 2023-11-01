@@ -38,6 +38,10 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
     }
   };
 
+  const deleteRow = (rowNumber: number) => {
+    setRows((prevRows) => prevRows.filter((row) => row !== rowNumber));
+  };
+
   const handleInputChange = (rowNumber: string, value: unknown) => {
     dispatch(
       setAnswer({
@@ -331,7 +335,10 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
                       </div>
 
                       <div className="h-full flex items-center justify-center">
-                        <button className=" rounded-full m-1.5 p-1 active:bg-[#e4d3f48b] hover:bg-[#e4d3f45c]">
+                        <button
+                          className=" rounded-full m-1.5 p-1 active:bg-[#e4d3f48b] hover:bg-[#e4d3f45c]"
+                          onClick={() => deleteRow(Number(row))}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"

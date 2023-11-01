@@ -305,8 +305,8 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
   return activeSection === 8 ? (
     <>
       {renderActiveSection()}
-      <MSTable handleNext={handleNext} />
-      {/*  <CFTable handleNext={handleNext} /> */}
+      {/* <MSTable handleNext={handleNext} /> */}
+      <CFTable handleNext={handleNext} />
     </>
   ) : (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
