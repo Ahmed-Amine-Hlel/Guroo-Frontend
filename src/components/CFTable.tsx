@@ -14,11 +14,21 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
     "Montant TTC/mois",
   ]);
 
-  const [tableData] = useState<string[][]>([
-    ["Assurance 👪", "Assurup", "Prélèvement", "59€", "70.9€"],
+  /* ["Assurance 👪", "Assurup", "Prélèvement", "59€", "70.9€"],
     ["Frais bancaires 🏦", "Qonto", "Prélèvement", "9.99€", "12.20€"],
-    ["Comptable 📈", "Tibi Comptable", "Prélèvement", "400€", "480€"],
-  ]);
+    ["Comptable 📈", "Tibi Comptable", "Prélèvement", "400€", "480€"], */
+
+  const [tableData, setTableData] = useState<string[][]>([]);
+
+  const handleAddRow = (loadType: string) => {
+    const newRow = [loadType, "", "", "", ""];
+    setTableData([...tableData, newRow]);
+  };
+
+  const handleDeleteRow = (rowNumber: number) => {
+    const newTableData = tableData.filter((_, index) => index !== rowNumber);
+    setTableData(newTableData);
+  };
 
   return (
     <div className="flex flex-col md:flex-row gap-[16px] w-full min-h-full bg-[#f4edfb] font-plus-jakarta-sans">
@@ -44,15 +54,16 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
             "Véhicule 🚗",
             "Ménage 👨‍👩‍👧‍👦",
           ].map((tag, index) => (
-            <span
+            <button
               key={index}
               className="px-[8px] py-[8px] border-[1px] border-[#DDC8F1] 
               bg-foundation-purple-light-hover rounded-[8px] text-[#914FD2] 
               font-plus-jakarta-sans text-[16px] font-medium leading-[24px] cursor-pointer
               hover:bg-purple-light active:ring-2 active:ring-[#DDC8F1] active:ring-opacity-50"
+              onClick={() => handleAddRow(tag)}
             >
               {tag}
-            </span>
+            </button>
           ))}
         </div>
 
@@ -74,20 +85,25 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
                 <div className="w-[200px]"></div>
               </div>
 
-              {tableData.map((row, index) => (
-                <div
-                  key={`row-${index}`}
-                  className="flex items-center justify-center gap-[10px] mb-[12px]"
-                >
-                  {row.map((text, index) => (
-                    <div
-                      key={`col-data-${index}`}
-                      className="flex items-center w-full justify-center relative"
-                    >
-                      <input
-                        name={`input-${index}-1`}
-                        type="text" /*   */
-                        className={`px-2 text-center w-full h-[45px] border-[1px] border-foundation-purple-light-active rounded-[8px] focus:outline-none text-[14px] text-[#41245eeb]
+              {tableData.length === 0 ? (
+                <div className="text-center text-dark-p py-5">
+                  Aucune donnée disponible
+                </div>
+              ) : (
+                tableData.map((row, index) => (
+                  <div
+                    key={`row-${index}`}
+                    className="flex items-center justify-center gap-[10px] mb-[12px]"
+                  >
+                    {row.map((text, index) => (
+                      <div
+                        key={`col-data-${index}`}
+                        className="flex items-center w-full justify-center relative"
+                      >
+                        <input
+                          name={`input-${index}-1`}
+                          type="text" /*   */
+                          className={`px-2 text-center w-full h-[45px] border-[1px] border-foundation-purple-light-active rounded-[8px] focus:outline-none text-[14px] text-[#41245eeb]
                           ${
                             index === 0
                               ? "bg-light-p-hover text-start px-[18px]"
@@ -96,31 +112,35 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
                               : "bg-white"
                           }
                           `}
-                        value={text}
-                      />
-                    </div>
-                  ))}
-                  <div className="w-[200px] flex justify-center items-center rounded-[8px] h-full">
-                    <button className="rounded-full p-1 active:bg-[#e4d3f48b] hover:bg-[#e4d3f45c]">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                      >
-                        <path
-                          d="M7.125 2.375H11.875M2.375 4.75H16.625M15.0417 4.75L14.4865 13.0778C14.4032 14.3272 14.3615 14.9519 14.0917 15.4256C13.8541 15.8427 13.4957 16.1779 13.0638 16.3873C12.5732 16.625 11.9471 16.625 10.6949 16.625H8.3051C7.05288 16.625 6.42677 16.625 5.93618 16.3873C5.50427 16.1779 5.1459 15.8427 4.90832 15.4256C4.63846 14.9519 4.59681 14.3272 4.51352 13.0778L3.95833 4.75M7.91667 8.3125V12.2708M11.0833 8.3125V12.2708"
-                          stroke="#E4D3F4"
-                          strokeWidth="1.58333"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+                          value={text}
                         />
-                      </svg>
-                    </button>
+                      </div>
+                    ))}
+                    <div className="w-[200px] flex justify-center items-center rounded-[8px] h-full">
+                      <button
+                        onClick={() => handleDeleteRow(index)}
+                        className="rounded-full p-1 active:bg-[#e4d3f48b] hover:bg-[#e4d3f45c]"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M7.125 2.375H11.875M2.375 4.75H16.625M15.0417 4.75L14.4865 13.0778C14.4032 14.3272 14.3615 14.9519 14.0917 15.4256C13.8541 15.8427 13.4957 16.1779 13.0638 16.3873C12.5732 16.625 11.9471 16.625 10.6949 16.625H8.3051C7.05288 16.625 6.42677 16.625 5.93618 16.3873C5.50427 16.1779 5.1459 15.8427 4.90832 15.4256C4.63846 14.9519 4.59681 14.3272 4.51352 13.0778L3.95833 4.75M7.91667 8.3125V12.2708M11.0833 8.3125V12.2708"
+                            stroke="#E4D3F4"
+                            strokeWidth="1.58333"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
 
               {/* <div className="flex items-center justify-start lg:justify-end w-full lg:px-[24px]">
                   <button className="flex items-center justify-center gap-[8px] h-[40px] px-[32px] border-[1px] border-foundation-purple-normal bg-gradient-to-r from-[#914FD2] from-48% to-[#946CBB] to-137% rounded-[45px] text-white hover:cursor-pointer">
