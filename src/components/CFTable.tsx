@@ -70,7 +70,7 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
         {/* ... Rest of the component ... */}
         <div className="overflow-x-scroll lg:overflow-x-hidden table-scroll mb-[15px]">
           <div className="min-w-max lg:min-w-full">
-            <div className="ps-[24px] pe-[12px] py-[17px] bg-ghostwhite-200 rounded-[16px]">
+            <div className="ps-[24px] pe-[12px] py-[17px] bg-ghostwhite-200 rounded-[16px] max-h-[380px] overflow-y-auto qb-thumb">
               <div className="flex items-center justify-center gap-[10px] mb-[12px]">
                 {tableColumns.map((text, index) => (
                   <div

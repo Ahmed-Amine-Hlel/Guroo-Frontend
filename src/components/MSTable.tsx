@@ -144,7 +144,7 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
               </div>
             </div>
             <div className="ps-[18px] py-[17px] bg-ghostwhite-200 rounded-[16px]">
-              <div className="grid grid-cols-9 gap-[8px] pb-2 mb-[16px] overflow-y-auto max-h-[345px] qb-thumb ">
+              <div className="grid grid-cols-9 gap-[8px] pb-2 mb-[16px] overflow-y-auto max-h-[345px] qb-thumb">
                 <div className="h-[79px] bg-[#d9b2ff75] rounded-[8px] flex items-center px-[13px]">
                   <div className="font-bold text-center w-full text-dark-p">
                     Fonction

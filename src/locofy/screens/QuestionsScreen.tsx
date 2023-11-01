@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { HiMiniArrowRight } from "react-icons/hi2";
 import SectionOneStep1 from "../../components/SectionOneStep1";
 import SectionOneStep2 from "../../components/SectionOneStep2";
 import SectionOneStep3 from "../../components/SectionOneStep3";
 import SectionOneStep4 from "../../components/SectionOneStep4";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import {
+  // useAppDispatch,
+  useAppSelector,
+} from "../../hooks/hooks";
 import SectionTwoStep1 from "../../components/SectionTwoStep1";
 import RestaurantComponent1 from "../../components/RestaurantComponent1";
 import RestaurantComponent2 from "../../components/RestaurantComponent2";
@@ -19,27 +22,40 @@ import BarComponent5 from "../../components/BarComponent5";
 import SectionTwoStep2 from "../../components/SectionTwoStep2";
 import MSTable from "../../components/MSTable";
 import SectionTwoStep3 from "../../components/SectionTwoStep3";
-import {
-  submitAnswersAsync,
-  // updateProgress
-} from "../../store/answersSlice";
-import { Answer } from "../../core/src/domain/entities/Answer";
+// import {
+//   submitAnswersAsync,
+// updateProgress
+// } from "../../store/answersSlice";
+// import { Answer } from "../../core/src/domain/entities/Answer";
 import { MarkBusinessPlanAsDoneUseCase } from "../../core/src/usecases/MarkBusinessPlanAsDoneUseCase";
 import { useNavigate } from "react-router-dom";
 import { GurooBusinessPlanService } from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
 import { BusinessPlanMapper } from "../../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
-import CFTable from "../../components/CFTable";
+// import CFTable from "../../components/CFTable";
 // import { setCurrentStep } from "../../store/StepperSlice";
 
 interface QuestionsScreenProps {
   setIsCompact: React.Dispatch<React.SetStateAction<boolean>>;
+  activeSection: number;
+  setActiveSection: React.Dispatch<React.SetStateAction<number>>;
+  subStep: number;
+  setSubStep: React.Dispatch<React.SetStateAction<number>>;
+  activeBusinessType: string;
+  setActiveBusinessType: React.Dispatch<React.SetStateAction<string>>;
+  handleBack: () => void;
 }
 
-const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
-  const [activeSection, setActiveSection] = useState(1);
-  const [subStep, setSubStep] = useState(0);
-  const [activeBusinessType, setActiveBusinessType] = useState("Restaurant");
-  const dispatch = useAppDispatch();
+const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
+  setIsCompact,
+  activeSection,
+  setActiveSection,
+  subStep,
+  setSubStep,
+  activeBusinessType,
+  setActiveBusinessType,
+  handleBack,
+}) => {
+  // const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const businessPlanService = new GurooBusinessPlanService(
     new BusinessPlanMapper()
@@ -49,21 +65,6 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
     businessPlanService
   );
   // const sectionStep = useAppSelector((state) => state.stepper.currentStep);
-
-  const handleBack = () => {
-    if (activeSection === 6) {
-      if (subStep > 0) {
-        setSubStep(subStep - 1);
-        return;
-      }
-      if (subStep === 0 && activeBusinessType === "Bar") {
-        setActiveBusinessType("Restaurant");
-        setSubStep(4);
-        return;
-      }
-    }
-    setActiveSection(activeSection - 1);
-  };
 
   const handleNext = async () => {
     if (activeSection === 9) {
@@ -128,7 +129,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
     } else {
       setActiveBusinessType("");
     }
-  }, [isRestaurantSelected, isBarSelected]);
+  }, [isRestaurantSelected, isBarSelected, setActiveBusinessType]);
   // const isClubSelected = answers["41"] == "true";
   // const isLoungeSelected = answers["42"] == "true";
   // const isBeachClubSelected = answers["43"] == "true";
@@ -305,8 +306,8 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
   return activeSection === 8 ? (
     <>
       {renderActiveSection()}
-      {/* <MSTable handleNext={handleNext} /> */}
-      <CFTable handleNext={handleNext} />
+      <MSTable handleNext={handleNext} />
+      {/* <CFTable handleNext={handleNext} /> */}
     </>
   ) : (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
