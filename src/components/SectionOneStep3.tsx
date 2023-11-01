@@ -52,7 +52,7 @@ const SectionOneStep3 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[10px]">
+      <div className="overflow-y-scroll overflow-x-hidden px-2 py-[5px] qb-thumb h-[500px] mb-[10px]">
         <div className="w-full sm:px-[35spx] mb-[36px]">
           <label className="block px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
             Où sera situé votre restaurant ?

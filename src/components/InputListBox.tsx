@@ -16,7 +16,7 @@ export default function InputListBox({
   value,
   options,
   onChange,
-  coloredAiBorder
+  coloredAiBorder,
 }: InputListBoxProps) {
   const [selected, setSelected] = useState<OptionType | null>(null);
 
@@ -31,7 +31,11 @@ export default function InputListBox({
   }, [onChange, selected]);
 
   return (
-    <div className={`bg[#f4edfb] w-full ${coloredAiBorder ? 'gradient-border z-50' : ''}`}>
+    <div
+      className={`relative bg[#f4edfb] w-full ${
+        coloredAiBorder ? "ring-[6px] ring-[#e9cdff] gradient-border z-20" : ""
+      }`}
+    >
       <Listbox
         value={selected}
         onChange={(newSelected) => {
@@ -42,7 +46,7 @@ export default function InputListBox({
         }}
       >
         <div>
-          <Listbox.Button className="relative w-full cursor-default rounded-[76px] bg-white pt-4 pb-4 pl-6 pr-6 text-left border-[0.50px] border-[#E7E5E4] focus:outline-none hover:shadow-custom sm:text-sm">
+          <Listbox.Button className="relative w-full cursor-default rounded-[76px] bg-white pt-4 pb-4 pl-6 pr-6 text-left border-[0.50px] border-[#E7E5E4] focus:outline-none hover:cursor-pointer sm:text-sm">
             <span className="block truncate text-base text-[#6D3B9E] font-[500] font-plus-jakarta-sans leading-6 break-words pl-[14px]">
               {selected && selected.name}
             </span>

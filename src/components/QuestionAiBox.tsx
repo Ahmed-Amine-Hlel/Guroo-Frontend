@@ -47,10 +47,10 @@ const QuestionAiBox = ({ message }: { message: string }) => {
 
     animateTyping();
   }, [message]);
-
+  
   return (
-    <div className="ai-box-gradient-border z-50">
-      <div className="font-plus-jakarta-sans p-[24px] rounded-[24px] border border-gainsboro ai-card-bg w-full">
+    <div className="mt-3 relative ai-box-gradient-border z-10">
+      <div className="font-plus-jakarta-sans p-[24px] rounded-[24px] ai-card-bg w-full">
         <div className="flex justify-center items-center w-[38px] h-[38px] rounded-full border-[2px] border-primary-600 border-opacity-10 mb-[7px]">
           <div className="flex justify-center items-center w-[27px] h-[27px] rounded-full border-[2px] border-primary-600 border-opacity-30">
             <img

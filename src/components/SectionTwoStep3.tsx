@@ -45,7 +45,7 @@ const SectionTwoStep3 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[10px]">
+      <div className="overflow-y-scroll py-[5px] overflow-x-hidden px-2 qb-thumb h-[500px] mb-[10px]">
         <div className="w-full sm:px-[35spx] mb-[24px]">
           <div className="flex items-center justify-between">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">

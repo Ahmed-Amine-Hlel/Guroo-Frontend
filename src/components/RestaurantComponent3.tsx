@@ -61,7 +61,7 @@ const RestaurantComponent3 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[24px]">
+      <div className="overflow-y-scroll py-[5px] overflow-x-hidden px-2 qb-thumb h-[500px] mb-[24px]">
         {/* petit déjeuner */}
         {isPetitDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
