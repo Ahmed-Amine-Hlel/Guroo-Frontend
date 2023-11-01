@@ -14,6 +14,7 @@ interface InputCalendarProps {
   reducedwidth?: boolean;
   onChange?: (date: dayjs.Dayjs | null) => void;
   value?: dayjs.Dayjs | null;
+  coloredAiBorder?: boolean;
 }
 
 const StyledDatePicker = styled(DatePicker)<InputCalendarProps>`
@@ -371,6 +372,7 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
   reducedwidth = false,
   onChange,
   value = null,
+  coloredAiBorder,
 }) => {
   const initialDate =
     typeof value === "string" ? dayjs(value, "D/M/YYYY") : value;
@@ -425,7 +427,7 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
   // console.log("InputCalendar prop value:", value);
 
   return (
-    <>
+    <div className={coloredAiBorder ? "gradient-border z-50" : ""}>
       <GlobalStyles />
       <StyledDatePicker
         placeholder={placeholderText}
@@ -552,7 +554,7 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
           );
         }}
       />
-    </>
+    </div>
   );
 };
 export default InputCalendar;

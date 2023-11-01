@@ -9,12 +9,14 @@ type InputListBoxProps = {
   options: OptionType[];
   onChange: (selectedOption: OptionType) => void;
   value?: OptionType;
+  coloredAiBorder?: boolean;
 };
 
 export default function InputListBox({
   value,
   options,
   onChange,
+  coloredAiBorder
 }: InputListBoxProps) {
   const [selected, setSelected] = useState<OptionType | null>(null);
 
@@ -29,7 +31,7 @@ export default function InputListBox({
   }, [onChange, selected]);
 
   return (
-    <div className="bg[#f4edfb] w-full">
+    <div className={`bg[#f4edfb] w-full ${coloredAiBorder ? 'gradient-border z-50' : ''}`}>
       <Listbox
         value={selected}
         onChange={(newSelected) => {

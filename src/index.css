@@ -140,14 +140,19 @@ input[type="number"]::-webkit-outer-spin-button {
   box-shadow: 0px 4px 149px 0px rgba(217, 169, 255, 0.25);
 }
 
-.gradient-border {
+
+.input-date-icon::-webkit-calendar-picker-indicator {
+  background-image: url(/calendar.png);
+  font-size: 18px;
+}
+
+.gradient-border, .ai-box-gradient-border {
   --borderWidth: 2px;
   background: white;
   position: relative;
-  border-radius: 76px;
 }
 
-.gradient-border:after {
+.gradient-border:after, .ai-box-gradient-border:after {
   content: "";
   position: absolute;
   top: calc(-1 * var(--borderWidth));
@@ -163,7 +168,6 @@ input[type="number"]::-webkit-outer-spin-button {
       #1098ad,
       #07b39b,
       #6fba82);
-  border-radius: 76px;
   z-index: -1;
   animation: animatedgradient 3s ease alternate infinite;
   background-size: 300% 300%;
@@ -183,7 +187,18 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
-.input-date-icon::-webkit-calendar-picker-indicator {
-  background-image: url(/calendar.png);
-  font-size: 18px;
+.gradient-border {
+  border-radius: 76px;
+}
+
+.gradient-border:after {
+  border-radius: 76px;
+}
+
+.ai-box-gradient-border {
+  border-radius: 24px;
+}
+
+.ai-box-gradient-border:after {
+  border-radius: 24px;
 }
