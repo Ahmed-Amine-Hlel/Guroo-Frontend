@@ -43,28 +43,23 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
             "Coworking 💪",
             "Véhicule 🚗",
             "Ménage 👨‍👩‍👧‍👦",
-            "Autre (Personnalisé)", // Added the button text here
-          ].map((tag, index) =>
-            index !== 9 ? ( // If it's not the last item
-              <span className="px-[8px] py-[8px] border-[1px] border-[#DDC8F1] bg-[#EFE5F8] rounded-[8px] text-[#914FD2] font-plus-jakarta-sans text-[16px] font-medium leading-[24px]">
-                {tag}
-              </span>
-            ) : (
-              // If it's the last item (the button)
-              <button className="flex items-center gap-[8px] px-[16px] py-[10px] border-[1px] border-[#914FD2] bg-gradient-to-r from-[#914FD2] to-[#946CBB] rounded-[48px] shadow-lg">
-                <span className="text-[#FFF] font-plus-jakarta-sans text-[16px] font-semibold leading-[20px]">
-                  {tag}
-                </span>
-                <img src="/plus.png" alt="Plus Icon" width={20} height={20} />
-              </button>
-            )
-          )}
+          ].map((tag, index) => (
+            <span
+              key={index}
+              className="px-[8px] py-[8px] border-[1px] border-[#DDC8F1] 
+              bg-foundation-purple-light-hover rounded-[8px] text-[#914FD2] 
+              font-plus-jakarta-sans text-[16px] font-medium leading-[24px] cursor-pointer
+              hover:bg-purple-light active:ring-2 active:ring-[#DDC8F1] active:ring-opacity-50"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
 
         {/* ... Rest of the component ... */}
         <div className="overflow-x-scroll lg:overflow-x-hidden table-scroll mb-[15px]">
           <div className="min-w-max lg:min-w-full">
-            <div className="px-[24px] py-[17px] bg-ghostwhite-200 rounded-[16px]">
+            <div className="ps-[24px] pe-[12px] py-[17px] bg-ghostwhite-200 rounded-[16px]">
               <div className="flex items-center justify-center gap-[10px] mb-[12px]">
                 {tableColumns.map((text, index) => (
                   <div
@@ -76,6 +71,7 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
                     </span>
                   </div>
                 ))}
+                <div className="w-[200px]"></div>
               </div>
 
               {tableData.map((row, index) => (
@@ -102,29 +98,27 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
                           `}
                         value={text}
                       />
-                      {index === 4 && (
-                        <div className="absolute right-0 bg-transparent flex justify-center items-center rounded-[8px] h-full">
-                          <button className="rounded-full m-1.5 p-1 active:bg-[#e4d3f48b] hover:bg-[#e4d3f45c]">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="20"
-                              height="20"
-                              viewBox="0 0 20 20"
-                              fill="none"
-                            >
-                              <path
-                                d="M7.125 2.375H11.875M2.375 4.75H16.625M15.0417 4.75L14.4865 13.0778C14.4032 14.3272 14.3615 14.9519 14.0917 15.4256C13.8541 15.8427 13.4957 16.1779 13.0638 16.3873C12.5732 16.625 11.9471 16.625 10.6949 16.625H8.3051C7.05288 16.625 6.42677 16.625 5.93618 16.3873C5.50427 16.1779 5.1459 15.8427 4.90832 15.4256C4.63846 14.9519 4.59681 14.3272 4.51352 13.0778L3.95833 4.75M7.91667 8.3125V12.2708M11.0833 8.3125V12.2708"
-                                stroke="#E4D3F4"
-                                strokeWidth="1.58333"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      )}
                     </div>
                   ))}
+                  <div className="w-[200px] flex justify-center items-center rounded-[8px] h-full">
+                    <button className="rounded-full p-1 active:bg-[#e4d3f48b] hover:bg-[#e4d3f45c]">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.125 2.375H11.875M2.375 4.75H16.625M15.0417 4.75L14.4865 13.0778C14.4032 14.3272 14.3615 14.9519 14.0917 15.4256C13.8541 15.8427 13.4957 16.1779 13.0638 16.3873C12.5732 16.625 11.9471 16.625 10.6949 16.625H8.3051C7.05288 16.625 6.42677 16.625 5.93618 16.3873C5.50427 16.1779 5.1459 15.8427 4.90832 15.4256C4.63846 14.9519 4.59681 14.3272 4.51352 13.0778L3.95833 4.75M7.91667 8.3125V12.2708M11.0833 8.3125V12.2708"
+                          stroke="#E4D3F4"
+                          strokeWidth="1.58333"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               ))}
 
