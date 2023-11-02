@@ -109,6 +109,7 @@ const RestaurantComponent4 = ({
             </label>
 
             <NumberInput
+              coloredAiBorder={true}
               value={answers["59"] ?? 0}
               onChange={(value) => handleInputChange("59", value)}
               validation={"max:|min:0"}

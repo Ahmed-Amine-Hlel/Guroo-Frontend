@@ -87,14 +87,21 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
             {boxContents.map((content, index) => (
               <div
                 key={index}
-                onClick={() => handleBoxClick(content)}
-                className={`inline-block p-4 rounded-lg border hover:cursor-pointer hover:bg-[#EDF] hover:!border-[#914FD2] border-[#DDC8F1] bg-[#EFE5F8] text-[#BE8FED] whitespace-nowrap font-[Plus Jakarta Sans] font-medium leading-[24px] text-[16px] ${
-                  selectedBoxes[content]
-                    ? "bg-[#EDF] border !border-[#914FD2]"
-                    : ""
+                className={`inline-block relative ${
+                  selectedBoxes[content] ? "box-gradient-border z-20" : ""
                 }`}
               >
-                {content}
+                <div
+                  key={index}
+                  onClick={() => handleBoxClick(content)}
+                  className={`inline-block p-4 rounded-lg border hover:cursor-pointer hover:bg-[#EDF] hover:!border-[#914FD2] border-[#DDC8F1] bg-[#EFE5F8] text-[#BE8FED] whitespace-nowrap font-[Plus Jakarta Sans] font-medium leading-[24px] text-[16px] ${
+                    selectedBoxes[content]
+                      ? "bg-[#EDF] border !border-[#914FD2]"
+                      : ""
+                  }`}
+                >
+                  {content}
+                </div>
               </div>
             ))}
           </div>

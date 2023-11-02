@@ -49,7 +49,8 @@ const SectionTwoStep3 = ({
         <div className="w-full sm:px-[35spx] mb-[24px]">
           <div className="flex items-center justify-between">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Voulez-vous raisonner en taux de masse salariale ?
+              Souhaitez vous raisonner en % du chiffre d’affaires pour votre
+              masse salariale ?
             </label>
           </div>
           <InputCheckBox
@@ -67,10 +68,11 @@ const SectionTwoStep3 = ({
           <div className="w-full sm:px-[35spx] mb-[10px]">
             <div className="flex items-center justify-between">
               <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-                Quel est le taux de votre masse salariale ?
+                Quel pourcentage ?
               </label>
             </div>
             <InputPercentage
+              coloredAiBorder={true}
               value={answers["335"] ? answers["335"] : "0%"}
               onChange={(value) => handleInputChange("335", value)}
             />

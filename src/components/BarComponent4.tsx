@@ -108,6 +108,7 @@ const BarComponent4 = ({
             </label>
 
             <NumberInput
+              coloredAiBorder={true}
               value={answers["108"] ?? 0}
               onChange={(value) => handleInputChange("108", value)}
               validation={"max:|min:0"}

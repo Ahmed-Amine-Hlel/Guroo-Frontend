@@ -92,6 +92,7 @@ const SectionOneStep2 = ({
           </label>
 
           <InputListBox
+            coloredAiBorder={true}
             value={
               answers["11"] ? { name: answers["11"] } : { name: "December" }
             }

@@ -28,10 +28,10 @@ import SectionTwoStep4 from "../../components/SectionTwoStep4";
 // updateProgress
 // } from "../../store/answersSlice";
 // import { Answer } from "../../core/src/domain/entities/Answer";
-import { MarkBusinessPlanAsDoneUseCase } from "../../core/src/usecases/MarkBusinessPlanAsDoneUseCase";
-import { useNavigate } from "react-router-dom";
-import { GurooBusinessPlanService } from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
-import { BusinessPlanMapper } from "../../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
+// import { MarkBusinessPlanAsDoneUseCase } from "../../core/src/usecases/MarkBusinessPlanAsDoneUseCase";
+// import { useNavigate } from "react-router-dom";
+// import { GurooBusinessPlanService } from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
+// import { BusinessPlanMapper } from "../../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
 // import CFTable from "../../components/CFTable";
 // import { setCurrentStep } from "../../store/StepperSlice";
 
@@ -57,22 +57,22 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
   handleBack,
 }) => {
   // const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const businessPlanService = new GurooBusinessPlanService(
-    new BusinessPlanMapper()
-  );
+  // const navigate = useNavigate();
+  // const businessPlanService = new GurooBusinessPlanService(
+  //   new BusinessPlanMapper()
+  // );
 
-  const markBusinessPlanAsDoneUseCase = new MarkBusinessPlanAsDoneUseCase(
-    businessPlanService
-  );
+  // const markBusinessPlanAsDoneUseCase = new MarkBusinessPlanAsDoneUseCase(
+  //   businessPlanService
+  // );
   // const sectionStep = useAppSelector((state) => state.stepper.currentStep);
 
   const handleNext = async () => {
-    if (activeSection === 9) {
-      submitAnswers();
-      await handleLastSectionCompletion();
-      return;
-    }
+    // if (activeSection === 9) {
+    //   submitAnswers();
+    //   await handleLastSectionCompletion();
+    //   return;
+    // }
 
     if (activeSection === 6) {
       if (subStep < 4) {
@@ -99,16 +99,16 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
     submitAnswers();
   };
 
-  const handleLastSectionCompletion = async () => {
-    if (currentBusinessPlanId) {
-      try {
-        await markBusinessPlanAsDoneUseCase.execute(currentBusinessPlanId);
-        navigate(`/payment/${currentBusinessPlanId}`);
-      } catch (error) {
-        console.error("Error marking the business plan as done:", error);
-      }
-    }
-  };
+  // const handleLastSectionCompletion = async () => {
+  //   if (currentBusinessPlanId) {
+  //     try {
+  //       await markBusinessPlanAsDoneUseCase.execute(currentBusinessPlanId);
+  //       navigate(`/payment/${currentBusinessPlanId}`);
+  //     } catch (error) {
+  //       console.error("Error marking the business plan as done:", error);
+  //     }
+  //   }
+  // };
 
   const currentBusinessPlan = useAppSelector(
     (state) => state.businessPlan.currentBusinessPlan

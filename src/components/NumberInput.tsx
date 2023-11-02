@@ -82,7 +82,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
   const invalidClasses =
     "ring-[4px] ring-[#f6dee8] border-[0.50px] border-solid border-[#FDA29B] bg-[#fef3f2] box-shadow-0px-0px-0px-4px-rgba(253,162,155,0.20) text-[#7A271A]";
   return (
-    <div className={coloredAiBorder ? "gradient-border z-50" : ""}>
+    <div className={coloredAiBorder ? "relative gradient-border z-50" : ""}>
       <div className="relative flex items-center w-full">
         <input
           // value={value === null ? "" : value}

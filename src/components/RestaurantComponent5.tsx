@@ -56,6 +56,7 @@ const RestaurantComponent5 = ({
           </label>
 
           <InputPercentage
+            coloredAiBorder={true}
             value={answers["90"] ? answers["90"] : "0%"}
             onChange={(value) => handleInputChange("90", value)}
           />
@@ -79,6 +80,7 @@ const RestaurantComponent5 = ({
           </label>
 
           <InputPercentage
+            coloredAiBorder={true}
             value={answers["91"] ? answers["91"] : "0%"}
             onChange={(value) => handleInputChange("91", value)}
           />
@@ -102,6 +104,7 @@ const RestaurantComponent5 = ({
           </label>
 
           <InputPercentage
+            coloredAiBorder={true}
             value={answers["92"] ? answers["92"] : "0%"}
             onChange={(value) => handleInputChange("92", value)}
           />

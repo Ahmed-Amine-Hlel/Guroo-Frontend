@@ -59,6 +59,7 @@ const SectionOneStep4 = ({
           </label>
 
           <InputListBox
+            coloredAiBorder={true}
             value={
               answers["17"]
                 ? { name: answers["17"] }
@@ -95,7 +96,7 @@ const SectionOneStep4 = ({
               onChange={(boolValue) => handleInputChange("18", boolValue)}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              L’ACRE une aide à la création d’entreprise{" "}
+              L’ACRE une aide à la création d’entreprise
             </div>
           </div>
         )}

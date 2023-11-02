@@ -56,6 +56,7 @@ const SectionTwoStep2 = ({
             </label>
           </div>
           <InputListBox
+            coloredAiBorder={true}
             value={answers["20"] ? { name: answers["20"] } : { name: "0" }}
             options={[
               { name: "0" },

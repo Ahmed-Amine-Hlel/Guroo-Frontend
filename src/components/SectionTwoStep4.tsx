@@ -75,6 +75,7 @@ const SectionTwoStep4 = ({
               </label>
             </div>
             <InputPercentage
+              coloredAiBorder={true}
               value={answers["411"] ? answers["411"] : "0%"}
               onChange={(value) => handleInputChange("411", value)}
             />

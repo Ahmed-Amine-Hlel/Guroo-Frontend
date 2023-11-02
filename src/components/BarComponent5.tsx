@@ -56,6 +56,7 @@ const BarComponent5 = ({
           </label>
 
           <InputPercentage
+            coloredAiBorder={true}
             value={answers["139"] ? answers["139"] : "0%"}
             onChange={(value) => handleInputChange("139", value)}
           />
@@ -79,6 +80,7 @@ const BarComponent5 = ({
           </label>
 
           <InputPercentage
+            coloredAiBorder={true}
             value={answers["140"] ? answers["140"] : "0%"}
             onChange={(value) => handleInputChange("140", value)}
           />
@@ -102,6 +104,7 @@ const BarComponent5 = ({
           </label>
 
           <InputPercentage
+            coloredAiBorder={true}
             value={answers["141"] ? answers["141"] : "0%"}
             onChange={(value) => handleInputChange("141", value)}
           />
