@@ -88,7 +88,7 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
               <div
                 key={index}
                 className={`inline-block relative ${
-                  selectedBoxes[content] ? "ring-[6px] ring-[#e9cdff] box-gradient-border z-20" : ""
+                  selectedBoxes[content] ? "box-gradient-border z-20" : ""
                 }`}
               >
                 <div

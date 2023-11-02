@@ -6,6 +6,7 @@ import InputCheckBox from "./InputCheckBox";
 import InputPercentage from "./InputPercentage";
 import InputCalendar from "./InputCalendar";
 import dayjs from "dayjs";
+import InputAmount from "./InputAmount";
 
 const SectionTwoStep4 = ({
   currentBusinessPlanId,
@@ -84,6 +85,30 @@ const SectionTwoStep4 = ({
               <QuestionAiBox
                 message={
                   "En moyenne les sociétés dans votre industrie dépensent 8% du chiffre d’affaire total dans leur loyer. Attention, le loyer du siège (s’il y en a un) n’est pas inclus dans ce loyer. On appelle ça, le taux d’effort. Pour rappel, la date de création de votre activité est le 28/09/2022."
+                }
+              />
+            </div>
+          </div>
+        )}
+
+        {!isSetTrue && (
+          <div className="w-full sm:px-[35spx] mb-[10px]">
+            <div className="flex items-center justify-between">
+              <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
+                Quel est le montant du loyer ?
+              </label>
+            </div>
+
+            <InputAmount
+              coloredAiBorder={true}
+              value={answers["409"] ?? 0}
+              onChange={(value) => handleInputChange("409", value.toString())}
+            />
+
+            <div className="mt-[10px] mb-6">
+              <QuestionAiBox
+                message={
+                  "Pour la surface annoncée, en fonction de votre localisation nous identifions que le loyer en moyenne au m2 est de 298€/m2 donc votre loyer doit être environ de 2589€ par mois. Attention, le loyer du siège (s’il y en a un) n’est pas inclus dans ce loyer. Pour rappel, la date de création de votre activité est le 28/09/2022."
                 }
               />
             </div>

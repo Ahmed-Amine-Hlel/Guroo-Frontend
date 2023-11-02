@@ -94,6 +94,7 @@ const SectionTwoStep2 = ({
               </label>
 
               <InputPercentage
+                coloredAiBorder={true}
                 value={answers["21"] ? answers["21"] : "0%"}
                 onChange={(value) => handleInputChange("21", value)}
               />
@@ -120,6 +121,7 @@ const SectionTwoStep2 = ({
               </label>
 
               <InputPercentage
+                coloredAiBorder={true}
                 value={answers["22"] ? answers["22"] : "0%"}
                 onChange={(value) => handleInputChange("22", value)}
               />
@@ -145,6 +147,7 @@ const SectionTwoStep2 = ({
               </label>
 
               <InputPercentage
+                coloredAiBorder={true}
                 value={answers["23"] ? answers["23"] : "0%"}
                 onChange={(value) => handleInputChange("23", value)}
               />

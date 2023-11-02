@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Select, Space } from "antd";
+import { Select } from "antd";
 import styled, { createGlobalStyle } from "styled-components";
 
 interface MultiSelectInputProps {
@@ -41,9 +41,9 @@ const Wrapper = styled.div`
     padding: 0px !important;
   }
 
-  .ant-select-selection-item:after {
-    content: "," !important;
-  }
+  // .ant-select-selection-item:after {
+  //   content: "," !important;
+  // }
 
   .ant-select-selection-placeholder {
     font-size: 16px !important;
