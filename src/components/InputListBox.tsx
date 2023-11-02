@@ -84,36 +84,34 @@ export default function InputListBox({
                     }
                     value={option}
                   >
-                    {({ selected, active }) => (
-                      <div
-                        className={`flex justify-between items-center w-full px-6 h-[45px] rounded-[56px] ${
-                          active ? "bg-[#faf5ff]" : ""
-                        } ${selected ? "bg-[#faf5ff]" : ""}`}
+                    <div
+                      className={`flex justify-between items-center w-full px-6 h-[45px] rounded-[56px] hover:cursor-pointer hover:bg-[#faf5ff] ${
+                        selected?.name === option.name ? "bg-[#faf5ff]" : ""
+                      }`}
+                    >
+                      <span
+                        className={`block truncate text-base text-[#6D3B9E] font-[500] font-plus-jakarta-sans leading-6`}
                       >
-                        <span
-                          className={`block truncate text-base text-[#6D3B9E] font-[500] font-plus-jakarta-sans leading-6`}
+                        {option.name}
+                      </span>
+                      {selected?.name === option.name ? (
+                        <svg
+                          width="17"
+                          height="13"
+                          viewBox="0 0 17 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          {option.name}
-                        </span>
-                        {selected ? (
-                          <svg
-                            width="17"
-                            height="13"
-                            viewBox="0 0 17 13"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M15.304 2.08984L6.13737 11.2565L1.9707 7.08984"
-                              stroke="#8347BD"
-                              strokeWidth="3"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        ) : null}
-                      </div>
-                    )}
+                          <path
+                            d="M15.304 2.08984L6.13737 11.2565L1.9707 7.08984"
+                            stroke="#8347BD"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      ) : null}
+                    </div>
                   </Listbox.Option>
                 ))}
               </Listbox.Options>
