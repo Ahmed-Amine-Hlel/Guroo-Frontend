@@ -58,7 +58,7 @@ const InputPercentage = ({
   return (
     <div className="relative flex items-center w-full">
       <Wrapper
-        className={`w-full ${coloredAiBorder ? "gradient-border z-50" : ""}`}
+        className={`w-full ${coloredAiBorder ? "ring-[6px] ring-[#e9cdff] gradient-border z-50" : ""}`}
       >
         <StyledInputNumber
           parser={(value) => (value ? value.replace("%", "") : "")}

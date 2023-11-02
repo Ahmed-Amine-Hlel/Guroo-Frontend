@@ -427,7 +427,7 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
   // console.log("InputCalendar prop value:", value);
 
   return (
-    <div className={coloredAiBorder ? "gradient-border z-50" : ""}>
+    <div className={coloredAiBorder ? "ring-[6px] ring-[#e9cdff] gradient-border z-50" : ""}>
       <GlobalStyles />
       <StyledDatePicker
         placeholder={placeholderText}

@@ -83,12 +83,12 @@ const RestaurantComponent2 = ({ handleBack }: { handleBack: () => void }) => {
             </Tooltip>
           </div>
 
-          <div className="space-y-[8px] space-x-[8px] mb-[10px]">
+          <div className="flex flex-wrap gap-x-[16px] gap-y-[16px] mb-[10px]">{/* space-y-[10px] space-x-[16px] */}
             {boxContents.map((content, index) => (
               <div
                 key={index}
                 className={`inline-block relative ${
-                  selectedBoxes[content] ? "box-gradient-border z-20" : ""
+                  selectedBoxes[content] ? "ring-[6px] ring-[#e9cdff] box-gradient-border z-20" : ""
                 }`}
               >
                 <div

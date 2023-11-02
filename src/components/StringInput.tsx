@@ -6,13 +6,21 @@ interface StringInputProps {
   coloredAiBorder?: boolean;
 }
 
-const StringInput: React.FC<StringInputProps> = ({ coloredAiBorder ,onChange, value = "" }) => {
+const StringInput: React.FC<StringInputProps> = ({
+  coloredAiBorder,
+  onChange,
+  value = "",
+}) => {
   // useEffect(() => {
   //   onChange(value || "");
   // }, []);
 
   return (
-    <div className={coloredAiBorder ? "gradient-border z-50" : ""}>
+    <div
+      className={
+        coloredAiBorder ? "ring-[6px] ring-[#e9cdff] gradient-border z-50" : ""
+      }
+    >
       <div className="relative flex items-center w-full">
         <input
           value={value}
