@@ -41,9 +41,9 @@ const Wrapper = styled.div`
     padding: 0px !important;
   }
 
-  // .ant-select-selection-item:after {
-  //   content: "," !important;
-  // }
+  .ant-select-selection-item:not(:last-child):nth-child(n + 2):after {
+    content: "," !important;
+  }
 
   .ant-select-selection-placeholder {
     font-size: 16px !important;
@@ -121,10 +121,6 @@ const MultiSelectInput: React.FC<MultiSelectInputProps> = ({
   value,
   onChange,
 }) => {
-  const handleChange = (selectedMonths: string[]) => {
-    onChange(selectedMonths);
-  };
-
   const [months] = useState<string[]>([
     "Janvier",
     "Février",
@@ -139,6 +135,11 @@ const MultiSelectInput: React.FC<MultiSelectInputProps> = ({
     "Novembre",
     "Décembre",
   ]);
+
+  const handleChange = (selectedMonths: string[]) => {
+    console.log(selectedMonths);
+    onChange(selectedMonths);
+  };
 
   return (
     <Wrapper>

@@ -79,8 +79,8 @@ const SectionTwoStep1 = ({
 
       <div className="overflow-y-scroll py-[5px] overflow-x-hidden px-2 qb-thumb h-[500px] mb-[10px]">
         <div className="w-full sm:px-[35spx] mb-[10px]">
-          <div className="flex items-center justify-between">
-            <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
+          <div className="flex justify-between mb-[16px] pe-6">
+            <label className="block px-[16px] text-[14px] text-foundation-purple-dark-active">
               Quels sont vos centres de revenus ?
             </label>
 
@@ -92,14 +92,13 @@ const SectionTwoStep1 = ({
               overlayStyle={{ maxWidth: "450px" }}
             >
               <img
-                className="mr-[150px]"
                 src="/help-circle.svg"
                 alt="circle help"
               />
             </Tooltip>
           </div>
 
-          <div className="space-x-[16px] mb-[10px]">
+          <div className="flex flex-wrap gap-x-[16px] gap-y-[16px] mb-[10px]">
             {boxContents.map((content, index) => (
               <div
                 key={index}
