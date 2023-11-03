@@ -9,25 +9,13 @@ import {
   useAppSelector,
 } from "../../hooks/hooks";
 import SectionTwoStep1 from "../../components/SectionTwoStep1";
-import RestaurantComponent1 from "../../components/RestaurantComponents/RestaurantComponent1";
-import RestaurantComponent2 from "../../components/RestaurantComponents/RestaurantComponent2";
-import RestaurantComponent3 from "../../components/RestaurantComponents/RestaurantComponent3";
-import RestaurantComponent4 from "../../components/RestaurantComponents/RestaurantComponent4";
-import RestaurantComponent5 from "../../components/RestaurantComponents/RestaurantComponent5";
-import BarComponent1 from "../../components/BarComponents/BarComponent1";
-import BarComponent2 from "../../components/BarComponents/BarComponent2";
-import BarComponent3 from "../../components/BarComponents/BarComponent3";
-import BarComponent4 from "../../components/BarComponents/BarComponent4";
-import BarComponent5 from "../../components/BarComponents/BarComponent5";
-import ClubComponent1 from "../../components/ClubComponents/ClubComponent1";
-import ClubComponent2 from "../../components/ClubComponents/ClubComponent2";
-import ClubComponent3 from "../../components/ClubComponents/ClubComponent3";
-import ClubComponent4 from "../../components/ClubComponents/ClubComponent4";
-import ClubComponent5 from "../../components/ClubComponents/ClubComponent5";
 import MSTable from "../../components/MSTable";
 import SectionTwoStep2 from "../../components/SectionTwoStep2";
 import SectionTwoStep3 from "../../components/SectionTwoStep3";
 import SectionTwoStep4 from "../../components/SectionTwoStep4";
+import RestaurantWrapper from "../../components/RestaurantComponents/RestaurantWrapper";
+import BarWrapper from "../../components/BarComponents/BarWrapper";
+import ClubWrapper from "../../components/ClubComponents/ClubWrapper";
 // import {
 //   submitAnswersAsync,
 // updateProgress
@@ -154,123 +142,6 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
   // const isLoungeSelected = answers["42"] == "true";
   // const isBeachClubSelected = answers["43"] == "true";
 
-  const RestaurantWrapper = () => {
-    switch (subStep) {
-      case 0:
-        return (
-          <RestaurantComponent1
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 1:
-        return <RestaurantComponent2 handleBack={handleBack} />;
-      case 2:
-        return (
-          <RestaurantComponent3
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 3:
-        return (
-          <RestaurantComponent4
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 4:
-        return (
-          <RestaurantComponent5
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
-  const BarWrapper = () => {
-    switch (subStep) {
-      case 0:
-        return (
-          <BarComponent1
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 1:
-        return <BarComponent2 handleBack={handleBack} />;
-      case 2:
-        return (
-          <BarComponent3
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 3:
-        return (
-          <BarComponent4
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 4:
-        return (
-          <BarComponent5
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
-  const ClubWrapper = () => {
-    switch (subStep) {
-      case 0:
-        return (
-          <ClubComponent1
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 1:
-        return <ClubComponent2 handleBack={handleBack} />;
-      case 2:
-        return (
-          <ClubComponent3
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 3:
-        return (
-          <ClubComponent4
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 4:
-        return (
-          <ClubComponent5
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
   const renderActiveSection = () => {
     switch (activeSection) {
       case 1:
@@ -308,13 +179,31 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
 
       case 6:
         if (activeBusinessType === "Restaurant" && isRestaurantSelected) {
-          return <RestaurantWrapper />;
+          return (
+            <RestaurantWrapper
+              currentBusinessPlanId={currentBusinessPlanId}
+              handleBack={handleBack}
+              subStep={subStep}
+            />
+          );
         }
         if (activeBusinessType === "Bar" && isBarSelected) {
-          return <BarWrapper />;
+          return (
+            <BarWrapper
+              currentBusinessPlanId={currentBusinessPlanId}
+              handleBack={handleBack}
+              subStep={subStep}
+            />
+          );
         }
         if (activeBusinessType === "Club" && isClubSelected) {
-          return <ClubWrapper />;
+          return (
+            <ClubWrapper
+              currentBusinessPlanId={currentBusinessPlanId}
+              handleBack={handleBack}
+              subStep={subStep}
+            />
+          );
         }
         return null;
       default:
