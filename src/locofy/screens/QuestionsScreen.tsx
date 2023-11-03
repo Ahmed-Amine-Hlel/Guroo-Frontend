@@ -76,6 +76,10 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
           setActiveBusinessType("Lounge");
           setSubStep(0);
           return;
+        } else if (isBeachClubSelected) {
+          setActiveBusinessType("Beach Club");
+          setSubStep(0);
+          return;
         }
       }
 
@@ -88,10 +92,31 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
           setActiveBusinessType("Lounge");
           setSubStep(0);
           return;
+        } else if (isBeachClubSelected) {
+          setActiveBusinessType("Beach Club");
+          setSubStep(0);
+          return;
         }
       }
-      if (subStep === 4 && activeBusinessType === "Club" && isLoungeSelected) {
-        setActiveBusinessType("Lounge");
+
+      if (activeBusinessType === "Club") {
+        if (isLoungeSelected) {
+          setActiveBusinessType("Lounge");
+          setSubStep(0);
+          return;
+        } else if (isBeachClubSelected) {
+          setActiveBusinessType("Beach Club");
+          setSubStep(0);
+          return;
+        }
+      }
+
+      if (
+        subStep === 4 &&
+        activeBusinessType === "Lounge" &&
+        isBeachClubSelected
+      ) {
+        setActiveBusinessType("Beach Club");
         setSubStep(0);
         return;
       }
@@ -130,6 +155,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
   const isBarSelected = answers["40"] == "true";
   const isClubSelected = answers["41"] == "true";
   const isLoungeSelected = answers["42"] == "true";
+  const isBeachClubSelected = answers["43"] == "true";
 
   useEffect(() => {
     if (isRestaurantSelected) {
@@ -140,6 +166,8 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
       setActiveBusinessType("Club");
     } else if (isLoungeSelected) {
       setActiveBusinessType("Lounge");
+    } else if (isBeachClubSelected) {
+      setActiveBusinessType("Beach Club");
     } else {
       setActiveBusinessType("");
     }
@@ -148,9 +176,9 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
     isBarSelected,
     isClubSelected,
     isLoungeSelected,
+    isBeachClubSelected,
     setActiveBusinessType,
   ]);
-  // const isBeachClubSelected = answers["43"] == "true";
 
   const submitAnswers = () => {
     const formatAnswersForBackend = (
@@ -181,6 +209,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
         activeBusinessType={activeBusinessType}
         currentBusinessPlanId={currentBusinessPlanId}
         subStep={subStep}
+        isBeachClubSelected={isBeachClubSelected}
         isBarSelected={isBarSelected}
         isClubSelected={isClubSelected}
         isLoungeSelected={isLoungeSelected}
@@ -197,6 +226,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
         activeBusinessType={activeBusinessType}
         currentBusinessPlanId={currentBusinessPlanId}
         subStep={subStep}
+        isBeachClubSelected={isBeachClubSelected}
         isBarSelected={isBarSelected}
         isClubSelected={isClubSelected}
         isLoungeSelected={isLoungeSelected}
@@ -214,6 +244,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
           activeBusinessType={activeBusinessType}
           currentBusinessPlanId={currentBusinessPlanId}
           subStep={subStep}
+          isBeachClubSelected={isBeachClubSelected}
           isBarSelected={isBarSelected}
           isClubSelected={isClubSelected}
           isLoungeSelected={isLoungeSelected}

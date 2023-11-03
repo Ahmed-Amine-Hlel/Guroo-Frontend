@@ -2,6 +2,7 @@ import BarWrapper from "./BarComponents/BarWrapper";
 import ClubWrapper from "./ClubComponents/ClubWrapper";
 import LoungeWrapper from "./LoungeComponents/LoungeWrapper";
 import RestaurantWrapper from "./RestaurantComponents/RestaurantWrapper";
+import BeachClubWrapper from "./BeachClubComponents/BeachClubWrapper";
 import SectionOneStep1 from "./SectionOneStep1";
 import SectionOneStep2 from "./SectionOneStep2";
 import SectionOneStep3 from "./SectionOneStep3";
@@ -18,6 +19,7 @@ type ActiveSectionProps = {
   handleBack: () => void;
   subStep: number;
   setIsCompact: React.Dispatch<React.SetStateAction<boolean>>;
+  isBeachClubSelected: boolean;
   isRestaurantSelected: boolean;
   isBarSelected: boolean;
   isClubSelected: boolean;
@@ -31,6 +33,7 @@ const ActiveSection = ({
   handleBack,
   setIsCompact,
   subStep,
+  isBeachClubSelected,
   isBarSelected,
   isClubSelected,
   isLoungeSelected,
@@ -97,6 +100,15 @@ const ActiveSection = ({
       if (activeBusinessType === "Lounge" && isLoungeSelected) {
         return (
           <LoungeWrapper
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+            subStep={subStep}
+          />
+        );
+      }
+      if (activeBusinessType === "Beach Club" && isBeachClubSelected) {
+        return (
+          <BeachClubWrapper
             currentBusinessPlanId={currentBusinessPlanId}
             handleBack={handleBack}
             subStep={subStep}

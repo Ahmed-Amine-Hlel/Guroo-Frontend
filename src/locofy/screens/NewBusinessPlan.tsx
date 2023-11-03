@@ -16,6 +16,7 @@ const NewBusinessPlan = () => {
   const isRestaurantSelected = answers["39"] == "true";
   const isBarSelected = answers["40"] == "true";
   const isClubSelected = answers["41"] == "true";
+  const isLoungeSelected = answers["42"] == "true";
 
   const handleBack = () => {
     if (activeSection === 6) {
@@ -24,6 +25,26 @@ const NewBusinessPlan = () => {
         return;
       }
       if (subStep === 0) {
+        if (activeBusinessType === "Beach Club") {
+          if (isLoungeSelected) {
+            setActiveBusinessType("Lounge");
+            setSubStep(4);
+            return;
+          } else if (isClubSelected) {
+            setActiveBusinessType("Club");
+            setSubStep(4);
+            return;
+          } else if (isBarSelected) {
+            setActiveBusinessType("Bar");
+            setSubStep(4);
+            return;
+          } else if (isRestaurantSelected) {
+            setActiveBusinessType("Restaurant");
+            setSubStep(4);
+            return;
+          }
+        }
+
         if (activeBusinessType === "Lounge") {
           if (isClubSelected) {
             setActiveBusinessType("Club");
