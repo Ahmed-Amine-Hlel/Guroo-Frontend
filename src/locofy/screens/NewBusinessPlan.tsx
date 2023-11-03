@@ -3,6 +3,7 @@ import Stepper from "../../components/Stepper";
 import ChatBot from "../../components/ChatBot";
 import { useState } from "react";
 import QuestionsScreen from "./QuestionsScreen";
+import { useAppSelector } from "../../hooks/hooks";
 
 const NewBusinessPlan = () => {
   const [isCompact, setIsCompact] = useState(false);
@@ -10,22 +11,39 @@ const NewBusinessPlan = () => {
   const [subStep, setSubStep] = useState(0);
   const [activeBusinessType, setActiveBusinessType] = useState("Restaurant");
 
+  const answers = useAppSelector((state) => state.answers.answers);
+
+  const isRestaurantSelected = answers["39"] == "true";
+  const isBarSelected = answers["40"] == "true";
+
   const handleBack = () => {
     if (activeSection === 6) {
       if (subStep > 0) {
         setSubStep(subStep - 1);
         return;
       }
-      if (subStep === 0 && activeBusinessType === "Bar") {
-        setActiveBusinessType("Restaurant");
-        setSubStep(4);
-        return;
+      if (subStep === 0) {
+        if (activeBusinessType === "Club") {
+          if (isBarSelected) {
+            setActiveBusinessType("Bar");
+            setSubStep(4);
+            return;
+          } else if (isRestaurantSelected) {
+            setActiveBusinessType("Restaurant");
+            setSubStep(4);
+            return;
+          }
+        }
+        if (activeBusinessType === "Bar" && isRestaurantSelected) {
+          setActiveBusinessType("Restaurant");
+          setSubStep(4);
+          return;
+        }
       }
     }
     setActiveSection(activeSection - 1);
   };
 
-  // console.log(isCompact);
   return (
     <div className="flex items-center justify-center bg-purple-light min-h-[calc(100%_-_65px)] py-[40px] font-plus-jakarta-sans">
       <ChatBot />

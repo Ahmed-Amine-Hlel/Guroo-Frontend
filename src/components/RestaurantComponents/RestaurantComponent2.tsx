@@ -1,6 +1,6 @@
 import { Tooltip } from "antd";
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import QuestionAiBox from "./QuestionAiBox";
+import QuestionAiBox from "../QuestionAiBox";
 import { useEffect, useState } from "react";
 
 const RestaurantComponent2 = ({ handleBack }: { handleBack: () => void }) => {
@@ -71,7 +71,7 @@ const RestaurantComponent2 = ({ handleBack }: { handleBack: () => void }) => {
             <Tooltip
               placement="topRight"
               title={
-                "Votre bar est un centre de revenu à lui tout seul ? Cliquez dessus."
+                "Votre restaurant est un centre de revenu à lui tout seul ? Cliquez dessus."
               }
               overlayStyle={{ maxWidth: "450px" }}
             >

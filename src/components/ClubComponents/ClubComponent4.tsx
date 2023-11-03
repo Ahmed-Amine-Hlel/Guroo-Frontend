@@ -1,10 +1,10 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import NumberInput from "./NumberInput";
-import QuestionAiBox from "./QuestionAiBox";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import NumberInput from "../NumberInput";
+import QuestionAiBox from "../QuestionAiBox";
 
-const RestaurantComponent4 = ({
+const ClubComponent4 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -26,18 +26,17 @@ const RestaurantComponent4 = ({
   };
 
   const isPetitDéjeunerSelected =
-    localStorage.getItem("restaurant-Petit-déjeuner") === "true";
+    localStorage.getItem("club-Petit-déjeuner") === "true";
 
-  const isDéjeunerSelected =
-    localStorage.getItem("restaurant-Déjeuner") === "true";
+  const isDéjeunerSelected = localStorage.getItem("club-Déjeuner") === "true";
 
-  const isDinerSelected = localStorage.getItem("restaurant-Diner") === "true";
+  const isDinerSelected = localStorage.getItem("club-Diner") === "true";
 
   const isBrasserieMatinSelected =
-    localStorage.getItem("restaurant-Brasserie Matin") === "true";
+    localStorage.getItem("club-Brasserie Matin") === "true";
 
   const isBrasserieApresMidiSelected =
-    localStorage.getItem("restaurant-Brasserie après midi") === "true";
+    localStorage.getItem("club-Brasserie après midi") === "true";
 
   return (
     <>
@@ -53,7 +52,7 @@ const RestaurantComponent4 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Restaurant
+            Club
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -71,13 +70,13 @@ const RestaurantComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["55"] ?? 0}
-              onChange={(value) => handleInputChange("55", value)}
+              value={answers["153"] ?? 0}
+              onChange={(value) => handleInputChange("153", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le nombre de couvert correspond au nombre de personnes que vous
-              pensez accueillir une fois votre restaurant à son plein potentiel
+              pensez accueillir une fois votre club à son plein potentiel
             </div>
           </div>
         )}
@@ -90,13 +89,13 @@ const RestaurantComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["57"] ?? 0}
-              onChange={(value) => handleInputChange("57", value)}
+              value={answers["155"] ?? 0}
+              onChange={(value) => handleInputChange("155", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le nombre de couvert correspond au nombre de personnes que vous
-              pensez accueillir une fois votre restaurant à son plein potentiel
+              pensez accueillir une fois votre club à son plein potentiel
             </div>
           </div>
         )}
@@ -110,13 +109,13 @@ const RestaurantComponent4 = ({
 
             <NumberInput
               coloredAiBorder={true}
-              value={answers["59"] ?? 0}
-              onChange={(value) => handleInputChange("59", value)}
+              value={answers["157"] ?? 0}
+              onChange={(value) => handleInputChange("157", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le nombre de couvert correspond au nombre de personnes que vous
-              pensez accueillir une fois votre restaurant à son plein potentiel
+              pensez accueillir une fois votre club à son plein potentiel
             </div>
           </div>
         )}
@@ -125,7 +124,7 @@ const RestaurantComponent4 = ({
           <div className="mb-6">
             <QuestionAiBox
               message={
-                "Votre assistant Guroo vous aide encore  sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32."
+                "Votre assistant Guroo vous aide encore sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32."
               }
             />
           </div>
@@ -138,13 +137,13 @@ const RestaurantComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["56"] ?? 0}
-              onChange={(value) => handleInputChange("56", value)}
+              value={answers["154"] ?? 0}
+              onChange={(value) => handleInputChange("154", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le nombre de couvert correspond au nombre de personnes que vous
-              pensez accueillir une fois votre restaurant à son plein potentiel
+              pensez accueillir une fois votre club à son plein potentiel
             </div>
           </div>
         )}
@@ -157,13 +156,13 @@ const RestaurantComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["58"] ?? 0}
-              onChange={(value) => handleInputChange("58", value)}
+              value={answers["156"] ?? 0}
+              onChange={(value) => handleInputChange("156", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le nombre de couvert correspond au nombre de personnes que vous
-              pensez accueillir une fois votre restaurant à son plein potentiel
+              pensez accueillir une fois votre club à son plein potentiel
             </div>
           </div>
         )}
@@ -172,4 +171,4 @@ const RestaurantComponent4 = ({
   );
 };
 
-export default RestaurantComponent4;
+export default ClubComponent4;

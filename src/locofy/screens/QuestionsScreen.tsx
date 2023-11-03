@@ -9,16 +9,21 @@ import {
   useAppSelector,
 } from "../../hooks/hooks";
 import SectionTwoStep1 from "../../components/SectionTwoStep1";
-import RestaurantComponent1 from "../../components/RestaurantComponent1";
-import RestaurantComponent2 from "../../components/RestaurantComponent2";
-import RestaurantComponent3 from "../../components/RestaurantComponent3";
-import RestaurantComponent4 from "../../components/RestaurantComponent4";
-import RestaurantComponent5 from "../../components/RestaurantComponent5";
-import BarComponent1 from "../../components/BarComponent1";
-import BarComponent2 from "../../components/BarComponent2";
-import BarComponent3 from "../../components/BarComponent3";
-import BarComponent4 from "../../components/BarComponent4";
-import BarComponent5 from "../../components/BarComponent5";
+import RestaurantComponent1 from "../../components/RestaurantComponents/RestaurantComponent1";
+import RestaurantComponent2 from "../../components/RestaurantComponents/RestaurantComponent2";
+import RestaurantComponent3 from "../../components/RestaurantComponents/RestaurantComponent3";
+import RestaurantComponent4 from "../../components/RestaurantComponents/RestaurantComponent4";
+import RestaurantComponent5 from "../../components/RestaurantComponents/RestaurantComponent5";
+import BarComponent1 from "../../components/BarComponents/BarComponent1";
+import BarComponent2 from "../../components/BarComponents/BarComponent2";
+import BarComponent3 from "../../components/BarComponents/BarComponent3";
+import BarComponent4 from "../../components/BarComponents/BarComponent4";
+import BarComponent5 from "../../components/BarComponents/BarComponent5";
+import ClubComponent1 from "../../components/ClubComponents/ClubComponent1";
+import ClubComponent2 from "../../components/ClubComponents/ClubComponent2";
+import ClubComponent3 from "../../components/ClubComponents/ClubComponent3";
+import ClubComponent4 from "../../components/ClubComponents/ClubComponent4";
+import ClubComponent5 from "../../components/ClubComponents/ClubComponent5";
 import MSTable from "../../components/MSTable";
 import SectionTwoStep2 from "../../components/SectionTwoStep2";
 import SectionTwoStep3 from "../../components/SectionTwoStep3";
@@ -79,12 +84,19 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
         setSubStep(subStep + 1);
         return;
       }
-      if (
-        subStep === 4 &&
-        activeBusinessType === "Restaurant" &&
-        isBarSelected
-      ) {
-        setActiveBusinessType("Bar");
+      if (subStep === 4 && activeBusinessType === "Restaurant") {
+        if (isBarSelected) {
+          setActiveBusinessType("Bar");
+          setSubStep(0);
+          return;
+        } else if (isClubSelected) {
+          setActiveBusinessType("Club");
+          setSubStep(0);
+          return;
+        }
+      }
+      if (subStep === 4 && activeBusinessType === "Bar" && isClubSelected) {
+        setActiveBusinessType("Club");
         setSubStep(0);
         return;
       }
@@ -121,17 +133,24 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
 
   const isRestaurantSelected = answers["39"] == "true";
   const isBarSelected = answers["40"] == "true";
+  const isClubSelected = answers["41"] == "true";
 
   useEffect(() => {
     if (isRestaurantSelected) {
       setActiveBusinessType("Restaurant");
     } else if (isBarSelected) {
       setActiveBusinessType("Bar");
+    } else if (isClubSelected) {
+      setActiveBusinessType("Club");
     } else {
       setActiveBusinessType("");
     }
-  }, [isRestaurantSelected, isBarSelected, setActiveBusinessType]);
-  // const isClubSelected = answers["41"] == "true";
+  }, [
+    isRestaurantSelected,
+    isBarSelected,
+    isClubSelected,
+    setActiveBusinessType,
+  ]);
   // const isLoungeSelected = answers["42"] == "true";
   // const isBeachClubSelected = answers["43"] == "true";
 
@@ -213,10 +232,49 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
     }
   };
 
+  const ClubWrapper = () => {
+    switch (subStep) {
+      case 0:
+        return (
+          <ClubComponent1
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
+
+      case 1:
+        return <ClubComponent2 handleBack={handleBack} />;
+      case 2:
+        return (
+          <ClubComponent3
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
+      case 3:
+        return (
+          <ClubComponent4
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
+
+      case 4:
+        return (
+          <ClubComponent5
+            currentBusinessPlanId={currentBusinessPlanId}
+            handleBack={handleBack}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   const renderActiveSection = () => {
     switch (activeSection) {
       case 1:
-        setIsCompact(false);
+        // setIsCompact(false);
         // dispatch(setCurrentStep(1));
         return (
           <SectionOneStep1 currentBusinessPlanId={currentBusinessPlanId} />
@@ -254,6 +312,9 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
         }
         if (activeBusinessType === "Bar" && isBarSelected) {
           return <BarWrapper />;
+        }
+        if (activeBusinessType === "Club" && isClubSelected) {
+          return <ClubWrapper />;
         }
         return null;
       default:

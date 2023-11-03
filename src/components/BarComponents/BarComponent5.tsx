@@ -1,10 +1,10 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import QuestionAiBox from "./QuestionAiBox";
-import InputPercentage from "./InputPercentage";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import QuestionAiBox from "../QuestionAiBox";
+import InputPercentage from "../InputPercentage";
 
-const RestaurantComponent5 = ({
+const BarComponent5 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -39,7 +39,7 @@ const RestaurantComponent5 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Restaurant
+            Bar
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -57,8 +57,8 @@ const RestaurantComponent5 = ({
 
           <InputPercentage
             coloredAiBorder={true}
-            value={answers["90"] ? answers["90"] : "0%"}
-            onChange={(value) => handleInputChange("90", value)}
+            value={answers["139"] ? answers["139"] : "0%"}
+            onChange={(value) => handleInputChange("139", value)}
           />
 
           <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -69,7 +69,7 @@ const RestaurantComponent5 = ({
         <div className="mb-6">
           <QuestionAiBox
             message={
-              "La nourriture représente en moyenne  76% du chiffre d’affaire des restaurateurs"
+              "La nourriture représente en moyenne  5% du chiffre d’affaire des bars"
             }
           />
         </div>
@@ -81,8 +81,8 @@ const RestaurantComponent5 = ({
 
           <InputPercentage
             coloredAiBorder={true}
-            value={answers["91"] ? answers["91"] : "0%"}
-            onChange={(value) => handleInputChange("91", value)}
+            value={answers["140"] ? answers["140"] : "0%"}
+            onChange={(value) => handleInputChange("140", value)}
           />
 
           <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -92,7 +92,7 @@ const RestaurantComponent5 = ({
         <div className="mb-6">
           <QuestionAiBox
             message={
-              "Les boissons représentent en moyenne 19% du chiffre d’affaire des restaurateurs"
+              "Les boissons représentent en moyenne 90% du chiffre d’affaire des bars"
             }
           />
         </div>
@@ -105,8 +105,8 @@ const RestaurantComponent5 = ({
 
           <InputPercentage
             coloredAiBorder={true}
-            value={answers["92"] ? answers["92"] : "0%"}
-            onChange={(value) => handleInputChange("92", value)}
+            value={answers["141"] ? answers["141"] : "0%"}
+            onChange={(value) => handleInputChange("141", value)}
           />
 
           <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -116,7 +116,7 @@ const RestaurantComponent5 = ({
         <div className="mb-6">
           <QuestionAiBox
             message={
-              "Le reste représente en moyenne 5% du chiffre d’affaire des restaurateurs"
+              "Le reste représente en moyenne 5% du chiffre d’affaire des bars"
             }
           />
         </div>
@@ -125,4 +125,4 @@ const RestaurantComponent5 = ({
   );
 };
 
-export default RestaurantComponent5;
+export default BarComponent5;

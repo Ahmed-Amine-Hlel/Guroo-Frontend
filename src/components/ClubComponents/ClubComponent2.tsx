@@ -1,9 +1,9 @@
 import { Tooltip } from "antd";
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import QuestionAiBox from "./QuestionAiBox";
+import QuestionAiBox from "../QuestionAiBox";
 import { useEffect, useState } from "react";
 
-const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
+const ClubComponent2 = ({ handleBack }: { handleBack: () => void }) => {
   const [selectedBoxes, setSelectedBoxes] = useState<Record<string, boolean>>({
     "Petit-déjeuner": true,
   });
@@ -18,7 +18,7 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
   useEffect(() => {
     boxContents.forEach((content) => {
       const initialValue = content === "Petit-déjeuner" ? "true" : "false";
-      localStorage.setItem(`bar-${content}`, initialValue);
+      localStorage.setItem(`club-${content}`, initialValue);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -31,7 +31,7 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
 
     setSelectedBoxes(newState);
     localStorage.setItem(
-      `bar-${content}`,
+      `club-${content}`,
       newState[content] ? "true" : "false"
     );
   };
@@ -52,7 +52,7 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Bar
+            Club
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -65,13 +65,13 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
         <div className="w-full sm:px-[35spx] mb-[10px]">
           <div className="flex items-center justify-between">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Que proposez vous dans votre restaurant ?
+              Que proposez vous dans votre club ?
             </label>
 
             <Tooltip
               placement="topRight"
               title={
-                "Votre bar est un centre de revenu à lui tout seul ? Cliquez dessus."
+                "Votre club est un centre de revenu à lui tout seul ? Cliquez dessus."
               }
               overlayStyle={{ maxWidth: "450px" }}
             >
@@ -84,6 +84,7 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
           </div>
 
           <div className="flex flex-wrap gap-x-[16px] gap-y-[16px] mb-[10px]">
+            {/* space-y-[10px] space-x-[16px] */}
             {boxContents.map((content, index) => (
               <div
                 key={index}
@@ -109,7 +110,7 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
           <div className="mb-6">
             <QuestionAiBox
               message={
-                "Guroo vous recommande de sélectionner au minimum le déjeuner pour votre activité car tous les restaurants dans votre zone géographique vous le proposent."
+                "Guroo vous recommande de sélectionner au minimum le déjeuner pour votre activité car tous les clubs dans votre zone géographique vous le proposent."
               }
             />
           </div>
@@ -119,4 +120,4 @@ const BarComponent2 = ({ handleBack }: { handleBack: () => void }) => {
   );
 };
 
-export default BarComponent2;
+export default ClubComponent2;

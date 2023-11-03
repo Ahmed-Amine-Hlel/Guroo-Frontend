@@ -1,9 +1,10 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import InputAmount from "./InputAmount";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import NumberInput from "../NumberInput";
+import QuestionAiBox from "../QuestionAiBox";
 
-const BarComponent3 = ({
+const BarComponent4 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -65,16 +66,17 @@ const BarComponent3 = ({
         {isPetitDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Quel est le ticket moyen du petit déjeuner ?
+              Combien de couverts attendez-vous au petit déjeuner ?
             </label>
 
-            <InputAmount
-              value={answers["98"] ?? 0}
-              onChange={(value) => handleInputChange("98", value.toString())}
+            <NumberInput
+              value={answers["104"] ?? 0}
+              onChange={(value) => handleInputChange("104", value)}
+              validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le ticket moyen correspond à la somme moyenne dépensée par client
-              au sein de votre restaurant.
+              Le nombre de couvert correspond au nombre de personnes que vous
+              pensez accueillir une fois votre restaurant à son plein potentiel
             </div>
           </div>
         )}
@@ -83,16 +85,17 @@ const BarComponent3 = ({
         {isDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Quel est le ticket moyen du déjeuner ?
+              Combien de couverts attendez-vous au déjeuner ?
             </label>
 
-            <InputAmount
-              value={answers["100"] ?? 0}
-              onChange={(value) => handleInputChange("100", value.toString())}
+            <NumberInput
+              value={answers["106"] ?? 0}
+              onChange={(value) => handleInputChange("106", value)}
+              validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le ticket moyen correspond à la somme moyenne dépensée par client
-              au sein de votre restaurant.
+              Le nombre de couvert correspond au nombre de personnes que vous
+              pensez accueillir une fois votre restaurant à son plein potentiel
             </div>
           </div>
         )}
@@ -101,34 +104,46 @@ const BarComponent3 = ({
         {isDinerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Quel est le ticket moyen du dîner ?
+              Combien de couverts attendez-vous au dîner ?
             </label>
 
-            <InputAmount
-              value={answers["102"] ?? 0}
-              onChange={(value) => handleInputChange("102", value.toString())}
+            <NumberInput
+              coloredAiBorder={true}
+              value={answers["108"] ?? 0}
+              onChange={(value) => handleInputChange("108", value)}
+              validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le ticket moyen correspond à la somme moyenne dépensée par client
-              au sein de votre restaurant.
+              Le nombre de couvert correspond au nombre de personnes que vous
+              pensez accueillir une fois votre restaurant à son plein potentiel
             </div>
           </div>
         )}
 
+        {isDinerSelected && (
+          <div className="mb-6">
+            <QuestionAiBox
+              message={
+                "Votre assistant Guroo vous aide encore sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32"
+              }
+            />
+          </div>
+        )}
         {/* brasserie Matin */}
         {isBrasserieMatinSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Quel est le ticket moyen de la brasserie Matin ?
+              Combien de couverts attendez-vous à la brasserie matin ?
             </label>
 
-            <InputAmount
-              value={answers["99"] ?? 0}
-              onChange={(value) => handleInputChange("99", value.toString())}
+            <NumberInput
+              value={answers["105"] ?? 0}
+              onChange={(value) => handleInputChange("105", value)}
+              validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le ticket moyen correspond à la somme moyenne dépensée par client
-              au sein de votre restaurant.
+              Le nombre de couvert correspond au nombre de personnes que vous
+              pensez accueillir une fois votre restaurant à son plein potentiel
             </div>
           </div>
         )}
@@ -137,16 +152,17 @@ const BarComponent3 = ({
         {isBrasserieApresMidiSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Quel est le ticket moyen de la brasserie après midi ?
+              Combien de couverts attendez-vous à la brasserie après midi ?
             </label>
 
-            <InputAmount
-              value={answers["101"] ?? 0}
-              onChange={(value) => handleInputChange("101", value.toString())}
+            <NumberInput
+              value={answers["107"] ?? 0}
+              onChange={(value) => handleInputChange("107", value)}
+              validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le ticket moyen correspond à la somme moyenne dépensée par client
-              au sein de votre restaurant.
+              Le nombre de couvert correspond au nombre de personnes que vous
+              pensez accueillir une fois votre restaurant à son plein potentiel
             </div>
           </div>
         )}
@@ -155,4 +171,4 @@ const BarComponent3 = ({
   );
 };
 
-export default BarComponent3;
+export default BarComponent4;
