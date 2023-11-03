@@ -1,23 +1,12 @@
 import { useEffect } from "react";
 import { HiMiniArrowRight } from "react-icons/hi2";
-import SectionOneStep1 from "../../components/SectionOneStep1";
-import SectionOneStep2 from "../../components/SectionOneStep2";
-import SectionOneStep3 from "../../components/SectionOneStep3";
-import SectionOneStep4 from "../../components/SectionOneStep4";
 import {
   // useAppDispatch,
   useAppSelector,
 } from "../../hooks/hooks";
-import SectionTwoStep1 from "../../components/SectionTwoStep1";
 import MSTable from "../../components/MSTable";
-import SectionTwoStep2 from "../../components/SectionTwoStep2";
-import SectionTwoStep3 from "../../components/SectionTwoStep3";
-import SectionTwoStep4 from "../../components/SectionTwoStep4";
-import RestaurantWrapper from "../../components/RestaurantComponents/RestaurantWrapper";
-import BarWrapper from "../../components/BarComponents/BarWrapper";
-import ClubWrapper from "../../components/ClubComponents/ClubWrapper";
 import CFTable from "../../components/CFTable";
-import LoungeWrapper from "../../components/LoungeComponents/LoungeWrapper";
+import ActiveSection from "../../components/ActiveSection";
 // import {
 //   submitAnswersAsync,
 // updateProgress
@@ -163,117 +152,6 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
   ]);
   // const isBeachClubSelected = answers["43"] == "true";
 
-  const renderActiveSection = () => {
-    switch (activeSection) {
-      case 1:
-        // setIsCompact(false);
-        // dispatch(setCurrentStep(1));
-        return (
-          <SectionOneStep1 currentBusinessPlanId={currentBusinessPlanId} />
-        );
-      case 2:
-        return (
-          <SectionOneStep2
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 3:
-        return (
-          <SectionOneStep3
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 4:
-        return (
-          <SectionOneStep4
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 5:
-        // dispatch(setCurrentStep(2));
-        return (
-          <SectionTwoStep1 currentBusinessPlanId={currentBusinessPlanId} />
-        );
-
-      case 6:
-        if (activeBusinessType === "Restaurant" && isRestaurantSelected) {
-          return (
-            <RestaurantWrapper
-              currentBusinessPlanId={currentBusinessPlanId}
-              handleBack={handleBack}
-              subStep={subStep}
-            />
-          );
-        }
-        if (activeBusinessType === "Bar" && isBarSelected) {
-          return (
-            <BarWrapper
-              currentBusinessPlanId={currentBusinessPlanId}
-              handleBack={handleBack}
-              subStep={subStep}
-            />
-          );
-        }
-        if (activeBusinessType === "Club" && isClubSelected) {
-          return (
-            <ClubWrapper
-              currentBusinessPlanId={currentBusinessPlanId}
-              handleBack={handleBack}
-              subStep={subStep}
-            />
-          );
-        }
-        if (activeBusinessType === "Lounge" && isLoungeSelected) {
-          return (
-            <LoungeWrapper
-              currentBusinessPlanId={currentBusinessPlanId}
-              handleBack={handleBack}
-              subStep={subStep}
-            />
-          );
-        }
-        return null;
-      default:
-        return null;
-
-      case 7:
-        return (
-          <SectionTwoStep2
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 8:
-        return (
-          <SectionTwoStep3
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 9:
-        setIsCompact(true);
-        return null;
-
-      case 10:
-        setIsCompact(false);
-        return (
-          <SectionTwoStep4
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 11:
-        setIsCompact(true);
-        return null;
-    }
-  };
-
   const submitAnswers = () => {
     const formatAnswersForBackend = (
       answers: Record<string, unknown>,
@@ -298,17 +176,52 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
 
   return activeSection === 9 ? (
     <>
-      {renderActiveSection()}
+      <ActiveSection
+        activeSection={activeSection}
+        activeBusinessType={activeBusinessType}
+        currentBusinessPlanId={currentBusinessPlanId}
+        subStep={subStep}
+        isBarSelected={isBarSelected}
+        isClubSelected={isClubSelected}
+        isLoungeSelected={isLoungeSelected}
+        isRestaurantSelected={isRestaurantSelected}
+        setIsCompact={setIsCompact}
+        handleBack={handleBack}
+      />
       <MSTable handleNext={handleNext} />
     </>
   ) : activeSection === 11 ? (
     <>
-      {renderActiveSection()}
+      <ActiveSection
+        activeSection={activeSection}
+        activeBusinessType={activeBusinessType}
+        currentBusinessPlanId={currentBusinessPlanId}
+        subStep={subStep}
+        isBarSelected={isBarSelected}
+        isClubSelected={isClubSelected}
+        isLoungeSelected={isLoungeSelected}
+        isRestaurantSelected={isRestaurantSelected}
+        setIsCompact={setIsCompact}
+        handleBack={handleBack}
+      />
       <CFTable handleNext={handleNext} />
     </>
   ) : (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
-      <div className="relative">{renderActiveSection()}</div>
+      <div className="relative">
+        <ActiveSection
+          activeSection={activeSection}
+          activeBusinessType={activeBusinessType}
+          currentBusinessPlanId={currentBusinessPlanId}
+          subStep={subStep}
+          isBarSelected={isBarSelected}
+          isClubSelected={isClubSelected}
+          isLoungeSelected={isLoungeSelected}
+          isRestaurantSelected={isRestaurantSelected}
+          setIsCompact={setIsCompact}
+          handleBack={handleBack}
+        />
+      </div>
 
       <div className="w-full flex justify-center mt-auto">
         <button
