@@ -16,6 +16,8 @@ import SectionTwoStep4 from "../../components/SectionTwoStep4";
 import RestaurantWrapper from "../../components/RestaurantComponents/RestaurantWrapper";
 import BarWrapper from "../../components/BarComponents/BarWrapper";
 import ClubWrapper from "../../components/ClubComponents/ClubWrapper";
+import CFTable from "../../components/CFTable";
+import LoungeWrapper from "../../components/LoungeComponents/LoungeWrapper";
 // import {
 //   submitAnswersAsync,
 // updateProgress
@@ -81,10 +83,26 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
           setActiveBusinessType("Club");
           setSubStep(0);
           return;
+        } else if (isLoungeSelected) {
+          setActiveBusinessType("Lounge");
+          setSubStep(0);
+          return;
         }
       }
-      if (subStep === 4 && activeBusinessType === "Bar" && isClubSelected) {
-        setActiveBusinessType("Club");
+
+      if (subStep === 4 && activeBusinessType === "Bar") {
+        if (isClubSelected) {
+          setActiveBusinessType("Club");
+          setSubStep(0);
+          return;
+        } else if (isLoungeSelected) {
+          setActiveBusinessType("Lounge");
+          setSubStep(0);
+          return;
+        }
+      }
+      if (subStep === 4 && activeBusinessType === "Club" && isLoungeSelected) {
+        setActiveBusinessType("Lounge");
         setSubStep(0);
         return;
       }
@@ -122,6 +140,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
   const isRestaurantSelected = answers["39"] == "true";
   const isBarSelected = answers["40"] == "true";
   const isClubSelected = answers["41"] == "true";
+  const isLoungeSelected = answers["42"] == "true";
 
   useEffect(() => {
     if (isRestaurantSelected) {
@@ -130,6 +149,8 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
       setActiveBusinessType("Bar");
     } else if (isClubSelected) {
       setActiveBusinessType("Club");
+    } else if (isLoungeSelected) {
+      setActiveBusinessType("Lounge");
     } else {
       setActiveBusinessType("");
     }
@@ -137,9 +158,9 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
     isRestaurantSelected,
     isBarSelected,
     isClubSelected,
+    isLoungeSelected,
     setActiveBusinessType,
   ]);
-  // const isLoungeSelected = answers["42"] == "true";
   // const isBeachClubSelected = answers["43"] == "true";
 
   const renderActiveSection = () => {
@@ -205,6 +226,15 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
             />
           );
         }
+        if (activeBusinessType === "Lounge" && isLoungeSelected) {
+          return (
+            <LoungeWrapper
+              currentBusinessPlanId={currentBusinessPlanId}
+              handleBack={handleBack}
+              subStep={subStep}
+            />
+          );
+        }
         return null;
       default:
         return null;
@@ -237,6 +267,10 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
             handleBack={handleBack}
           />
         );
+
+      case 11:
+        setIsCompact(true);
+        return null;
     }
   };
 
@@ -266,7 +300,11 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
     <>
       {renderActiveSection()}
       <MSTable handleNext={handleNext} />
-      {/* <CFTable handleNext={handleNext} /> */}
+    </>
+  ) : activeSection === 11 ? (
+    <>
+      {renderActiveSection()}
+      <CFTable handleNext={handleNext} />
     </>
   ) : (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
