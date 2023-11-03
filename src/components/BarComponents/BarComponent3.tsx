@@ -1,9 +1,9 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import InputAmount from "./InputAmount";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import InputAmount from "../InputAmount";
 
-const RestaurantComponent3 = ({
+const BarComponent3 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -25,18 +25,17 @@ const RestaurantComponent3 = ({
   };
 
   const isPetitDéjeunerSelected =
-    localStorage.getItem("restaurant-Petit-déjeuner") === "true";
+    localStorage.getItem("bar-Petit-déjeuner") === "true";
 
-  const isDéjeunerSelected =
-    localStorage.getItem("restaurant-Déjeuner") === "true";
+  const isDéjeunerSelected = localStorage.getItem("bar-Déjeuner") === "true";
 
-  const isDinerSelected = localStorage.getItem("restaurant-Diner") === "true";
+  const isDinerSelected = localStorage.getItem("bar-Diner") === "true";
 
   const isBrasserieMatinSelected =
-    localStorage.getItem("restaurant-Brasserie Matin") === "true";
+    localStorage.getItem("bar-Brasserie Matin") === "true";
 
   const isBrasserieApresMidiSelected =
-    localStorage.getItem("restaurant-Brasserie après midi") === "true";
+    localStorage.getItem("bar-Brasserie après midi") === "true";
 
   return (
     <>
@@ -52,7 +51,7 @@ const RestaurantComponent3 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Restaurant
+            Bar
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -70,8 +69,8 @@ const RestaurantComponent3 = ({
             </label>
 
             <InputAmount
-              value={answers["49"] ?? 0}
-              onChange={(value) => handleInputChange("49", value.toString())}
+              value={answers["98"] ?? 0}
+              onChange={(value) => handleInputChange("98", value.toString())}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le ticket moyen correspond à la somme moyenne dépensée par client
@@ -88,8 +87,8 @@ const RestaurantComponent3 = ({
             </label>
 
             <InputAmount
-              value={answers["51"] ?? 0}
-              onChange={(value) => handleInputChange("51", value.toString())}
+              value={answers["100"] ?? 0}
+              onChange={(value) => handleInputChange("100", value.toString())}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le ticket moyen correspond à la somme moyenne dépensée par client
@@ -106,8 +105,8 @@ const RestaurantComponent3 = ({
             </label>
 
             <InputAmount
-              value={answers["53"] ?? 0}
-              onChange={(value) => handleInputChange("53", value.toString())}
+              value={answers["102"] ?? 0}
+              onChange={(value) => handleInputChange("102", value.toString())}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le ticket moyen correspond à la somme moyenne dépensée par client
@@ -124,8 +123,8 @@ const RestaurantComponent3 = ({
             </label>
 
             <InputAmount
-              value={answers["50"] ?? 0}
-              onChange={(value) => handleInputChange("50", value.toString())}
+              value={answers["99"] ?? 0}
+              onChange={(value) => handleInputChange("99", value.toString())}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le ticket moyen correspond à la somme moyenne dépensée par client
@@ -142,8 +141,8 @@ const RestaurantComponent3 = ({
             </label>
 
             <InputAmount
-              value={answers["52"] ?? 0}
-              onChange={(value) => handleInputChange("52", value.toString())}
+              value={answers["101"] ?? 0}
+              onChange={(value) => handleInputChange("101", value.toString())}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le ticket moyen correspond à la somme moyenne dépensée par client
@@ -156,4 +155,4 @@ const RestaurantComponent3 = ({
   );
 };
 
-export default RestaurantComponent3;
+export default BarComponent3;

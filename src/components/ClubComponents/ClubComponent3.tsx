@@ -1,10 +1,9 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import NumberInput from "./NumberInput";
-import QuestionAiBox from "./QuestionAiBox";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import InputAmount from "../InputAmount";
 
-const BarComponent4 = ({
+const ClubComponent3 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -26,17 +25,17 @@ const BarComponent4 = ({
   };
 
   const isPetitDéjeunerSelected =
-    localStorage.getItem("bar-Petit-déjeuner") === "true";
+    localStorage.getItem("club-Petit-déjeuner") === "true";
 
-  const isDéjeunerSelected = localStorage.getItem("bar-Déjeuner") === "true";
+  const isDéjeunerSelected = localStorage.getItem("club-Déjeuner") === "true";
 
-  const isDinerSelected = localStorage.getItem("bar-Diner") === "true";
+  const isDinerSelected = localStorage.getItem("club-Diner") === "true";
 
   const isBrasserieMatinSelected =
-    localStorage.getItem("bar-Brasserie Matin") === "true";
+    localStorage.getItem("club-Brasserie Matin") === "true";
 
   const isBrasserieApresMidiSelected =
-    localStorage.getItem("bar-Brasserie après midi") === "true";
+    localStorage.getItem("club-Brasserie après midi") === "true";
 
   return (
     <>
@@ -52,7 +51,7 @@ const BarComponent4 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Bar
+            Club
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -66,17 +65,16 @@ const BarComponent4 = ({
         {isPetitDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Combien de couverts attendez-vous au petit déjeuner ?
+              Quel est le ticket moyen du petit déjeuner ?
             </label>
 
-            <NumberInput
-              value={answers["104"] ?? 0}
-              onChange={(value) => handleInputChange("104", value)}
-              validation={"max:|min:0"}
+            <InputAmount
+              value={answers["147"] ?? 0}
+              onChange={(value) => handleInputChange("147", value.toString())}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le nombre de couvert correspond au nombre de personnes que vous
-              pensez accueillir une fois votre restaurant à son plein potentiel
+              Le ticket moyen correspond à la somme moyenne dépensée par client
+              au sein de votre club.
             </div>
           </div>
         )}
@@ -85,17 +83,16 @@ const BarComponent4 = ({
         {isDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Combien de couverts attendez-vous au déjeuner ?
+              Quel est le ticket moyen du déjeuner ?
             </label>
 
-            <NumberInput
-              value={answers["106"] ?? 0}
-              onChange={(value) => handleInputChange("106", value)}
-              validation={"max:|min:0"}
+            <InputAmount
+              value={answers["149"] ?? 0}
+              onChange={(value) => handleInputChange("149", value.toString())}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le nombre de couvert correspond au nombre de personnes que vous
-              pensez accueillir une fois votre restaurant à son plein potentiel
+              Le ticket moyen correspond à la somme moyenne dépensée par client
+              au sein de votre club.
             </div>
           </div>
         )}
@@ -104,46 +101,34 @@ const BarComponent4 = ({
         {isDinerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Combien de couverts attendez-vous au dîner ?
+              Quel est le ticket moyen du dîner ?
             </label>
 
-            <NumberInput
-              coloredAiBorder={true}
-              value={answers["108"] ?? 0}
-              onChange={(value) => handleInputChange("108", value)}
-              validation={"max:|min:0"}
+            <InputAmount
+              value={answers["151"] ?? 0}
+              onChange={(value) => handleInputChange("151", value.toString())}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le nombre de couvert correspond au nombre de personnes que vous
-              pensez accueillir une fois votre restaurant à son plein potentiel
+              Le ticket moyen correspond à la somme moyenne dépensée par client
+              au sein de votre club.
             </div>
           </div>
         )}
 
-        {isDinerSelected && (
-          <div className="mb-6">
-            <QuestionAiBox
-              message={
-                "Votre assistant Guroo vous aide encore sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32"
-              }
-            />
-          </div>
-        )}
         {/* brasserie Matin */}
         {isBrasserieMatinSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Combien de couverts attendez-vous à la brasserie matin ?
+              Quel est le ticket moyen de la brasserie Matin ?
             </label>
 
-            <NumberInput
-              value={answers["105"] ?? 0}
-              onChange={(value) => handleInputChange("105", value)}
-              validation={"max:|min:0"}
+            <InputAmount
+              value={answers["148"] ?? 0}
+              onChange={(value) => handleInputChange("148", value.toString())}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le nombre de couvert correspond au nombre de personnes que vous
-              pensez accueillir une fois votre restaurant à son plein potentiel
+              Le ticket moyen correspond à la somme moyenne dépensée par client
+              au sein de votre club.
             </div>
           </div>
         )}
@@ -152,17 +137,16 @@ const BarComponent4 = ({
         {isBrasserieApresMidiSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Combien de couverts attendez-vous à la brasserie après midi ?
+              Quel est le ticket moyen de la brasserie après midi ?
             </label>
 
-            <NumberInput
-              value={answers["107"] ?? 0}
-              onChange={(value) => handleInputChange("107", value)}
-              validation={"max:|min:0"}
+            <InputAmount
+              value={answers["150"] ?? 0}
+              onChange={(value) => handleInputChange("150", value.toString())}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le nombre de couvert correspond au nombre de personnes que vous
-              pensez accueillir une fois votre restaurant à son plein potentiel
+              Le ticket moyen correspond à la somme moyenne dépensée par client
+              au sein de votre club.
             </div>
           </div>
         )}
@@ -171,4 +155,4 @@ const BarComponent4 = ({
   );
 };
 
-export default BarComponent4;
+export default ClubComponent3;

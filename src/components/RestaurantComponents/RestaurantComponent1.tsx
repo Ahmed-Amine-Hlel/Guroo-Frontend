@@ -1,8 +1,8 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import InputListBox from "./InputListBox";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import InputMultiSelect from "./InputMultiSelect";
+import InputListBox from "../InputListBox";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import InputMultiSelect from "../InputMultiSelect";
 
 const RestaurantComponent1 = ({
   currentBusinessPlanId,
