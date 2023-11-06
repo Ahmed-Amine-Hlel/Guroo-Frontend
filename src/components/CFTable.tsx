@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BiPlus } from "react-icons/bi";
 import { HiMiniArrowRight } from "react-icons/hi2";
 
 interface CFTableProps {
@@ -82,12 +83,23 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
                     </span>
                   </div>
                 ))}
-                <div className="w-[200px]"></div>
+                {tableData.length > 0 ? (
+                  <div className="w-[200px]"></div>
+                ) : null}
               </div>
 
               {tableData.length === 0 ? (
-                <div className="text-center text-dark-p py-5">
-                  Aucune donnée disponible
+                <div className="mr-[18px] py-[45px] flex flex-col justify-center items-center">
+                  <div className="mb-[19px]">
+                    <img
+                      src="./file-close.svg"
+                      alt="file-close"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="mb-[14px] text-foundation-purple-normal text-[20px] font-[600] leading-5">
+                    Vous n’avez aucun donnée
+                  </div>
                 </div>
               ) : (
                 tableData.map((row, index) => (

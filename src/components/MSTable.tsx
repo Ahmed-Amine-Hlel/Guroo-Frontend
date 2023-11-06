@@ -5,6 +5,7 @@ import { useState, Fragment } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { setAnswer } from "../store/answersSlice";
 import { HiMiniArrowRight } from "react-icons/hi2";
+import { BiPlus } from "react-icons/bi";
 
 interface MSTableProps {
   handleNext: () => void;
@@ -13,7 +14,7 @@ interface MSTableProps {
 const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
   const [items] = useState<string[]>(["CDI", "CDD", "Freelance"]);
   const [selectedItem, setSelectedItem] = useState<string>(items[0]);
-  const [rows, setRows] = useState<number[]>([1]);
+  const [rows, setRows] = useState<number[]>([]);
   const answers = useAppSelector((state) => state.answers.answers);
   const dispatch = useAppDispatch();
 
@@ -63,8 +64,8 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-[16px] min-h-full bg-[#f4edfb] font-plus-jakarta-sans ">
-      <div className="flex flex-col px-[16px] pt-[32px] pb-[12px] bg-white rounded-[16px] w-full">
+    <div className="flex flex-col md:flex-row gap-[16px] min-h-full bg-[#f4edfb] font-plus-jakarta-sans">
+      <div className="relative flex flex-col px-[16px] pt-[32px] pb-[12px] bg-white rounded-[16px] w-full">
         <div className="px-[18px] flex flex-col md:flex-row items-center justify-between mb-[25px]">
           <div className="text-foundation-purple-normal text-[32px] text-center md:text-start md:text-[40px] font-bold mb-6 md:mb-0">
             Il est temps de composer votre équipe
@@ -215,7 +216,11 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
                 </div>
 
                 <div className="h-[79px] flex">
-                  <div className="h-full w-full bg-[#d9b2ff75] rounded-[8px] flex items-center mr-[40px]">
+                  <div
+                    className={`h-full w-full bg-[#d9b2ff75] rounded-[8px] flex items-center ${
+                      rows.length === 0 ? "mr-[18px]" : "mr-[40px]"
+                    }`}
+                  >
                     <div className="text-center w-full text-dark-p px-2">
                       Type de contrat
                     </div>
@@ -363,17 +368,40 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
                 {/* Row ---------------------------------------------------------------------------------------------------- End */}
               </div>
 
-              <div className="flex items-center justify-start lg:justify-end w-full lg:px-[24px] mb-[10px]">
-                <button
-                  onClick={addRow}
-                  className="flex items-center justify-center gap-[8px] h-[40px] px-[32px] border-[1px] border-foundation-purple-normal bg-gradient-to-r from-[#914FD2] from-48% to-[#946CBB] to-137% rounded-[45px] text-white hover:cursor-pointer"
-                >
-                  <span className="block text-[14px]">
-                    Ajouter un nouveau salaire
-                  </span>
-                  <BsPlus className="text-[26px] text-[#DDC8F1]" />
-                </button>
-              </div>
+              {rows.length > 0 ? (
+                <div className="flex items-center justify-start lg:justify-end w-full lg:px-[24px] mb-[10px]">
+                  <button
+                    onClick={addRow}
+                    className="flex items-center justify-center gap-[8px] h-[40px] px-[32px] border-[1px] border-foundation-purple-normal bg-gradient-to-r from-[#914FD2] from-48% to-[#946CBB] to-137% rounded-[45px] text-white hover:cursor-pointer"
+                  >
+                    <span className="block text-[14px]">
+                      Ajouter un nouveau salaire
+                    </span>
+                    <BsPlus className="text-[26px] text-[#DDC8F1]" />
+                  </button>
+                </div>
+              ) : (
+                <div className="mr-[18px] py-[45px] flex flex-col justify-center items-center">
+                  <div className="mb-[19px]">
+                    <img
+                      src="./file-close.svg"
+                      alt="file-close"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="mb-[14px] text-foundation-purple-normal text-[20px] font-[600] leading-5">
+                    Vous n’avez aucun donnée, cliquez ici pour ajouter une ligne
+                  </div>
+                  <div>
+                    <button
+                      onClick={addRow}
+                      className="p-[10px] rounded-full bg-foundation-purple-hover border border-1 border-foundation-purple-normal"
+                    >
+                      <BiPlus className="text-white" />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
