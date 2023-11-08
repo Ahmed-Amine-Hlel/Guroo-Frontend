@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SuccessPayement = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate("/business-plan");
+      navigate('/business-plan');
     }, 3000);
 
     return () => clearTimeout(timer);

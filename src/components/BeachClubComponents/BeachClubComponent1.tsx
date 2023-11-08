@@ -1,10 +1,10 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import InputListBox from "./InputListBox";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import InputMultiSelect from "./InputMultiSelect";
+import InputListBox from "../InputListBox";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import InputMultiSelect from "../InputMultiSelect";
 
-const RestaurantComponent1 = ({
+const BeachClubComponent1 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -16,18 +16,18 @@ const RestaurantComponent1 = ({
   const answers = useAppSelector((state) => state.answers.answers);
 
   const monthRowMap: { [key: string]: string } = {
-    Janvier: "76",
-    Février: "77",
-    Mars: "78",
-    Avril: "79",
-    Mai: "80",
-    Juin: "81",
-    Juillet: "82",
-    Août: "83",
-    Septembre: "84",
-    Octobre: "85",
-    Novembre: "86",
-    Décembre: "87",
+    Janvier: "272",
+    Février: "273",
+    Mars: "274",
+    Avril: "275",
+    Mai: "276",
+    Juin: "277",
+    Juillet: "278",
+    Août: "279",
+    Septembre: "280",
+    Octobre: "281",
+    Novembre: "282",
+    Décembre: "283",
   };
 
   const selectedMonths = Object.keys(monthRowMap).filter(
@@ -72,7 +72,7 @@ const RestaurantComponent1 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Restaurant
+            Beach Club
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -81,14 +81,14 @@ const RestaurantComponent1 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[24px]">
+      <div className="overflow-y-scroll py-[5px] overflow-x-hidden px-2 qb-thumb h-[500px] mb-[24px]">
         <div className="w-full sm:px-[35spx] mb-[24px]">
           <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
             Combien de jours êtes-vous fermé par semaine ?
           </label>
 
           <InputListBox
-            value={answers["74"] ? { name: answers["74"] } : { name: "0" }}
+            value={answers["270"] ? { name: answers["270"] } : { name: "0" }}
             options={[
               { name: "0" },
               { name: "1" },
@@ -100,14 +100,14 @@ const RestaurantComponent1 = ({
               { name: "7" },
             ]}
             onChange={(selectedOption) => {
-              handleInputChange("74", selectedOption.name);
+              handleInputChange("270", selectedOption.name);
             }}
           />
         </div>
 
         <div className="w-full sm:px-[35spx] mb-[10px]">
           <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-            Avez-vous prévu de fermer un mois dans l’année ?{" "}
+            Avez-vous prévu de fermer un mois dans l’année ?
           </label>
 
           <InputMultiSelect
@@ -120,4 +120,4 @@ const RestaurantComponent1 = ({
   );
 };
 
-export default RestaurantComponent1;
+export default BeachClubComponent1;

@@ -70,7 +70,13 @@ const InputAmount: React.FC<InputAmountProps> = ({
   }, []);
 
   return (
-    <Wrapper className={coloredAiBorder ? "gradient-border z-50" : ""}>
+    <Wrapper
+      className={
+        coloredAiBorder
+          ? "relative ring-[6px] ring-[#e9cdff] gradient-border z-50"
+          : ""
+      }
+    >
       <StyledInputAmount
         addonAfter="€"
         reducedwidth={reducedwidth}

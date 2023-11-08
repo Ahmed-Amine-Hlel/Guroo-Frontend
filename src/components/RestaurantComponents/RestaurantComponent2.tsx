@@ -1,6 +1,6 @@
 import { Tooltip } from "antd";
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import QuestionAiBox from "./QuestionAiBox";
+import QuestionAiBox from "../QuestionAiBox";
 import { useEffect, useState } from "react";
 
 const RestaurantComponent2 = ({ handleBack }: { handleBack: () => void }) => {
@@ -61,7 +61,7 @@ const RestaurantComponent2 = ({ handleBack }: { handleBack: () => void }) => {
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[10px]">
+      <div className="overflow-y-scroll py-[5px] overflow-x-hidden px-2 qb-thumb h-[500px] mb-[10px]">
         <div className="w-full sm:px-[35spx] mb-[10px]">
           <div className="flex items-center justify-between">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
@@ -71,7 +71,7 @@ const RestaurantComponent2 = ({ handleBack }: { handleBack: () => void }) => {
             <Tooltip
               placement="topRight"
               title={
-                "Votre bar est un centre de revenu à lui tout seul ? Cliquez dessus."
+                "Votre restaurant est un centre de revenu à lui tout seul ? Cliquez dessus."
               }
               overlayStyle={{ maxWidth: "450px" }}
             >
@@ -83,18 +83,26 @@ const RestaurantComponent2 = ({ handleBack }: { handleBack: () => void }) => {
             </Tooltip>
           </div>
 
-          <div className="space-y-[8px] space-x-[8px] mb-[10px]">
+          <div className="flex flex-wrap gap-x-[16px] gap-y-[16px] mb-[10px]">
+            {/* space-y-[10px] space-x-[16px] */}
             {boxContents.map((content, index) => (
               <div
                 key={index}
-                onClick={() => handleBoxClick(content)}
-                className={`inline-block p-4 rounded-lg border hover:cursor-pointer hover:bg-[#EDF] hover:!border-[#914FD2] border-[#DDC8F1] bg-[#EFE5F8] text-[#BE8FED] whitespace-nowrap font-[Plus Jakarta Sans] font-medium leading-[24px] text-[16px] ${
-                  selectedBoxes[content]
-                    ? "bg-[#EDF] border !border-[#914FD2]"
-                    : ""
+                className={`inline-block relative ${
+                  selectedBoxes[content] ? "box-gradient-border z-20" : ""
                 }`}
               >
-                {content}
+                <div
+                  key={index}
+                  onClick={() => handleBoxClick(content)}
+                  className={`inline-block p-4 rounded-lg border hover:cursor-pointer hover:bg-[#EDF] hover:!border-[#914FD2] border-[#DDC8F1] bg-[#EFE5F8] text-[#BE8FED] whitespace-nowrap font-[Plus Jakarta Sans] font-medium leading-[24px] text-[16px] ${
+                    selectedBoxes[content]
+                      ? "bg-[#EDF] border !border-[#914FD2]"
+                      : ""
+                  }`}
+                >
+                  {content}
+                </div>
               </div>
             ))}
           </div>

@@ -1,10 +1,10 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import NumberInput from "./NumberInput";
-import QuestionAiBox from "./QuestionAiBox";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import NumberInput from "../NumberInput";
+import QuestionAiBox from "../QuestionAiBox";
 
-const RestaurantComponent4 = ({
+const BarComponent4 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -26,18 +26,17 @@ const RestaurantComponent4 = ({
   };
 
   const isPetitDéjeunerSelected =
-    localStorage.getItem("restaurant-Petit-déjeuner") === "true";
+    localStorage.getItem("bar-Petit-déjeuner") === "true";
 
-  const isDéjeunerSelected =
-    localStorage.getItem("restaurant-Déjeuner") === "true";
+  const isDéjeunerSelected = localStorage.getItem("bar-Déjeuner") === "true";
 
-  const isDinerSelected = localStorage.getItem("restaurant-Diner") === "true";
+  const isDinerSelected = localStorage.getItem("bar-Diner") === "true";
 
   const isBrasserieMatinSelected =
-    localStorage.getItem("restaurant-Brasserie Matin") === "true";
+    localStorage.getItem("bar-Brasserie Matin") === "true";
 
   const isBrasserieApresMidiSelected =
-    localStorage.getItem("restaurant-Brasserie après midi") === "true";
+    localStorage.getItem("bar-Brasserie après midi") === "true";
 
   return (
     <>
@@ -53,7 +52,7 @@ const RestaurantComponent4 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Restaurant
+            Bar
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -62,7 +61,7 @@ const RestaurantComponent4 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[24px]">
+      <div className="overflow-y-scroll py-[5px] overflow-x-hidden px-2 qb-thumb h-[500px] mb-[24px]">
         {/* petit déjeuner */}
         {isPetitDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
@@ -71,8 +70,8 @@ const RestaurantComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["55"] ?? 0}
-              onChange={(value) => handleInputChange("55", value)}
+              value={answers["104"] ?? 0}
+              onChange={(value) => handleInputChange("104", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -90,8 +89,8 @@ const RestaurantComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["57"] ?? 0}
-              onChange={(value) => handleInputChange("57", value)}
+              value={answers["106"] ?? 0}
+              onChange={(value) => handleInputChange("106", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -109,8 +108,9 @@ const RestaurantComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["59"] ?? 0}
-              onChange={(value) => handleInputChange("59", value)}
+              coloredAiBorder={true}
+              value={answers["108"] ?? 0}
+              onChange={(value) => handleInputChange("108", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -124,7 +124,7 @@ const RestaurantComponent4 = ({
           <div className="mb-6">
             <QuestionAiBox
               message={
-                "Votre assistant Guroo vous aide encore  sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32."
+                "Votre assistant Guroo vous aide encore sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32"
               }
             />
           </div>
@@ -137,8 +137,8 @@ const RestaurantComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["56"] ?? 0}
-              onChange={(value) => handleInputChange("56", value)}
+              value={answers["105"] ?? 0}
+              onChange={(value) => handleInputChange("105", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -156,8 +156,8 @@ const RestaurantComponent4 = ({
             </label>
 
             <NumberInput
-              value={answers["58"] ?? 0}
-              onChange={(value) => handleInputChange("58", value)}
+              value={answers["107"] ?? 0}
+              onChange={(value) => handleInputChange("107", value)}
               validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -171,4 +171,4 @@ const RestaurantComponent4 = ({
   );
 };
 
-export default RestaurantComponent4;
+export default BarComponent4;

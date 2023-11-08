@@ -1,17 +1,4 @@
-// import { useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-
 const FailPayement = () => {
-  //   const navigate = useNavigate();
-
-  //   useEffect(() => {
-  //     const timer = setTimeout(() => {
-  //       navigate("/business-plan");
-  //     }, 3000);
-
-  //     return () => clearTimeout(timer);
-  //   }, [navigate]);
-
   return (
     <div className="transition-all ease-in-out duration-400 flex min-h-screen p-4 sm:p-10 bg-[#FF8383]">
       <div className="flex justify-center items-center w-full bg-[#FFEFEF] rounded-[16px]">

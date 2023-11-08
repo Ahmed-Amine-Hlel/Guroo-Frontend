@@ -1,9 +1,10 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import InputAmount from "./InputAmount";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import NumberInput from "../NumberInput";
+import QuestionAiBox from "../QuestionAiBox";
 
-const RestaurantComponent3 = ({
+const ClubComponent4 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -25,18 +26,17 @@ const RestaurantComponent3 = ({
   };
 
   const isPetitDéjeunerSelected =
-    localStorage.getItem("restaurant-Petit-déjeuner") === "true";
+    localStorage.getItem("club-Petit-déjeuner") === "true";
 
-  const isDéjeunerSelected =
-    localStorage.getItem("restaurant-Déjeuner") === "true";
+  const isDéjeunerSelected = localStorage.getItem("club-Déjeuner") === "true";
 
-  const isDinerSelected = localStorage.getItem("restaurant-Diner") === "true";
+  const isDinerSelected = localStorage.getItem("club-Diner") === "true";
 
   const isBrasserieMatinSelected =
-    localStorage.getItem("restaurant-Brasserie Matin") === "true";
+    localStorage.getItem("club-Brasserie Matin") === "true";
 
   const isBrasserieApresMidiSelected =
-    localStorage.getItem("restaurant-Brasserie après midi") === "true";
+    localStorage.getItem("club-Brasserie après midi") === "true";
 
   return (
     <>
@@ -52,7 +52,7 @@ const RestaurantComponent3 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Restaurant
+            Club
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -61,21 +61,22 @@ const RestaurantComponent3 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[24px]">
+      <div className="overflow-y-scroll py-[5px] overflow-x-hidden px-2 qb-thumb h-[500px] mb-[24px]">
         {/* petit déjeuner */}
         {isPetitDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Quel est le ticket moyen du petit déjeuner ?
+              Combien de couverts attendez-vous au petit déjeuner ?
             </label>
 
-            <InputAmount
-              value={answers["49"] ?? 0}
-              onChange={(value) => handleInputChange("49", value.toString())}
+            <NumberInput
+              value={answers["153"] ?? 0}
+              onChange={(value) => handleInputChange("153", value)}
+              validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le ticket moyen correspond à la somme moyenne dépensée par client
-              au sein de votre restaurant.
+              Le nombre de couvert correspond au nombre de personnes que vous
+              pensez accueillir une fois votre club à son plein potentiel
             </div>
           </div>
         )}
@@ -84,16 +85,17 @@ const RestaurantComponent3 = ({
         {isDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Quel est le ticket moyen du déjeuner ?
+              Combien de couverts attendez-vous au déjeuner ?
             </label>
 
-            <InputAmount
-              value={answers["51"] ?? 0}
-              onChange={(value) => handleInputChange("51", value.toString())}
+            <NumberInput
+              value={answers["155"] ?? 0}
+              onChange={(value) => handleInputChange("155", value)}
+              validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le ticket moyen correspond à la somme moyenne dépensée par client
-              au sein de votre restaurant.
+              Le nombre de couvert correspond au nombre de personnes que vous
+              pensez accueillir une fois votre club à son plein potentiel
             </div>
           </div>
         )}
@@ -102,34 +104,46 @@ const RestaurantComponent3 = ({
         {isDinerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Quel est le ticket moyen du dîner ?
+              Combien de couverts attendez-vous au dîner ?
             </label>
 
-            <InputAmount
-              value={answers["53"] ?? 0}
-              onChange={(value) => handleInputChange("53", value.toString())}
+            <NumberInput
+              coloredAiBorder={true}
+              value={answers["157"] ?? 0}
+              onChange={(value) => handleInputChange("157", value)}
+              validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le ticket moyen correspond à la somme moyenne dépensée par client
-              au sein de votre restaurant.
+              Le nombre de couvert correspond au nombre de personnes que vous
+              pensez accueillir une fois votre club à son plein potentiel
             </div>
           </div>
         )}
 
+        {isDinerSelected && (
+          <div className="mb-6">
+            <QuestionAiBox
+              message={
+                "Votre assistant Guroo vous aide encore sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32."
+              }
+            />
+          </div>
+        )}
         {/* brasserie Matin */}
         {isBrasserieMatinSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Quel est le ticket moyen de la brasserie Matin ?
+              Combien de couverts attendez-vous à la brasserie matin ?
             </label>
 
-            <InputAmount
-              value={answers["50"] ?? 0}
-              onChange={(value) => handleInputChange("50", value.toString())}
+            <NumberInput
+              value={answers["154"] ?? 0}
+              onChange={(value) => handleInputChange("154", value)}
+              validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le ticket moyen correspond à la somme moyenne dépensée par client
-              au sein de votre restaurant.
+              Le nombre de couvert correspond au nombre de personnes que vous
+              pensez accueillir une fois votre club à son plein potentiel
             </div>
           </div>
         )}
@@ -138,16 +152,17 @@ const RestaurantComponent3 = ({
         {isBrasserieApresMidiSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Quel est le ticket moyen de la brasserie après midi ?
+              Combien de couverts attendez-vous à la brasserie après midi ?
             </label>
 
-            <InputAmount
-              value={answers["52"] ?? 0}
-              onChange={(value) => handleInputChange("52", value.toString())}
+            <NumberInput
+              value={answers["156"] ?? 0}
+              onChange={(value) => handleInputChange("156", value)}
+              validation={"max:|min:0"}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              Le ticket moyen correspond à la somme moyenne dépensée par client
-              au sein de votre restaurant.
+              Le nombre de couvert correspond au nombre de personnes que vous
+              pensez accueillir une fois votre club à son plein potentiel
             </div>
           </div>
         )}
@@ -156,4 +171,4 @@ const RestaurantComponent3 = ({
   );
 };
 
-export default RestaurantComponent3;
+export default ClubComponent4;

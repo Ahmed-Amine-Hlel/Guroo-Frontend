@@ -52,13 +52,14 @@ const SectionOneStep4 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[10px]">
+      <div className="overflow-y-scroll py-[5px] overflow-x-hidden px-2 qb-thumb h-[500px] mb-[10px]">
         <div className="w-full sm:px-[35spx] mb-[10px]">
           <label className="block px-[16px] mb-[12px] text-[14px] text-foundation-purple-dark-active">
             Quelle structure juridique envisagée
           </label>
 
           <InputListBox
+            coloredAiBorder={true}
             value={
               answers["17"]
                 ? { name: answers["17"] }
@@ -95,7 +96,7 @@ const SectionOneStep4 = ({
               onChange={(boolValue) => handleInputChange("18", boolValue)}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
-              L’ACRE une aide à la création d’entreprise{" "}
+              L’ACRE une aide à la création d’entreprise
             </div>
           </div>
         )}

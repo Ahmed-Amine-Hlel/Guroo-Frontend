@@ -9,12 +9,14 @@ type InputListBoxProps = {
   options: OptionType[];
   onChange: (selectedOption: OptionType) => void;
   value?: OptionType;
+  coloredAiBorder?: boolean;
 };
 
 export default function InputListBox({
   value,
   options,
   onChange,
+  coloredAiBorder,
 }: InputListBoxProps) {
   const [selected, setSelected] = useState<OptionType | null>(null);
 
@@ -29,7 +31,11 @@ export default function InputListBox({
   }, [onChange, selected]);
 
   return (
-    <div className="bg[#f4edfb] w-full">
+    <div
+      className={`relative bg[#f4edfb] w-full ${
+        coloredAiBorder ? "ring-[6px] ring-[#e9cdff] gradient-border z-20" : ""
+      }`}
+    >
       <Listbox
         value={selected}
         onChange={(newSelected) => {
@@ -40,7 +46,7 @@ export default function InputListBox({
         }}
       >
         <div>
-          <Listbox.Button className="relative w-full cursor-default rounded-[76px] bg-white pt-4 pb-4 pl-6 pr-6 text-left border-[0.50px] border-[#E7E5E4] focus:outline-none hover:shadow-custom sm:text-sm">
+          <Listbox.Button className="relative w-full cursor-default rounded-[76px] bg-white pt-4 pb-4 pl-6 pr-6 text-left border-[0.50px] border-[#E7E5E4] focus:outline-none hover:cursor-pointer sm:text-sm">
             <span className="block truncate text-base text-[#6D3B9E] font-[500] font-plus-jakarta-sans leading-6 break-words pl-[14px]">
               {selected && selected.name}
             </span>
@@ -78,36 +84,34 @@ export default function InputListBox({
                     }
                     value={option}
                   >
-                    {({ selected, active }) => (
-                      <div
-                        className={`flex justify-between items-center w-full px-6 h-[45px] rounded-[56px] ${
-                          active ? "bg-[#faf5ff]" : ""
-                        } ${selected ? "bg-[#faf5ff]" : ""}`}
+                    <div
+                      className={`flex justify-between items-center w-full px-6 h-[45px] rounded-[56px] hover:cursor-pointer hover:bg-[#faf5ff] ${
+                        selected?.name === option.name ? "bg-[#faf5ff]" : ""
+                      }`}
+                    >
+                      <span
+                        className={`block truncate text-base text-[#6D3B9E] font-[500] font-plus-jakarta-sans leading-6`}
                       >
-                        <span
-                          className={`block truncate text-base text-[#6D3B9E] font-[500] font-plus-jakarta-sans leading-6`}
+                        {option.name}
+                      </span>
+                      {selected?.name === option.name ? (
+                        <svg
+                          width="17"
+                          height="13"
+                          viewBox="0 0 17 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          {option.name}
-                        </span>
-                        {selected ? (
-                          <svg
-                            width="17"
-                            height="13"
-                            viewBox="0 0 17 13"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M15.304 2.08984L6.13737 11.2565L1.9707 7.08984"
-                              stroke="#8347BD"
-                              strokeWidth="3"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        ) : null}
-                      </div>
-                    )}
+                          <path
+                            d="M15.304 2.08984L6.13737 11.2565L1.9707 7.08984"
+                            stroke="#8347BD"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      ) : null}
+                    </div>
                   </Listbox.Option>
                 ))}
               </Listbox.Options>

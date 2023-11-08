@@ -7,9 +7,10 @@ import Tooltip from "antd/lib/tooltip";
 interface StepperProps {
   isCompact: boolean;
   setIsCompact: React.Dispatch<React.SetStateAction<boolean>>;
+  handleBack?: () => void;
 }
 
-const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
+const Stepper = ({ isCompact, setIsCompact, handleBack }: StepperProps) => {
   const currentStep = useAppSelector((state) => state.stepper.currentStep);
   const [progress, setProgress] = useState(0);
   const sectionId = `section${currentStep}`;
@@ -109,7 +110,12 @@ const Stepper = ({ isCompact, setIsCompact }: StepperProps) => {
             </div>
           ) : (
             <div className="flex items-center justify-center w-full h-full">
-              <button onClick={() => setIsCompact(!isCompact)}>
+              <button
+                onClick={() => {
+                  setIsCompact(!isCompact);
+                  handleBack && handleBack();
+                }}
+              >
                 <img src="/arrow-narrow-left.svg" width={28} height={28} />
               </button>
             </div>

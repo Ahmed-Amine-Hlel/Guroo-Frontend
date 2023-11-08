@@ -1,10 +1,10 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import QuestionAiBox from "./QuestionAiBox";
-import InputPercentage from "./InputPercentage";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import QuestionAiBox from "../QuestionAiBox";
+import InputPercentage from "../InputPercentage";
 
-const BarComponent5 = ({
+const LoungeComponent5 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -39,7 +39,7 @@ const BarComponent5 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Bar
+            Lounge
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -48,7 +48,7 @@ const BarComponent5 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[24px]">
+      <div className="overflow-y-scroll py-[5px] overflow-x-hidden px-2 qb-thumb h-[500px] mb-[24px]">
         <div className="w-full sm:px-[35spx] mb-[24px]">
           <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
             Sur 100%, quelle est la répartition du chiffre d’affaires comparé
@@ -56,8 +56,9 @@ const BarComponent5 = ({
           </label>
 
           <InputPercentage
-            value={answers["139"] ? answers["139"] : "0%"}
-            onChange={(value) => handleInputChange("139", value)}
+            coloredAiBorder={true}
+            value={answers["237"] ? answers["237"] : "0%"}
+            onChange={(value) => handleInputChange("237", value)}
           />
 
           <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -68,7 +69,7 @@ const BarComponent5 = ({
         <div className="mb-6">
           <QuestionAiBox
             message={
-              "La nourriture représente en moyenne  5% du chiffre d’affaire des bars"
+              "La nourriture représente en moyenne  30% du chiffre d’affaire des lounges."
             }
           />
         </div>
@@ -79,8 +80,9 @@ const BarComponent5 = ({
           </label>
 
           <InputPercentage
-            value={answers["140"] ? answers["140"] : "0%"}
-            onChange={(value) => handleInputChange("140", value)}
+            coloredAiBorder={true}
+            value={answers["238"] ? answers["238"] : "0%"}
+            onChange={(value) => handleInputChange("238", value)}
           />
 
           <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -90,7 +92,7 @@ const BarComponent5 = ({
         <div className="mb-6">
           <QuestionAiBox
             message={
-              "Les boissons représentent en moyenne 90% du chiffre d’affaire des bars"
+              "Les boissons représentent en moyenne 60% du chiffre d’affaire des lounges."
             }
           />
         </div>
@@ -102,8 +104,9 @@ const BarComponent5 = ({
           </label>
 
           <InputPercentage
-            value={answers["141"] ? answers["141"] : "0%"}
-            onChange={(value) => handleInputChange("141", value)}
+            coloredAiBorder={true}
+            value={answers["239"] ? answers["239"] : "0%"}
+            onChange={(value) => handleInputChange("239", value)}
           />
 
           <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
@@ -113,7 +116,7 @@ const BarComponent5 = ({
         <div className="mb-6">
           <QuestionAiBox
             message={
-              "Le reste représente en moyenne 5% du chiffre d’affaire des bars"
+              "Le reste représente en moyenne 10% du chiffre d’affaire des lounges."
             }
           />
         </div>
@@ -122,4 +125,4 @@ const BarComponent5 = ({
   );
 };
 
-export default BarComponent5;
+export default LoungeComponent5;

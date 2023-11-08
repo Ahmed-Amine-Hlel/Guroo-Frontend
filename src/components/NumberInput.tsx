@@ -6,6 +6,7 @@ interface NumberInputProps {
   onChange?: (value: string) => void;
   value?: string | null;
   validation?: string | null;
+  coloredAiBorder?: boolean;
 }
 
 const parseValidationString = (validation: string | null) => {
@@ -28,6 +29,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
   onChange,
   value: incomingValue,
   validation,
+  coloredAiBorder,
 }) => {
   // console.log("Received validation prop:", validation);
 
@@ -80,47 +82,52 @@ const NumberInput: React.FC<NumberInputProps> = ({
   const invalidClasses =
     "ring-[4px] ring-[#f6dee8] border-[0.50px] border-solid border-[#FDA29B] bg-[#fef3f2] box-shadow-0px-0px-0px-4px-rgba(253,162,155,0.20) text-[#7A271A]";
   return (
-    <div className="relative flex items-center w-full">
-      <input
-        // value={value === null ? "" : value}
-        value={value || ""}
-        onChange={(e) => {
-          if (e.target.value === "") {
-            setValue(null);
-            return;
-          }
-          setValue(e.target.value);
-          onChange && onChange(e.target.value);
-        }}
-        className={`${baseClasses} ${isValid ? validClasses : invalidClasses}`}
-        type="number"
-        required
-      />
-      {!isValid ? (
-        <>
-          <img
-            src="/alert-circle.svg"
-            alt="Alert Icon"
-            className="hover:cursor-pointer absolute right-[20px]"
-            onMouseOver={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-          />
-          {isHover ? (
-            <span className="absolute flex items-center right-[5px] top-[-30px] bg-[#902818] text-white px-[12px] py-[8px] rounded-[8px] ">
-              <span className="font-Inter text-[12px] font-medium">
-                {parsedValidation.min && Number(value) < parsedValidation.min
-                  ? `La valeur doit être supérieure ou égale à ${parsedValidation.min}`
-                  : parsedValidation.max && Number(value) > parsedValidation.max
-                  ? `La valeur doit être inférieure ou égal à ${parsedValidation.max}`
-                  : `Erreur de validation`}
+    <div className={coloredAiBorder ? "relative ring-[6px] ring-[#e9cdff] gradient-border z-50" : ""}>
+      <div className="relative flex items-center w-full">
+        <input
+          // value={value === null ? "" : value}
+          value={value || ""}
+          onChange={(e) => {
+            if (e.target.value === "") {
+              setValue(null);
+              return;
+            }
+            setValue(e.target.value);
+            onChange && onChange(e.target.value);
+          }}
+          className={`${baseClasses} ${
+            isValid ? validClasses : invalidClasses
+          }`}
+          type="number"
+          required
+        />
+        {!isValid ? (
+          <>
+            <img
+              src="/alert-circle.svg"
+              alt="Alert Icon"
+              className="hover:cursor-pointer absolute right-[20px]"
+              onMouseOver={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+            />
+            {isHover ? (
+              <span className="absolute flex items-center right-[5px] top-[-30px] bg-[#902818] text-white px-[12px] py-[8px] rounded-[8px] ">
+                <span className="font-Inter text-[12px] font-medium">
+                  {parsedValidation.min && Number(value) < parsedValidation.min
+                    ? `La valeur doit être supérieure ou égale à ${parsedValidation.min}`
+                    : parsedValidation.max &&
+                      Number(value) > parsedValidation.max
+                    ? `La valeur doit être inférieure ou égal à ${parsedValidation.max}`
+                    : `Erreur de validation`}
+                </span>
+                <span className="absolute bottom-[-10px] right-[20px]">
+                  <VscTriangleDown color="#902818" />
+                </span>
               </span>
-              <span className="absolute bottom-[-10px] right-[20px]">
-                <VscTriangleDown color="#902818" />
-              </span>
-            </span>
-          ) : null}
-        </>
-      ) : null}
+            ) : null}
+          </>
+        ) : null}
+      </div>
     </div>
   );
 };

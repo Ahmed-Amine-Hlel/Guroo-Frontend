@@ -1,10 +1,10 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import InputListBox from "./InputListBox";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
-import InputMultiSelect from "./InputMultiSelect";
+import InputListBox from "../InputListBox";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { setAnswer } from "../../store/answersSlice";
+import InputMultiSelect from "../InputMultiSelect";
 
-const BarComponent1 = ({
+const LoungeComponent1 = ({
   currentBusinessPlanId,
   handleBack,
 }: {
@@ -16,18 +16,18 @@ const BarComponent1 = ({
   const answers = useAppSelector((state) => state.answers.answers);
 
   const monthRowMap: { [key: string]: string } = {
-    Janvier: "125",
-    Février: "126",
-    Mars: "127",
-    Avril: "128",
-    Mai: "129",
-    Juin: "130",
-    Juillet: "131",
-    Août: "132",
-    Septembre: "133",
-    Octobre: "134",
-    Novembre: "135",
-    Décembre: "136",
+    Janvier: "223",
+    Février: "224",
+    Mars: "225",
+    Avril: "226",
+    Mai: "227",
+    Juin: "228",
+    Juillet: "229",
+    Août: "230",
+    Septembre: "231",
+    Octobre: "232",
+    Novembre: "233",
+    Décembre: "234",
   };
 
   const selectedMonths = Object.keys(monthRowMap).filter(
@@ -72,7 +72,7 @@ const BarComponent1 = ({
         </div>
         <div className="px-[8px] py-[4px] bg-[#ECD8FF] w-max ms-[38px] rounded-[39px] my-[8px]">
           <div className="text-[12px] text-[#6D3B9E] font-plus-jakarta-sans font-semibold">
-            Bar
+            Lounge
           </div>
         </div>
         <div className="flex items-center text-[#A08FB1] text-[16px] ps-[38px] mr-[150px] mb-[28px] font-plus-jakarta-sans font-[500]">
@@ -81,14 +81,14 @@ const BarComponent1 = ({
         </div>
       </div>
 
-      <div className="overflow-y-scroll py-[5px] qb-thumb h-[500px] mb-[24px]">
+      <div className="overflow-y-scroll py-[5px] overflow-x-hidden px-2 qb-thumb h-[500px] mb-[24px]">
         <div className="w-full sm:px-[35spx] mb-[24px]">
           <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
             Combien de jours êtes-vous fermé par semaine ?
           </label>
 
           <InputListBox
-            value={answers["123"] ? { name: answers["123"] } : { name: "0" }}
+            value={answers["221"] ? { name: answers["221"] } : { name: "0" }}
             options={[
               { name: "0" },
               { name: "1" },
@@ -100,14 +100,14 @@ const BarComponent1 = ({
               { name: "7" },
             ]}
             onChange={(selectedOption) => {
-              handleInputChange("123", selectedOption.name);
+              handleInputChange("221", selectedOption.name);
             }}
           />
         </div>
 
         <div className="w-full sm:px-[35spx] mb-[10px]">
           <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-            Avez-vous prévu de fermer un mois dans l’année ?{" "}
+            Avez-vous prévu de fermer un mois dans l’année ?
           </label>
 
           <InputMultiSelect
@@ -120,4 +120,4 @@ const BarComponent1 = ({
   );
 };
 
-export default BarComponent1;
+export default LoungeComponent1;

@@ -1,87 +1,122 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { HiMiniArrowRight } from "react-icons/hi2";
-import SectionOneStep1 from "../../components/SectionOneStep1";
-import SectionOneStep2 from "../../components/SectionOneStep2";
-import SectionOneStep3 from "../../components/SectionOneStep3";
-import SectionOneStep4 from "../../components/SectionOneStep4";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import SectionTwoStep1 from "../../components/SectionTwoStep1";
-import RestaurantComponent1 from "../../components/RestaurantComponent1";
-import RestaurantComponent2 from "../../components/RestaurantComponent2";
-import RestaurantComponent3 from "../../components/RestaurantComponent3";
-import RestaurantComponent4 from "../../components/RestaurantComponent4";
-import RestaurantComponent5 from "../../components/RestaurantComponent5";
-import BarComponent1 from "../../components/BarComponent1";
-import BarComponent2 from "../../components/BarComponent2";
-import BarComponent3 from "../../components/BarComponent3";
-import BarComponent4 from "../../components/BarComponent4";
-import BarComponent5 from "../../components/BarComponent5";
-import SectionTwoStep2 from "../../components/SectionTwoStep2";
-import MSTable from "../../components/MSTable";
-import SectionTwoStep3 from "../../components/SectionTwoStep3";
 import {
-  submitAnswersAsync,
-  // updateProgress
-} from "../../store/answersSlice";
-import { Answer } from "../../core/src/domain/entities/Answer";
-import { MarkBusinessPlanAsDoneUseCase } from "../../core/src/usecases/MarkBusinessPlanAsDoneUseCase";
-import { useNavigate } from "react-router-dom";
-import { GurooBusinessPlanService } from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
-import { BusinessPlanMapper } from "../../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
+  // useAppDispatch,
+  useAppSelector,
+} from "../../hooks/hooks";
+import MSTable from "../../components/MSTable";
+import CFTable from "../../components/CFTable";
+import ActiveSection from "../../components/ActiveSection";
+// import {
+//   submitAnswersAsync,
+// updateProgress
+// } from "../../store/answersSlice";
+// import { Answer } from "../../core/src/domain/entities/Answer";
+// import { MarkBusinessPlanAsDoneUseCase } from "../../core/src/usecases/MarkBusinessPlanAsDoneUseCase";
+// import { useNavigate } from "react-router-dom";
+// import { GurooBusinessPlanService } from "../../core/src/adapters/realDependencies/GurooBusinessPlanService";
+// import { BusinessPlanMapper } from "../../core/src/adapters/realDependencies/mappers/BusinessPlanMapper";
+// import CFTable from "../../components/CFTable";
 // import { setCurrentStep } from "../../store/StepperSlice";
 
 interface QuestionsScreenProps {
   setIsCompact: React.Dispatch<React.SetStateAction<boolean>>;
+  activeSection: number;
+  setActiveSection: React.Dispatch<React.SetStateAction<number>>;
+  subStep: number;
+  setSubStep: React.Dispatch<React.SetStateAction<number>>;
+  activeBusinessType: string;
+  setActiveBusinessType: React.Dispatch<React.SetStateAction<string>>;
+  handleBack: () => void;
 }
 
-const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
-  const [activeSection, setActiveSection] = useState(1);
-  const [subStep, setSubStep] = useState(0);
-  const [activeBusinessType, setActiveBusinessType] = useState("Restaurant");
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const businessPlanService = new GurooBusinessPlanService(
-    new BusinessPlanMapper()
-  );
+const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
+  setIsCompact,
+  activeSection,
+  setActiveSection,
+  subStep,
+  setSubStep,
+  activeBusinessType,
+  setActiveBusinessType,
+  handleBack,
+}) => {
+  // const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
+  // const businessPlanService = new GurooBusinessPlanService(
+  //   new BusinessPlanMapper()
+  // );
 
-  const markBusinessPlanAsDoneUseCase = new MarkBusinessPlanAsDoneUseCase(
-    businessPlanService
-  );
+  // const markBusinessPlanAsDoneUseCase = new MarkBusinessPlanAsDoneUseCase(
+  //   businessPlanService
+  // );
   // const sectionStep = useAppSelector((state) => state.stepper.currentStep);
 
-  const handleBack = () => {
-    if (activeSection === 6) {
-      if (subStep > 0) {
-        setSubStep(subStep - 1);
-        return;
-      }
-      if (subStep === 0 && activeBusinessType === "Bar") {
-        setActiveBusinessType("Restaurant");
-        setSubStep(4);
-        return;
-      }
-    }
-    setActiveSection(activeSection - 1);
-  };
-
   const handleNext = async () => {
-    if (activeSection === 9) {
-      submitAnswers();
-      await handleLastSectionCompletion();
-      return;
-    }
+    // if (activeSection === 9) {
+    //   submitAnswers();
+    //   await handleLastSectionCompletion();
+    //   return;
+    // }
 
     if (activeSection === 6) {
       if (subStep < 4) {
         setSubStep(subStep + 1);
         return;
       }
+      if (subStep === 4 && activeBusinessType === "Restaurant") {
+        if (isBarSelected) {
+          setActiveBusinessType("Bar");
+          setSubStep(0);
+          return;
+        } else if (isClubSelected) {
+          setActiveBusinessType("Club");
+          setSubStep(0);
+          return;
+        } else if (isLoungeSelected) {
+          setActiveBusinessType("Lounge");
+          setSubStep(0);
+          return;
+        } else if (isBeachClubSelected) {
+          setActiveBusinessType("Beach Club");
+          setSubStep(0);
+          return;
+        }
+      }
+
+      if (subStep === 4 && activeBusinessType === "Bar") {
+        if (isClubSelected) {
+          setActiveBusinessType("Club");
+          setSubStep(0);
+          return;
+        } else if (isLoungeSelected) {
+          setActiveBusinessType("Lounge");
+          setSubStep(0);
+          return;
+        } else if (isBeachClubSelected) {
+          setActiveBusinessType("Beach Club");
+          setSubStep(0);
+          return;
+        }
+      }
+
+      if (activeBusinessType === "Club") {
+        if (isLoungeSelected) {
+          setActiveBusinessType("Lounge");
+          setSubStep(0);
+          return;
+        } else if (isBeachClubSelected) {
+          setActiveBusinessType("Beach Club");
+          setSubStep(0);
+          return;
+        }
+      }
+
       if (
         subStep === 4 &&
-        activeBusinessType === "Restaurant" &&
-        isBarSelected
+        activeBusinessType === "Lounge" &&
+        isBeachClubSelected
       ) {
-        setActiveBusinessType("Bar");
+        setActiveBusinessType("Beach Club");
         setSubStep(0);
         return;
       }
@@ -96,16 +131,16 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
     submitAnswers();
   };
 
-  const handleLastSectionCompletion = async () => {
-    if (currentBusinessPlanId) {
-      try {
-        await markBusinessPlanAsDoneUseCase.execute(currentBusinessPlanId);
-        navigate(`/payment/${currentBusinessPlanId}`);
-      } catch (error) {
-        console.error("Error marking the business plan as done:", error);
-      }
-    }
-  };
+  // const handleLastSectionCompletion = async () => {
+  //   if (currentBusinessPlanId) {
+  //     try {
+  //       await markBusinessPlanAsDoneUseCase.execute(currentBusinessPlanId);
+  //       navigate(`/payment/${currentBusinessPlanId}`);
+  //     } catch (error) {
+  //       console.error("Error marking the business plan as done:", error);
+  //     }
+  //   }
+  // };
 
   const currentBusinessPlan = useAppSelector(
     (state) => state.businessPlan.currentBusinessPlan
@@ -118,166 +153,32 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
 
   const isRestaurantSelected = answers["39"] == "true";
   const isBarSelected = answers["40"] == "true";
+  const isClubSelected = answers["41"] == "true";
+  const isLoungeSelected = answers["42"] == "true";
+  const isBeachClubSelected = answers["43"] == "true";
 
   useEffect(() => {
     if (isRestaurantSelected) {
       setActiveBusinessType("Restaurant");
     } else if (isBarSelected) {
       setActiveBusinessType("Bar");
+    } else if (isClubSelected) {
+      setActiveBusinessType("Club");
+    } else if (isLoungeSelected) {
+      setActiveBusinessType("Lounge");
+    } else if (isBeachClubSelected) {
+      setActiveBusinessType("Beach Club");
     } else {
       setActiveBusinessType("");
     }
-  }, [isRestaurantSelected, isBarSelected]);
-  // const isClubSelected = answers["41"] == "true";
-  // const isLoungeSelected = answers["42"] == "true";
-  // const isBeachClubSelected = answers["43"] == "true";
-
-  const RestaurantWrapper = () => {
-    switch (subStep) {
-      case 0:
-        return (
-          <RestaurantComponent1
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 1:
-        return <RestaurantComponent2 handleBack={handleBack} />;
-      case 2:
-        return (
-          <RestaurantComponent3
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 3:
-        return (
-          <RestaurantComponent4
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 4:
-        return (
-          <RestaurantComponent5
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
-  const BarWrapper = () => {
-    switch (subStep) {
-      case 0:
-        return (
-          <BarComponent1
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 1:
-        return <BarComponent2 handleBack={handleBack} />;
-      case 2:
-        return (
-          <BarComponent3
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 3:
-        return (
-          <BarComponent4
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 4:
-        return (
-          <BarComponent5
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
-  const renderActiveSection = () => {
-    switch (activeSection) {
-      case 1:
-        setIsCompact(false);
-        // dispatch(setCurrentStep(1));
-        return (
-          <SectionOneStep1 currentBusinessPlanId={currentBusinessPlanId} />
-        );
-      case 2:
-        return (
-          <SectionOneStep2
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 3:
-        return (
-          <SectionOneStep3
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 4:
-        return (
-          <SectionOneStep4
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-      case 5:
-        // dispatch(setCurrentStep(2));
-        return (
-          <SectionTwoStep1 currentBusinessPlanId={currentBusinessPlanId} />
-        );
-
-      case 6:
-        if (activeBusinessType === "Restaurant" && isRestaurantSelected) {
-          return <RestaurantWrapper />;
-        }
-        if (activeBusinessType === "Bar" && isBarSelected) {
-          return <BarWrapper />;
-        }
-        return null;
-      default:
-        return null;
-
-      case 7:
-        return (
-          <SectionTwoStep2
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-
-      case 8:
-        setIsCompact(true);
-        return null;
-
-      case 9:
-        setIsCompact(false);
-        return (
-          <SectionTwoStep3
-            currentBusinessPlanId={currentBusinessPlanId}
-            handleBack={handleBack}
-          />
-        );
-    }
-  };
+  }, [
+    isRestaurantSelected,
+    isBarSelected,
+    isClubSelected,
+    isLoungeSelected,
+    isBeachClubSelected,
+    setActiveBusinessType,
+  ]);
 
   const submitAnswers = () => {
     const formatAnswersForBackend = (
@@ -298,17 +199,60 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({ setIsCompact }) => {
     );
 
     console.log("Formated answers : ", formattedAnswers);
-    dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[]));
+    /* dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[])); */
   };
 
-  return activeSection === 8 ? (
+  return activeSection === 9 ? (
     <>
-      {renderActiveSection()}
+      <ActiveSection
+        activeSection={activeSection}
+        activeBusinessType={activeBusinessType}
+        currentBusinessPlanId={currentBusinessPlanId}
+        subStep={subStep}
+        isBeachClubSelected={isBeachClubSelected}
+        isBarSelected={isBarSelected}
+        isClubSelected={isClubSelected}
+        isLoungeSelected={isLoungeSelected}
+        isRestaurantSelected={isRestaurantSelected}
+        setIsCompact={setIsCompact}
+        handleBack={handleBack}
+      />
       <MSTable handleNext={handleNext} />
+    </>
+  ) : activeSection === 11 ? (
+    <>
+      <ActiveSection
+        activeSection={activeSection}
+        activeBusinessType={activeBusinessType}
+        currentBusinessPlanId={currentBusinessPlanId}
+        subStep={subStep}
+        isBeachClubSelected={isBeachClubSelected}
+        isBarSelected={isBarSelected}
+        isClubSelected={isClubSelected}
+        isLoungeSelected={isLoungeSelected}
+        isRestaurantSelected={isRestaurantSelected}
+        setIsCompact={setIsCompact}
+        handleBack={handleBack}
+      />
+      <CFTable handleNext={handleNext} />
     </>
   ) : (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">
-      <div className="relative">{renderActiveSection()}</div>
+      <div className="relative">
+        <ActiveSection
+          activeSection={activeSection}
+          activeBusinessType={activeBusinessType}
+          currentBusinessPlanId={currentBusinessPlanId}
+          subStep={subStep}
+          isBeachClubSelected={isBeachClubSelected}
+          isBarSelected={isBarSelected}
+          isClubSelected={isClubSelected}
+          isLoungeSelected={isLoungeSelected}
+          isRestaurantSelected={isRestaurantSelected}
+          setIsCompact={setIsCompact}
+          handleBack={handleBack}
+        />
+      </div>
 
       <div className="w-full flex justify-center mt-auto">
         <button

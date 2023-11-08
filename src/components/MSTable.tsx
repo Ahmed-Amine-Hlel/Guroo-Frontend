@@ -5,6 +5,7 @@ import { useState, Fragment } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { setAnswer } from "../store/answersSlice";
 import { HiMiniArrowRight } from "react-icons/hi2";
+import { BiPlus } from "react-icons/bi";
 
 interface MSTableProps {
   handleNext: () => void;
@@ -13,7 +14,7 @@ interface MSTableProps {
 const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
   const [items] = useState<string[]>(["CDI", "CDD", "Freelance"]);
   const [selectedItem, setSelectedItem] = useState<string>(items[0]);
-  const [rows, setRows] = useState<number[]>([1]);
+  const [rows, setRows] = useState<number[]>([]);
   const answers = useAppSelector((state) => state.answers.answers);
   const dispatch = useAppDispatch();
 
@@ -38,6 +39,10 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
     }
   };
 
+  const deleteRow = (rowNumber: number) => {
+    setRows((prevRows) => prevRows.filter((row) => row !== rowNumber));
+  };
+
   const handleInputChange = (rowNumber: string, value: unknown) => {
     dispatch(
       setAnswer({
@@ -59,8 +64,8 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-[16px] min-h-full bg-[#f4edfb] font-plus-jakarta-sans ">
-      <div className="flex flex-col px-[16px] pt-[32px] pb-[12px] bg-white rounded-[16px] w-full">
+    <div className="flex flex-col md:flex-row gap-[16px] min-h-full bg-[#f4edfb] font-plus-jakarta-sans">
+      <div className="relative flex flex-col px-[16px] pt-[32px] pb-[12px] bg-white rounded-[16px] w-full">
         <div className="px-[18px] flex flex-col md:flex-row items-center justify-between mb-[25px]">
           <div className="text-foundation-purple-normal text-[32px] text-center md:text-start md:text-[40px] font-bold mb-6 md:mb-0">
             Il est temps de composer votre équipe
@@ -79,7 +84,7 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
         </div>
         <div className="overflow-x-scroll lg:overflow-x-hidden table-scroll mb-[15px]">
           <div className="min-w-max lg:min-w-full">
-            <div className="px-[24px] py-[17px]">
+            <div className="ps-[18px] py-[17px]">
               <div className="grid grid-cols-9 gap-[8px]">
                 <div className=""></div>
                 <div className=""></div>
@@ -139,8 +144,8 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
                 </div>
               </div>
             </div>
-            <div className="px-[24px] py-[17px] bg-ghostwhite-200 rounded-[16px]">
-              <div className="grid grid-cols-9 gap-[8px] mb-[16px] overflow-y-auto max-h-[345px] qb-thumb">
+            <div className="ps-[18px] py-[17px] bg-ghostwhite-200 rounded-[16px]">
+              <div className="grid grid-cols-9 gap-[8px] pb-2 mb-[16px] overflow-y-auto max-h-[345px] qb-thumb">
                 <div className="h-[79px] bg-[#d9b2ff75] rounded-[8px] flex items-center px-[13px]">
                   <div className="font-bold text-center w-full text-dark-p">
                     Fonction
@@ -203,16 +208,22 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
                       Date de démarrage
                     </div>
                   </div>
-                  <div className="w-full h-[79px] bg-[#d9b2ff75]  rounded-tr-[8px] rounded-br-[8px] flex items-center px-[23px]">
+                  <div className="w-full h-[79px] bg-[#d9b2ff75] rounded-tr-[8px] rounded-br-[8px] flex items-center px-[23px]">
                     <div className="text-center w-full text-dark-p">
                       Date de Fin
                     </div>
                   </div>
                 </div>
 
-                <div className="h-[79px] bg-[#d9b2ff75] rounded-[8px] flex items-center px-[23px]">
-                  <div className="text-center w-full text-dark-p">
-                    Type de <br /> contrat
+                <div className="h-[79px] flex">
+                  <div
+                    className={`h-full w-full bg-[#d9b2ff75] rounded-[8px] flex items-center ${
+                      rows.length === 0 ? "mr-[18px]" : "mr-[40px]"
+                    }`}
+                  >
+                    <div className="text-center w-full text-dark-p px-2">
+                      Type de contrat
+                    </div>
                   </div>
                 </div>
 
@@ -256,7 +267,7 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
                         <input
                           name={`input-${row}-4`}
                           type="text"
-                          className="px-2 w-[100%] h-[45px] bg-light-p-hover border-b-[1px] border-t-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] focus:outline-none text-[14px] text-[#41245eeb]"
+                          className="px-2 w-[100%] h-[45px] bg-light-p-hover border-b-[1px] border-t-[1px] border-r-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] focus:outline-none text-[14px] text-[#41245eeb]"
                           value={"2332 €"}
                         />
                       </div>
@@ -264,7 +275,7 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
                         <input
                           name={`input-${row}-5`}
                           type="text"
-                          className="px-2 w-[100%] h-[45px] bg-light-p-hover border-l-[1px] border-b-[1px] border-t-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] focus:outline-none text-[14px] text-[#41245eeb]"
+                          className="px-2 w-[100%] h-[45px] bg-light-p-hover border-r-[1px] border-b-[1px] border-t-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] focus:outline-none text-[14px] text-[#41245eeb]"
                           value={answers[`${338 + (row - 1) * 6}`] || ""}
                           onChange={(e) =>
                             handleInputChange(
@@ -278,7 +289,7 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
                         <input
                           name={`input-${row}-6`}
                           type="text"
-                          className="px-2 w-[100%] h-[45px] bg-light-p-hover border-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] rounded-tr-[8px] rounded-br-[8px] focus:outline-none text-[14px] text-[#41245eeb]"
+                          className="px-2 w-[100%] h-[45px] bg-light-p-hover border-t-[1px] border-b-[1px] border-r-[1px] border-foundation-purple-light-active bg-[#d9b2ff75] rounded-tr-[8px] rounded-br-[8px] focus:outline-none text-[14px] text-[#41245eeb]"
                           value={"1721 €"}
                         />
                       </div>
@@ -303,7 +314,7 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
                       />
                       <DatePicker
                         name={`input-${row}-7`}
-                        className="rounded-tr-[8px] rounded-br-[8px] border-[1px]"
+                        className="rounded-tr-[8px] rounded-br-[8px] border-t-[1px] border-b-[1px] border-r-[1px]"
                         value={
                           answers[`${340 + (row - 1) * 6}`]
                             ? convertToYYYYMMDD(
@@ -319,37 +330,78 @@ const MSTable: React.FC<MSTableProps> = ({ handleNext }) => {
                         }
                       />
                     </div>
-                    <div className="flex items-center justify-start">
-                      <DropDown
-                        items={items}
-                        selectedItem={selectedItem}
-                        setSelectedItem={setSelectedItem}
-                      />
+                    <div className="flex">
+                      <div className="flex flex-1">
+                        <DropDown
+                          items={items}
+                          selectedItem={selectedItem}
+                          setSelectedItem={setSelectedItem}
+                        />
+                      </div>
+
+                      <div className="h-full flex items-center justify-center">
+                        <button
+                          className=" rounded-full m-1.5 p-1 active:bg-[#e4d3f48b] hover:bg-[#e4d3f45c]"
+                          onClick={() => deleteRow(Number(row))}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                          >
+                            <path
+                              d="M7.125 2.375H11.875M2.375 4.75H16.625M15.0417 4.75L14.4865 13.0778C14.4032 14.3272 14.3615 14.9519 14.0917 15.4256C13.8541 15.8427 13.4957 16.1779 13.0638 16.3873C12.5732 16.625 11.9471 16.625 10.6949 16.625H8.3051C7.05288 16.625 6.42677 16.625 5.93618 16.3873C5.50427 16.1779 5.1459 15.8427 4.90832 15.4256C4.63846 14.9519 4.59681 14.3272 4.51352 13.0778L3.95833 4.75M7.91667 8.3125V12.2708M11.0833 8.3125V12.2708"
+                              stroke="#E4D3F4"
+                              strokeWidth="1.58333"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
-                    {/* <div className="">
-                      <img
-                        src="/trash-icon.svg"
-                        alt="tarsh-icon"
-                        className="h-[25px] w-[25px] hover:cursor-pointer"
-                      />
-                    </div> */}
                   </Fragment>
                 ))}
 
                 {/* Row ---------------------------------------------------------------------------------------------------- End */}
               </div>
 
-              <div className="flex items-center justify-start lg:justify-end w-full lg:px-[24px] mb-[10px]">
-                <button
-                  onClick={addRow}
-                  className="flex items-center justify-center gap-[8px] h-[40px] px-[32px] border-[1px] border-foundation-purple-normal bg-gradient-to-r from-[#914FD2] from-48% to-[#946CBB] to-137% rounded-[45px] text-white hover:cursor-pointer"
-                >
-                  <span className="block text-[14px]">
-                    Ajouter un nouveau salaire
-                  </span>
-                  <BsPlus className="text-[26px] text-[#DDC8F1]" />
-                </button>
-              </div>
+              {rows.length > 0 ? (
+                <div className="flex items-center justify-start lg:justify-end w-full lg:px-[24px] mb-[10px]">
+                  <button
+                    onClick={addRow}
+                    className="flex items-center justify-center gap-[8px] h-[40px] px-[32px] border-[1px] border-foundation-purple-normal bg-gradient-to-r from-[#914FD2] from-48% to-[#946CBB] to-137% rounded-[45px] text-white hover:cursor-pointer"
+                  >
+                    <span className="block text-[14px]">
+                      Ajouter un nouveau salaire
+                    </span>
+                    <BsPlus className="text-[26px] text-[#DDC8F1]" />
+                  </button>
+                </div>
+              ) : (
+                <div className="mr-[18px] py-[45px] flex flex-col justify-center items-center">
+                  <div className="mb-[19px]">
+                    <img
+                      src="./file-close.svg"
+                      alt="file-close"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="mb-[14px] text-foundation-purple-normal text-[20px] font-[600] leading-5">
+                    Vous n’avez aucun donnée, cliquez ici pour ajouter une ligne
+                  </div>
+                  <div>
+                    <button
+                      onClick={addRow}
+                      className="p-[10px] rounded-full bg-foundation-purple-hover border border-1 border-foundation-purple-normal"
+                    >
+                      <BiPlus className="text-white" />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
