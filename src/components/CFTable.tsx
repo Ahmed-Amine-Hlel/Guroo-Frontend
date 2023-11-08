@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { BiPlus } from "react-icons/bi";
-import { HiMiniArrowRight } from "react-icons/hi2";
+import { useState } from 'react';
+import { HiMiniArrowRight } from 'react-icons/hi2';
 
 interface CFTableProps {
   handleNext: () => void;
@@ -8,11 +7,11 @@ interface CFTableProps {
 
 const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
   const [tableColumns] = useState<string[]>([
-    "Type de la charge",
-    "Entreprise recomandée",
-    "Mode de paiement",
-    "Montant HT/mois",
-    "Montant TTC/mois",
+    'Type de la charge',
+    'Entreprise recomandée',
+    'Mode de paiement',
+    'Montant HT/mois',
+    'Montant TTC/mois',
   ]);
 
   /* ["Assurance 👪", "Assurup", "Prélèvement", "59€", "70.9€"],
@@ -22,7 +21,7 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
   const [tableData, setTableData] = useState<string[][]>([]);
 
   const handleAddRow = (loadType: string) => {
-    const newRow = [loadType, "", "", "", ""];
+    const newRow = [loadType, '', '', '', ''];
     setTableData([...tableData, newRow]);
   };
 
@@ -45,15 +44,15 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
 
         <div className="flex flex-wrap gap-[14px] mt-[23px] mb-[25px] w-full md:w-[70%] lg:w-[70%] min-[1864px]:w-[65%] items-center">
           {[
-            "Assurance 👪",
-            "Electricité ⚡",
-            "Loyers 🔑",
-            "Logiciels 🖥️",
-            "Comptable 📈",
-            "Frais bancaires 🏦",
-            "Coworking 💪",
-            "Véhicule 🚗",
-            "Ménage 👨‍👩‍👧‍👦",
+            'Assurance 👪',
+            'Electricité ⚡',
+            'Loyers 🔑',
+            'Logiciels 🖥️',
+            'Comptable 📈',
+            'Frais bancaires 🏦',
+            'Coworking 💪',
+            'Véhicule 🚗',
+            'Ménage 👨‍👩‍👧‍👦',
           ].map((tag, index) => (
             <button
               key={index}
@@ -118,10 +117,10 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
                           className={`px-2 text-center w-full h-[45px] border-[1px] border-foundation-purple-light-active rounded-[8px] focus:outline-none text-[14px] text-[#41245eeb]
                           ${
                             index === 0
-                              ? "bg-light-p-hover text-start px-[18px]"
+                              ? 'bg-light-p-hover text-start px-[18px]'
                               : index === 3 || index === 4
-                              ? "text-start px-[18px] bg-white"
-                              : "bg-white"
+                              ? 'text-start px-[18px] bg-white'
+                              : 'bg-white'
                           }
                           `}
                           value={text}

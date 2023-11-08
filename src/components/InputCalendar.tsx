@@ -1,14 +1,14 @@
-import { Button, DatePicker } from "antd";
-import locale from "antd/es/date-picker/locale/fr_FR";
-import dayjs from "dayjs";
-import "dayjs/locale/fr";
-import localizedFormat from "dayjs/plugin/localizedFormat";
-import { useState } from "react";
-import { IoCloseSharp } from "react-icons/io5";
-import styled, { createGlobalStyle } from "styled-components";
+import { Button, DatePicker } from 'antd';
+import locale from 'antd/es/date-picker/locale/fr_FR';
+import dayjs from 'dayjs';
+import 'dayjs/locale/fr';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { useState } from 'react';
+import { IoCloseSharp } from 'react-icons/io5';
+import styled, { createGlobalStyle } from 'styled-components';
 
 dayjs.extend(localizedFormat);
-dayjs.locale("fr");
+dayjs.locale('fr');
 
 interface InputCalendarProps {
   reducedwidth?: boolean;
@@ -43,7 +43,7 @@ const StyledDatePicker = styled(DatePicker)<InputCalendarProps>`
       input {
         color: #6d3b9e;
         font-size: 16px;
-        font-family: "Plus Jakarta Sans", sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         font-weight: 500;
         line-height: 24px;
         word-wrap: break-word;
@@ -294,7 +294,7 @@ const ApplyButton = styled(Button)`
 
   /* Typography styles */
   color: #fff;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -326,7 +326,7 @@ const CancelButton = styled(Button)`
 
   /* Typography styles */
   color: #344054;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -345,12 +345,12 @@ const CancelButton = styled(Button)`
 `;
 
 const datePresets = [
-  { label: "Today", value: dayjs() },
-  { label: "Last Week", value: dayjs().subtract(7, "day") },
-  { label: "This Month", value: dayjs().startOf("month") },
-  { label: "Last Month", value: dayjs().subtract(1, "month").startOf("month") },
-  { label: "This Year", value: dayjs().startOf("year") },
-  { label: "Last Year", value: dayjs().subtract(1, "year").startOf("year") },
+  { label: 'Today', value: dayjs() },
+  { label: 'Last Week', value: dayjs().subtract(7, 'day') },
+  { label: 'This Month', value: dayjs().startOf('month') },
+  { label: 'Last Month', value: dayjs().subtract(1, 'month').startOf('month') },
+  { label: 'This Year', value: dayjs().startOf('year') },
+  { label: 'Last Year', value: dayjs().subtract(1, 'year').startOf('year') },
 ];
 
 // const datePresets = [
@@ -375,7 +375,7 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
   coloredAiBorder,
 }) => {
   const initialDate =
-    typeof value === "string" ? dayjs(value, "D/M/YYYY") : value;
+    typeof value === 'string' ? dayjs(value, 'D/M/YYYY') : value;
 
   const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(
     initialDate
@@ -414,28 +414,32 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
   const CustomClearIcon = () => (
     <IoCloseSharp
       style={{
-        color: "#572f7e",
-        fontSize: "16px",
-        marginRight: "20px",
+        color: '#572f7e',
+        fontSize: '16px',
+        marginRight: '20px',
       }}
       onClick={handleClear}
     />
   );
-  const placeholderText = reducedwidth ? "Date" : "Sélectionner une date";
+  const placeholderText = reducedwidth ? 'Date' : 'Sélectionner une date';
 
   // console.log(selectedDate);
   // console.log("InputCalendar prop value:", value);
 
   return (
-    <div className={coloredAiBorder ? "ring-[6px] ring-[#e9cdff] gradient-border z-50" : ""}>
+    <div
+      className={
+        coloredAiBorder ? 'ring-[6px] ring-[#e9cdff] gradient-border z-50' : ''
+      }
+    >
       <GlobalStyles />
       <StyledDatePicker
         placeholder={placeholderText}
-        reducedwidth={reducedwidth}
+        // reducedwidth={reducedwidth}
         open={isOpen}
         onOpenChange={handleDropdownVisibility}
         value={selectedDate}
-        dropdownAlign={{ points: ["tl", "bl"], offset: [0, 14] }}
+        dropdownAlign={{ points: ['tl', 'bl'], offset: [0, 14] }}
         onChange={handleDateChange}
         locale={locale}
         format="DD MMM YYYY"
@@ -459,10 +463,10 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
         renderExtraFooter={() => (
           <div
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "8px",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
             }}
           >
             <CancelButton onClick={handleClear}>Cancel</CancelButton>
@@ -470,64 +474,64 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
           </div>
         )}
         cellRender={(current, info) => {
-          if (info.type !== "date") return info.originNode;
+          if (info.type !== 'date') return info.originNode;
 
-          const isToday = current.isSame(dayjs(), "day");
+          const isToday = current.isSame(dayjs(), 'day');
           const isSelected =
-            current.isSame(selectedDate, "day") ||
-            current.isSame(tempSelectedDate, "day");
+            current.isSame(selectedDate, 'day') ||
+            current.isSame(tempSelectedDate, 'day');
 
           let cellStyle: React.CSSProperties = {};
           let textStyle: React.CSSProperties = {};
 
           if (isToday) {
             cellStyle = {
-              display: "flex",
-              width: "40px",
-              height: "40px",
-              padding: "10px 8px 4px 8px",
-              flexDirection: "column",
-              justifyContent: "flex-end",
-              alignItems: "center",
-              gap: "1px",
-              borderRadius: "20px",
-              background: "#F5F5F4",
+              display: 'flex',
+              width: '40px',
+              height: '40px',
+              padding: '10px 8px 4px 8px',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              gap: '1px',
+              borderRadius: '20px',
+              background: '#F5F5F4',
             };
             textStyle = {
-              width: "24px",
-              color: "#344054",
-              textAlign: "center",
-              fontFamily: "Inter",
-              fontSize: "14px",
-              fontStyle: "normal",
+              width: '24px',
+              color: '#344054',
+              textAlign: 'center',
+              fontFamily: 'Inter',
+              fontSize: '14px',
+              fontStyle: 'normal',
               fontWeight: 500,
-              lineHeight: "20px",
+              lineHeight: '20px',
             };
           }
 
           if (isSelected) {
             cellStyle = {
               ...cellStyle,
-              display: "flex",
-              width: "30px",
-              height: "30px",
-              padding: "8px 10px",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: "20px",
-              background: "#8347bd",
+              display: 'flex',
+              width: '30px',
+              height: '30px',
+              padding: '8px 10px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '20px',
+              background: '#8347bd',
             };
             textStyle = {
               ...textStyle,
-              width: "24px",
+              width: '24px',
               flexShrink: 0,
-              color: "var(--base-white, #FFF)",
-              textAlign: "center",
-              fontFamily: "Inter",
-              fontSize: "14px",
-              fontStyle: "normal",
+              color: 'var(--base-white, #FFF)',
+              textAlign: 'center',
+              fontFamily: 'Inter',
+              fontSize: '14px',
+              fontStyle: 'normal',
               fontWeight: 500,
-              lineHeight: "20px",
+              lineHeight: '20px',
             };
           }
 
@@ -542,8 +546,8 @@ const InputCalendar: React.FC<InputCalendarProps> = ({
                   viewBox="0 0 6 5"
                   fill="none"
                   style={{
-                    width: "5px",
-                    height: "5px",
+                    width: '5px',
+                    height: '5px',
                     flexShrink: 0,
                   }}
                 >
