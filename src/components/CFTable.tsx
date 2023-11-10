@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { HiMiniArrowRight } from 'react-icons/hi2';
+import { useState } from "react";
+import { HiMiniArrowRight } from "react-icons/hi2";
 
 interface CFTableProps {
   handleNext: () => void;
@@ -7,11 +7,11 @@ interface CFTableProps {
 
 const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
   const [tableColumns] = useState<string[]>([
-    'Type de la charge',
-    'Entreprise recomandée',
-    'Mode de paiement',
-    'Montant HT/mois',
-    'Montant TTC/mois',
+    "Type de la charge",
+    "Entreprise recomandée",
+    "Mode de paiement",
+    "Montant HT/mois",
+    "Montant TTC/mois",
   ]);
 
   /* ["Assurance 👪", "Assurup", "Prélèvement", "59€", "70.9€"],
@@ -21,14 +21,31 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
   const [tableData, setTableData] = useState<string[][]>([]);
 
   const handleAddRow = (loadType: string) => {
-    const newRow = [loadType, '', '', '', ''];
+    const newRow = [loadType, "", "", "", ""];
     setTableData([...tableData, newRow]);
+    console.log(tableData)
   };
 
   const handleDeleteRow = (rowNumber: number) => {
     const newTableData = tableData.filter((_, index) => index !== rowNumber);
     setTableData(newTableData);
   };
+
+
+  const handleCellChange = (rowNumber: number, colNumber: number, value: string) => {
+    const newTableData = tableData.map((row, index) => {
+      if (index === rowNumber) {
+        return row.map((cell, cellIndex) => {
+          if (cellIndex === colNumber) {
+            return value;
+          }
+          return cell;
+        });
+      }
+      return row;
+    });
+    setTableData(newTableData);
+  }
 
   return (
     <div className="flex flex-col md:flex-row gap-[16px] w-full min-h-full bg-[#f4edfb] font-plus-jakarta-sans">
@@ -44,15 +61,15 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
 
         <div className="flex flex-wrap gap-[14px] mt-[23px] mb-[25px] w-full md:w-[70%] lg:w-[70%] min-[1864px]:w-[65%] items-center">
           {[
-            'Assurance 👪',
-            'Electricité ⚡',
-            'Loyers 🔑',
-            'Logiciels 🖥️',
-            'Comptable 📈',
-            'Frais bancaires 🏦',
-            'Coworking 💪',
-            'Véhicule 🚗',
-            'Ménage 👨‍👩‍👧‍👦',
+            "Assurance 👪",
+            "Electricité ⚡",
+            "Loyers 🔑",
+            "Logiciels 🖥️",
+            "Comptable 📈",
+            "Frais bancaires 🏦",
+            "Coworking 💪",
+            "Véhicule 🚗",
+            "Ménage 👨‍👩‍👧‍👦",
           ].map((tag, index) => (
             <button
               key={index}
@@ -106,24 +123,26 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
                     key={`row-${index}`}
                     className="flex items-center justify-center gap-[10px] mb-[12px]"
                   >
-                    {row.map((text, index) => (
+                    {row.map((text, rowIndex) => (
                       <div
-                        key={`col-data-${index}`}
+                        key={`col-data-${rowIndex}`}
                         className="flex items-center w-full justify-center relative"
                       >
                         <input
-                          name={`input-${index}-1`}
+                          name={`input-${rowIndex}-1`}
                           type="text" /*   */
                           className={`px-2 text-center w-full h-[45px] border-[1px] border-foundation-purple-light-active rounded-[8px] focus:outline-none text-[14px] text-[#41245eeb]
                           ${
-                            index === 0
-                              ? 'bg-light-p-hover text-start px-[18px]'
-                              : index === 3 || index === 4
-                              ? 'text-start px-[18px] bg-white'
-                              : 'bg-white'
+                            rowIndex === 0
+                              ? "bg-light-p-hover text-start px-[18px]"
+                              : rowIndex === 3 || rowIndex === 4
+                              ? "text-start px-[18px] bg-white"
+                              : "bg-white"
                           }
                           `}
+                          readOnly={rowIndex === 0}
                           value={text}
+                          onChange={(e) => handleCellChange(index, rowIndex, e.target.value)}
                         />
                       </div>
                     ))}
