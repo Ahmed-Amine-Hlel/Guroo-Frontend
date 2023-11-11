@@ -1,5 +1,4 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
-import StringInput from "./StringInput";
 import InputMultiUnitNumber from "./InputMultiUnitNumber";
 import InputGooglePlaces from "./InputGooglePlaces";
 // import {
