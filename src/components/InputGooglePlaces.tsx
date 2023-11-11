@@ -63,8 +63,6 @@ const GlobalStyles = createGlobalStyle`
     height: 45px !important;
     display: flex !important;
     align-items: center !important;
-    padding-left: 24px !important;
-    padding-right: 24px !important;
   }
 
   .ant-select-item-option-active {
@@ -81,7 +79,11 @@ const renderItem = (
   key: `option-${title}-${index}`,
   value: id,
   label: (
-    <div className="flex items-center justify-between w-full">
+    <div
+      className={`flex items-center justify-between w-full h-full px-[24px] ${
+        title === value ? "bg-[#faf5ff] text-[#6D3A9E]" : ""
+      }`}
+    >
       {title}
       {title === value && (
         <span>
