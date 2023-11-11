@@ -113,7 +113,7 @@ const InputGooglePlaces = () => {
   const [options, setOptions] = useState<Array<any>>([]);
   const getPanelValue = async (searchText: string) => {
     const q = searchText.replace(/\s/g, "+");
-    const result = await axios.get(`http://localhost:3700/search/${q}`);
+    const result = await axios.get(`https://guroo-search-place-service.onrender.com/search/${q}`);
     return result.data.features;
   };
 
