@@ -1,6 +1,7 @@
 import { HiMiniArrowLeft } from "react-icons/hi2";
 import StringInput from "./StringInput";
 import InputMultiUnitNumber from "./InputMultiUnitNumber";
+import InputGooglePlaces from "./InputGooglePlaces";
 // import {
 //   useAppDispatch,
 //   useAppSelector,
@@ -58,7 +59,8 @@ const SectionOneStep3 = ({
             Où sera situé votre restaurant ?
           </label>
 
-          <StringInput value={""} onChange={() => console.log("onChange")} />
+          <InputGooglePlaces />
+          {/* <StringInput value={""} onChange={() => console.log("onChange")} /> */}
           <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
             L'adresse nous donnera des informations clés sur les salaires, le
             loyer et les charges fixes.
