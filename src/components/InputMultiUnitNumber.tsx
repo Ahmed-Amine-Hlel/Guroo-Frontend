@@ -45,6 +45,13 @@ const StyledInputNumber = styled(InputNumber)`
     background-color: #faf5ff !important;
   }
 
+  .ant-select-selection-item {
+    font-size: 16px !important;
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    font-weight: bold !important;
+    color: #6d3b9e !important;
+  }
+
   .ant-select-selector {
     border-color: transparent !important;
     box-shadow: none !important;
@@ -85,8 +92,12 @@ const InputMultiUnitNumber: React.FC<InputMultiUnitNumberProps> = ({
               onChange(`${numberValue}${unit}`);
             }}
           >
-            <Option value="m²">m²</Option>
-            <Option value="Squarefeet">Squarefeet</Option>
+            <Option value="m²">
+              <span className="mx-2 text-sm">m²</span>
+            </Option>
+            <Option value="Squarefeet">
+              <span className="mx-2 text-sm ">Squarefeet</span>
+            </Option>
           </Select>
         }
         defaultValue={0}
