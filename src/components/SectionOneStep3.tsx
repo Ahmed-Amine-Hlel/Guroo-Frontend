@@ -1,11 +1,8 @@
-import { HiMiniArrowLeft } from "react-icons/hi2";
-import InputMultiUnitNumber from "./InputMultiUnitNumber";
-import InputGooglePlaces from "./InputGooglePlaces";
-import {
-  useAppDispatch,
-  // useAppSelector,
-} from "../hooks/hooks";
-import { setAnswer } from "../store/answersSlice";
+import { HiMiniArrowLeft } from 'react-icons/hi2';
+import InputMultiUnitNumber from './InputMultiUnitNumber';
+import InputGooglePlaces, { LocationValue } from './InputGooglePlaces';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { setAnswer } from '../store/answersSlice';
 
 const SectionOneStep3 = ({
   currentBusinessPlanId,
@@ -16,18 +13,36 @@ const SectionOneStep3 = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  // const answers = useAppSelector((state) => state.answers.answers);
+  const answers = useAppSelector((state) => state.answers.answers);
 
-  // console.log("answers : ", answers);
+  console.log('answers : ', answers);
 
-  const handleSelectOption = (rowNumber: string, value: unknown) => {
-   /*  console.log("rowNumber : ", rowNumber);
-    console.log("value : ", value);
-    console.log(rowNumber.split("-")[0]);
-    console.log(rowNumber.split("-")[1]); */
+  const handleSelectOption = (rowNumber: string, value: LocationValue) => {
+    const rowNumbers = rowNumber.split('-');
+    const city = value.city;
+    const street = value.street || '';
+
     dispatch(
       setAnswer({
-        rowNumber: rowNumber.split("-")[0],
+        rowNumber: rowNumbers[0],
+        value: city,
+        businessPlanId: currentBusinessPlanId,
+      })
+    );
+
+    dispatch(
+      setAnswer({
+        rowNumber: rowNumbers[1],
+        value: street,
+        businessPlanId: currentBusinessPlanId,
+      })
+    );
+  };
+
+  const handleInputChange = (rowNumber: string, value: unknown) => {
+    dispatch(
+      setAnswer({
+        rowNumber,
         value,
         businessPlanId: currentBusinessPlanId,
       })
@@ -40,7 +55,7 @@ const SectionOneStep3 = ({
         <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
           <div>
             <HiMiniArrowLeft
-              className={`text-[24px] ${"hover:cursor-pointer"}`}
+              className={`text-[24px] ${'hover:cursor-pointer'}`}
               onClick={handleBack}
               // onClick={!isBackDisabled ? handleBack : undefined}
             />
@@ -76,8 +91,8 @@ const SectionOneStep3 = ({
           </label>
 
           <InputMultiUnitNumber
-            value={"0"}
-            onChange={() => console.log("onChange")}
+            value={answers['16'] ? answers['16'] : '0'}
+            onChange={(value) => handleInputChange('16', value)}
           />
         </div>
       </div>
