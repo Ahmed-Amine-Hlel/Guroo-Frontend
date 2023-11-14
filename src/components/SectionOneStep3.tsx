@@ -1,34 +1,34 @@
-import { HiMiniArrowLeft } from "react-icons/hi2";
-import InputMultiUnitNumber from "./InputMultiUnitNumber";
-import InputGooglePlaces from "./InputGooglePlaces";
-// import {
-//   useAppDispatch,
-//   useAppSelector,
-// } from "../hooks/hooks";
-// import { setAnswer } from "../store/answersSlice";
+import { HiMiniArrowLeft } from 'react-icons/hi2';
+import InputMultiUnitNumber from './InputMultiUnitNumber';
+import InputGooglePlaces from './InputGooglePlaces';
+import {
+  useAppDispatch,
+  // useAppSelector,
+} from '../hooks/hooks';
+import { setAnswer } from '../store/answersSlice';
 
 const SectionOneStep3 = ({
-  // currentBusinessPlanId,
+  currentBusinessPlanId,
   handleBack,
 }: {
   currentBusinessPlanId: string | undefined;
   handleBack: () => void;
 }) => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   // const answers = useAppSelector((state) => state.answers.answers);
 
   // console.log("answers : ", answers);
 
-  // const handleInputChange = (rowNumber: string, value: unknown) => {
-  //   dispatch(
-  //     setAnswer({
-  //       rowNumber,
-  //       value,
-  //       businessPlanId: currentBusinessPlanId,
-  //     })
-  //   );
-  // };
+  const handleInputChange = (rowNumber: string, value: unknown) => {
+    dispatch(
+      setAnswer({
+        rowNumber,
+        value,
+        businessPlanId: currentBusinessPlanId,
+      })
+    );
+  };
 
   return (
     <>
@@ -36,7 +36,7 @@ const SectionOneStep3 = ({
         <div className="flex items-center gap-[12px] text-[#6D3B9E] mb-[8px]">
           <div>
             <HiMiniArrowLeft
-              className={`text-[24px] ${"hover:cursor-pointer"}`}
+              className={`text-[24px] ${'hover:cursor-pointer'}`}
               onClick={handleBack}
               // onClick={!isBackDisabled ? handleBack : undefined}
             />
@@ -72,8 +72,8 @@ const SectionOneStep3 = ({
           </label>
 
           <InputMultiUnitNumber
-            value={"0"}
-            onChange={() => console.log("onChange")}
+            value={'0'}
+            onChange={() => console.log('onChange')}
           />
         </div>
       </div>

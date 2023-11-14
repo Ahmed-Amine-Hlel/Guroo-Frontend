@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { AutoComplete } from "antd";
-import { IoCloseSharp } from "react-icons/io5";
-import axios from "axios";
-import styled, { createGlobalStyle } from "styled-components";
+import { useState } from 'react';
+import { AutoComplete } from 'antd';
+import { IoCloseSharp } from 'react-icons/io5';
+import axios from 'axios';
+import styled, { createGlobalStyle } from 'styled-components';
 
 /* ant-select-selection-search-input */
 const Wrapper = styled.div`
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
     overflow: hidden !important;
     color: #6d3b9e !important;
     font-size: 16px !important;
-    font-family: "Plus Jakarta Sans", sans-serif !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05) !important;
     padding-left: 24px !important;
     padding-right: 24px !important;
@@ -81,7 +81,7 @@ const renderItem = (
   label: (
     <div
       className={`flex items-center justify-between w-full h-full px-[24px] ${
-        title === value ? "bg-[#faf5ff] text-[#6D3A9E]" : ""
+        title === value ? 'bg-[#faf5ff] text-[#6D3A9E]' : ''
       }`}
     >
       {title}
@@ -109,11 +109,14 @@ const renderItem = (
 });
 
 const InputGooglePlaces = () => {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [options, setOptions] = useState<Array<any>>([]);
   const getPanelValue = async (searchText: string) => {
-    const q = searchText.replace(/\s/g, "+");
-    const result = await axios.get(`https://guroo-search-place-service.onrender.com/search/${q}`);
+    const q = searchText.replace(/\s/g, '+');
+    const result = await axios.get(
+      `https://guroo-search-place-service.onrender.com/search/${q}`
+    );
     return result.data.features;
   };
 
@@ -121,11 +124,11 @@ const InputGooglePlaces = () => {
     try {
       if (text.match(/^[A-Za-z0-9].{2,199}$/)) {
         const newOptions = await getPanelValue(text);
-        console.log("newOptions", newOptions);
+        console.log('newOptions', newOptions);
         setOptions(newOptions);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error);
     }
   };
 
@@ -133,7 +136,7 @@ const InputGooglePlaces = () => {
     const foundOption = options.find(
       (option) => option.properties.id === selectedId
     );
-    console.log("Selected object:", foundOption);
+    console.log('Selected object:', foundOption);
     if (foundOption) {
       setValue(foundOption.properties.label);
 
@@ -159,7 +162,7 @@ const InputGooglePlaces = () => {
           )
         )}
         style={{
-          width: "100%",
+          width: '100%',
         }}
         onSelect={onSelect}
         onSearch={onSearch}

@@ -1,16 +1,16 @@
-import BarWrapper from "./BarComponents/BarWrapper";
-import ClubWrapper from "./ClubComponents/ClubWrapper";
-import LoungeWrapper from "./LoungeComponents/LoungeWrapper";
-import RestaurantWrapper from "./RestaurantComponents/RestaurantWrapper";
-import BeachClubWrapper from "./BeachClubComponents/BeachClubWrapper";
-import SectionOneStep1 from "./SectionOneStep1";
-import SectionOneStep2 from "./SectionOneStep2";
-import SectionOneStep3 from "./SectionOneStep3";
-import SectionOneStep4 from "./SectionOneStep4";
-import SectionTwoStep1 from "./SectionTwoStep1";
-import SectionTwoStep2 from "./SectionTwoStep2";
-import SectionTwoStep3 from "./SectionTwoStep3";
-import SectionTwoStep4 from "./SectionTwoStep4";
+import BarWrapper from './BarComponents/BarWrapper';
+import ClubWrapper from './ClubComponents/ClubWrapper';
+import LoungeWrapper from './LoungeComponents/LoungeWrapper';
+import RestaurantWrapper from './RestaurantComponents/RestaurantWrapper';
+import BeachClubWrapper from './BeachClubComponents/BeachClubWrapper';
+import SectionOneStep1 from './SectionOneStep1';
+import SectionOneStep2 from './SectionOneStep2';
+import SectionOneStep3 from './SectionOneStep3';
+import SectionOneStep4 from './SectionOneStep4';
+import SectionTwoStep1 from './SectionTwoStep1';
+import SectionTwoStep2 from './SectionTwoStep2';
+import SectionTwoStep3 from './SectionTwoStep3';
+import SectionTwoStep4 from './SectionTwoStep4';
 
 type ActiveSectionProps = {
   activeSection: number;
@@ -70,7 +70,7 @@ const ActiveSection = ({
       return <SectionTwoStep1 currentBusinessPlanId={currentBusinessPlanId} />;
 
     case 6:
-      if (activeBusinessType === "Restaurant" && isRestaurantSelected) {
+      if (activeBusinessType === 'Restaurant' && isRestaurantSelected) {
         return (
           <RestaurantWrapper
             currentBusinessPlanId={currentBusinessPlanId}
@@ -79,7 +79,7 @@ const ActiveSection = ({
           />
         );
       }
-      if (activeBusinessType === "Bar" && isBarSelected) {
+      if (activeBusinessType === 'Bar' && isBarSelected) {
         return (
           <BarWrapper
             currentBusinessPlanId={currentBusinessPlanId}
@@ -88,7 +88,7 @@ const ActiveSection = ({
           />
         );
       }
-      if (activeBusinessType === "Club" && isClubSelected) {
+      if (activeBusinessType === 'Club' && isClubSelected) {
         return (
           <ClubWrapper
             currentBusinessPlanId={currentBusinessPlanId}
@@ -97,7 +97,7 @@ const ActiveSection = ({
           />
         );
       }
-      if (activeBusinessType === "Lounge" && isLoungeSelected) {
+      if (activeBusinessType === 'Lounge' && isLoungeSelected) {
         return (
           <LoungeWrapper
             currentBusinessPlanId={currentBusinessPlanId}
@@ -106,7 +106,7 @@ const ActiveSection = ({
           />
         );
       }
-      if (activeBusinessType === "Beach Club" && isBeachClubSelected) {
+      if (activeBusinessType === 'Beach Club' && isBeachClubSelected) {
         return (
           <BeachClubWrapper
             currentBusinessPlanId={currentBusinessPlanId}
@@ -151,6 +151,10 @@ const ActiveSection = ({
     case 11:
       setIsCompact(true);
       return null;
+
+    case 12:
+      setIsCompact(false);
+      return <div> hello world</div>;
   }
 };
 

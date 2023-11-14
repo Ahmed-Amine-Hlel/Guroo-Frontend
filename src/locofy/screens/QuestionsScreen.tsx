@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { HiMiniArrowRight } from "react-icons/hi2";
+import { useEffect } from 'react';
+import { HiMiniArrowRight } from 'react-icons/hi2';
 import {
   // useAppDispatch,
   useAppSelector,
-} from "../../hooks/hooks";
-import MSTable from "../../components/MSTable";
-import CFTable from "../../components/CFTable";
-import ActiveSection from "../../components/ActiveSection";
+} from '../../hooks/hooks';
+import MSTable from '../../components/MSTable';
+import CFTable from '../../components/CFTable';
+import ActiveSection from '../../components/ActiveSection';
 // import {
 //   submitAnswersAsync,
 // updateProgress
@@ -63,49 +63,49 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
         setSubStep(subStep + 1);
         return;
       }
-      if (subStep === 4 && activeBusinessType === "Restaurant") {
+      if (subStep === 4 && activeBusinessType === 'Restaurant') {
         if (isBarSelected) {
-          setActiveBusinessType("Bar");
+          setActiveBusinessType('Bar');
           setSubStep(0);
           return;
         } else if (isClubSelected) {
-          setActiveBusinessType("Club");
+          setActiveBusinessType('Club');
           setSubStep(0);
           return;
         } else if (isLoungeSelected) {
-          setActiveBusinessType("Lounge");
+          setActiveBusinessType('Lounge');
           setSubStep(0);
           return;
         } else if (isBeachClubSelected) {
-          setActiveBusinessType("Beach Club");
+          setActiveBusinessType('Beach Club');
           setSubStep(0);
           return;
         }
       }
 
-      if (subStep === 4 && activeBusinessType === "Bar") {
+      if (subStep === 4 && activeBusinessType === 'Bar') {
         if (isClubSelected) {
-          setActiveBusinessType("Club");
+          setActiveBusinessType('Club');
           setSubStep(0);
           return;
         } else if (isLoungeSelected) {
-          setActiveBusinessType("Lounge");
+          setActiveBusinessType('Lounge');
           setSubStep(0);
           return;
         } else if (isBeachClubSelected) {
-          setActiveBusinessType("Beach Club");
+          setActiveBusinessType('Beach Club');
           setSubStep(0);
           return;
         }
       }
 
-      if (activeBusinessType === "Club") {
+      if (activeBusinessType === 'Club') {
         if (isLoungeSelected) {
-          setActiveBusinessType("Lounge");
+          setActiveBusinessType('Lounge');
           setSubStep(0);
           return;
         } else if (isBeachClubSelected) {
-          setActiveBusinessType("Beach Club");
+          setActiveBusinessType('Beach Club');
           setSubStep(0);
           return;
         }
@@ -113,11 +113,25 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
 
       if (
         subStep === 4 &&
-        activeBusinessType === "Lounge" &&
+        activeBusinessType === 'Lounge' &&
         isBeachClubSelected
       ) {
-        setActiveBusinessType("Beach Club");
+        setActiveBusinessType('Beach Club');
         setSubStep(0);
+        return;
+      }
+    }
+
+    if (activeSection === 8) {
+      if (isPayrollBasedOnTurnover) {
+        setActiveSection(activeSection + 2);
+        return;
+      }
+    }
+
+    if (activeSection === 10) {
+      if (isRentBasedOnRevenue) {
+        setActiveSection(activeSection + 2);
         return;
       }
     }
@@ -147,29 +161,32 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
   );
 
   const currentBusinessPlanId = currentBusinessPlan?.uid;
-  console.log("currentBusinessPlanId : ", currentBusinessPlanId);
+  console.log('currentBusinessPlanId : ', currentBusinessPlanId);
 
   const answers = useAppSelector((state) => state.answers.answers);
 
-  const isRestaurantSelected = answers["39"] == "true";
-  const isBarSelected = answers["40"] == "true";
-  const isClubSelected = answers["41"] == "true";
-  const isLoungeSelected = answers["42"] == "true";
-  const isBeachClubSelected = answers["43"] == "true";
+  const isRestaurantSelected = answers['39'] == 'true';
+  const isBarSelected = answers['40'] == 'true';
+  const isClubSelected = answers['41'] == 'true';
+  const isLoungeSelected = answers['42'] == 'true';
+  const isBeachClubSelected = answers['43'] == 'true';
+
+  const isPayrollBasedOnTurnover = answers['334'] === 'true';
+  const isRentBasedOnRevenue = answers['410'] === 'true';
 
   useEffect(() => {
     if (isRestaurantSelected) {
-      setActiveBusinessType("Restaurant");
+      setActiveBusinessType('Restaurant');
     } else if (isBarSelected) {
-      setActiveBusinessType("Bar");
+      setActiveBusinessType('Bar');
     } else if (isClubSelected) {
-      setActiveBusinessType("Club");
+      setActiveBusinessType('Club');
     } else if (isLoungeSelected) {
-      setActiveBusinessType("Lounge");
+      setActiveBusinessType('Lounge');
     } else if (isBeachClubSelected) {
-      setActiveBusinessType("Beach Club");
+      setActiveBusinessType('Beach Club');
     } else {
-      setActiveBusinessType("");
+      setActiveBusinessType('');
     }
   }, [
     isRestaurantSelected,
@@ -198,9 +215,11 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
       currentBusinessPlanId
     );
 
-    console.log("Formated answers : ", formattedAnswers);
+    console.log('Formated answers : ', formattedAnswers);
     /* dispatch(submitAnswersAsync(formattedAnswers as unknown as Answer[])); */
   };
+
+  console.log(activeSection);
 
   return activeSection === 9 ? (
     <>
@@ -219,7 +238,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
       />
       <MSTable handleNext={handleNext} />
     </>
-  ) : activeSection === 11 ? (
+  ) : activeSection === 11 && !isRentBasedOnRevenue ? (
     <>
       <ActiveSection
         activeSection={activeSection}

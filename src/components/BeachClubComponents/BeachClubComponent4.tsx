@@ -1,8 +1,8 @@
-import { HiMiniArrowLeft } from "react-icons/hi2";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { setAnswer } from "../../store/answersSlice";
-import NumberInput from "../NumberInput";
-import QuestionAiBox from "../QuestionAiBox";
+import { HiMiniArrowLeft } from 'react-icons/hi2';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { setAnswer } from '../../store/answersSlice';
+import NumberInput from '../NumberInput';
+import QuestionAiBox from '../QuestionAiBox';
 
 const BeachClubComponent4 = ({
   currentBusinessPlanId,
@@ -26,18 +26,18 @@ const BeachClubComponent4 = ({
   };
 
   const isPetitDéjeunerSelected =
-    localStorage.getItem("beachClub-Petit-déjeuner") === "true";
+    localStorage.getItem('beachClub-Petit-déjeuner') === 'true';
 
   const isDéjeunerSelected =
-    localStorage.getItem("beachClub-Déjeuner") === "true";
+    localStorage.getItem('beachClub-Déjeuner') === 'true';
 
-  const isDinerSelected = localStorage.getItem("beachClub-Diner") === "true";
+  const isDinerSelected = localStorage.getItem('beachClub-Diner') === 'true';
 
   const isBrasserieMatinSelected =
-    localStorage.getItem("beachClub-Brasserie Matin") === "true";
+    localStorage.getItem('beachClub-Brasserie Matin') === 'true';
 
   const isBrasserieApresMidiSelected =
-    localStorage.getItem("beachClub-Brasserie après midi") === "true";
+    localStorage.getItem('beachClub-Brasserie après midi') === 'true';
 
   return (
     <>
@@ -67,13 +67,13 @@ const BeachClubComponent4 = ({
         {isPetitDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Combien de couverts attendez-vous au petit déjeuner ?
+              Combien de couverts attendez-vous au maximum au petit déjeuner ?
             </label>
 
             <NumberInput
-              value={answers["251"] ?? 0}
-              onChange={(value) => handleInputChange("251", value)}
-              validation={"max:|min:0"}
+              value={answers['251'] ?? 0}
+              onChange={(value) => handleInputChange('251', value)}
+              validation={'max:|min:0'}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le nombre de couvert correspond au nombre de personnes que vous
@@ -86,13 +86,13 @@ const BeachClubComponent4 = ({
         {isDéjeunerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Combien de couverts attendez-vous au déjeuner ?
+              Combien de couverts attendez-vous au maximum au déjeuner ?
             </label>
 
             <NumberInput
-              value={answers["253"] ?? 0}
-              onChange={(value) => handleInputChange("253", value)}
-              validation={"max:|min:0"}
+              value={answers['253'] ?? 0}
+              onChange={(value) => handleInputChange('253', value)}
+              validation={'max:|min:0'}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le nombre de couvert correspond au nombre de personnes que vous
@@ -105,14 +105,14 @@ const BeachClubComponent4 = ({
         {isDinerSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Combien de couverts attendez-vous au dîner ?
+              Combien de couverts attendez-vous au maximum au dîner ?
             </label>
 
             <NumberInput
               coloredAiBorder={true}
-              value={answers["255"] ?? 0}
-              onChange={(value) => handleInputChange("255", value)}
-              validation={"max:|min:0"}
+              value={answers['255'] ?? 0}
+              onChange={(value) => handleInputChange('255', value)}
+              validation={'max:|min:0'}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le nombre de couvert correspond au nombre de personnes que vous
@@ -125,7 +125,7 @@ const BeachClubComponent4 = ({
           <div className="mb-6">
             <QuestionAiBox
               message={
-                "Votre assistant Guroo vous aide encore sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32."
+                'Votre assistant Guroo vous aide encore sachez que en moyenne, 7m2 sont utilisés par couvert en restauration. En se basant sur vos données, vous pouvez donc avoir un maximum de couverts de 32.'
               }
             />
           </div>
@@ -134,13 +134,14 @@ const BeachClubComponent4 = ({
         {isBrasserieMatinSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Combien de couverts attendez-vous à la brasserie matin ?
+              Combien de couverts attendez-vous au maximum à la brasserie matin
+              ?
             </label>
 
             <NumberInput
-              value={answers["252"] ?? 0}
-              onChange={(value) => handleInputChange("252", value)}
-              validation={"max:|min:0"}
+              value={answers['252'] ?? 0}
+              onChange={(value) => handleInputChange('252', value)}
+              validation={'max:|min:0'}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le nombre de couvert correspond au nombre de personnes que vous
@@ -153,13 +154,14 @@ const BeachClubComponent4 = ({
         {isBrasserieApresMidiSelected && (
           <div className="w-full sm:px-[35spx] mb-[24px]">
             <label className="block px-[16px] mb-[16px] text-[14px] text-foundation-purple-dark-active">
-              Combien de couverts attendez-vous à la brasserie après midi ?
+              Combien de couverts attendez-vous au maximum à la brasserie après
+              midi ?
             </label>
 
             <NumberInput
-              value={answers["254"] ?? 0}
-              onChange={(value) => handleInputChange("254", value)}
-              validation={"max:|min:0"}
+              value={answers['254'] ?? 0}
+              onChange={(value) => handleInputChange('254', value)}
+              validation={'max:|min:0'}
             />
             <div className="px-[16px] mt-[8px] text-[#41245E] opacity-50 text-[14px]">
               Le nombre de couvert correspond au nombre de personnes que vous

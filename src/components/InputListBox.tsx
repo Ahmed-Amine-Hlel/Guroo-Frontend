@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useState } from "react";
-import { Listbox, Transition } from "@headlessui/react";
+import { Fragment, useEffect, useState } from 'react';
+import { Listbox, Transition } from '@headlessui/react';
 
 type OptionType = {
   name: string;
@@ -32,8 +32,9 @@ export default function InputListBox({
 
   return (
     <div
+      style={{ zIndex: 1000 }}
       className={`relative bg[#f4edfb] w-full ${
-        coloredAiBorder ? "ring-[6px] ring-[#e9cdff] gradient-border z-20" : ""
+        coloredAiBorder ? 'ring-[6px] ring-[#e9cdff] gradient-border z-20' : ''
       }`}
     >
       <Listbox
@@ -86,7 +87,7 @@ export default function InputListBox({
                   >
                     <div
                       className={`flex justify-between items-center w-full px-6 h-[45px] rounded-[56px] hover:cursor-pointer hover:bg-[#faf5ff] ${
-                        selected?.name === option.name ? "bg-[#faf5ff]" : ""
+                        selected?.name === option.name ? 'bg-[#faf5ff]' : ''
                       }`}
                     >
                       <span
