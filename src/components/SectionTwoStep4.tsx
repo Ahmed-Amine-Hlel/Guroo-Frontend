@@ -31,6 +31,9 @@ const SectionTwoStep4 = ({
     );
   };
 
+  const starting_date = answers['9'] ? answers['9'] : '28/09/2022';
+  console.log(starting_date);
+
   return (
     <>
       <div>
@@ -108,9 +111,7 @@ const SectionTwoStep4 = ({
 
             <div className="mt-[10px] mb-6">
               <QuestionAiBox
-                message={
-                  'En moyenne les sociétés dans votre industrie dépensent 8% du chiffre d’affaire total dans leur loyer. Attention, le loyer du siège (s’il y en a un) n’est pas inclus dans ce loyer. On appelle ça, le taux d’effort. Pour rappel, la date de création de votre activité est le 28/09/2022.'
-                }
+                message={`En moyenne les sociétés dans votre industrie dépensent 8% du chiffre d’affaire total dans leur loyer. Attention, le loyer du siège (s’il y en a un) n’est pas inclus dans ce loyer. On appelle ça, le taux d’effort. Pour rappel, la date de création de votre activité est le ${starting_date}.`}
               />
             </div>
           </div>
@@ -132,9 +133,7 @@ const SectionTwoStep4 = ({
 
             <div className="mt-[10px] mb-6">
               <QuestionAiBox
-                message={
-                  'Pour la surface annoncée, en fonction de votre localisation nous identifions que le loyer en moyenne au m2 est de 298€/m2 donc votre loyer doit être environ de 2589€ par mois. Attention, le loyer du siège (s’il y en a un) n’est pas inclus dans ce loyer. Pour rappel, la date de création de votre activité est le 28/09/2022.'
-                }
+                message={`Pour la surface annoncée, en fonction de votre localisation nous identifions que le loyer en moyenne au m2 est de 298€/m2 donc votre loyer doit être environ de 2589€ par mois. Attention, le loyer du siège (s’il y en a un) n’est pas inclus dans ce loyer. Pour rappel, la date de création de votre activité est le ${starting_date}.`}
               />
             </div>
           </div>
