@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { HiMiniArrowRight } from "react-icons/hi2";
+import { useState } from 'react';
+import { HiMiniArrowRight } from 'react-icons/hi2';
+import { Menu, Dropdown, Button } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
 interface CFTableProps {
   handleNext: () => void;
@@ -7,11 +9,11 @@ interface CFTableProps {
 
 const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
   const [tableColumns] = useState<string[]>([
-    "Type de la charge",
-    "Entreprise recomandée",
-    "Mode de paiement",
-    "Montant HT/mois",
-    "Montant TTC/mois",
+    'Type de la charge',
+    'Entreprise recomandée',
+    'Mode de paiement',
+    'Montant HT/mois',
+    'Montant TTC/mois',
   ]);
 
   /* ["Assurance 👪", "Assurup", "Prélèvement", "59€", "70.9€"],
@@ -19,20 +21,65 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
     ["Comptable 📈", "Tibi Comptable", "Prélèvement", "400€", "480€"], */
 
   const [tableData, setTableData] = useState<string[][]>([]);
+  const [usedTags, setUsedTags] = useState(new Set());
+
+  const initialTags = [
+    'Assurances',
+    'Honoraires comptables',
+    'Honoraires légal',
+    'Charges bancaires',
+    'Maintenance et réparations',
+    'Poste/Tel/Internet',
+    'Consommables',
+    'Sous-traitance générale',
+    'Eau,Eléctricité',
+    'Carburant',
+    'Fournitures administratives',
+    'Location en crédit-bail',
+    'Location autres',
+    'Charge locatives et corporatives',
+  ];
+
+  const dropdownTags = [
+    'Etudes et recherches',
+    'Personnel extérieur',
+    "Rém. d'intermédiaires",
+    'Publicité, publications, RP',
+    'Transport du bien et du personnel',
+    'Petits équip. / Produits entretien',
+    'textiles',
+    'Licences',
+    'Impôts et taxes',
+    'Autres charges opérationnelles',
+    'Loyer - siège',
+    'Marketing',
+    'Déplac.,missions et réceptions',
+    'Honoraires siège',
+    'Assurances siège',
+  ];
 
   const handleAddRow = (loadType: string) => {
-    const newRow = [loadType, "", "", "", ""];
+    const newRow = [loadType, '', '', '', ''];
     setTableData([...tableData, newRow]);
-    console.log(tableData)
+    setUsedTags(new Set([...usedTags, loadType]));
+    console.log(tableData);
   };
 
   const handleDeleteRow = (rowNumber: number) => {
     const newTableData = tableData.filter((_, index) => index !== rowNumber);
+    const removedTag = tableData[rowNumber][0];
+    const newUsedTags = new Set(usedTags);
+    newUsedTags.delete(removedTag);
+
     setTableData(newTableData);
+    setUsedTags(newUsedTags);
   };
 
-
-  const handleCellChange = (rowNumber: number, colNumber: number, value: string) => {
+  const handleCellChange = (
+    rowNumber: number,
+    colNumber: number,
+    value: string
+  ) => {
     const newTableData = tableData.map((row, index) => {
       if (index === rowNumber) {
         return row.map((cell, cellIndex) => {
@@ -45,7 +92,21 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
       return row;
     });
     setTableData(newTableData);
-  }
+  };
+
+  const dropdownMenu = (
+    <Menu>
+      {dropdownTags.map((tag, index) => (
+        <Menu.Item
+          key={index}
+          disabled={usedTags.has(tag)}
+          onClick={() => handleAddRow(tag)}
+        >
+          {tag}
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
 
   return (
     <div className="flex flex-col md:flex-row gap-[16px] w-full min-h-full bg-[#f4edfb] font-plus-jakarta-sans">
@@ -59,29 +120,31 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
           toutes les charges de votre restaurant qui ne sont pas variables.
         </p>
 
-        <div className="flex flex-wrap gap-[14px] mt-[23px] mb-[25px] w-full md:w-[70%] lg:w-[70%] min-[1864px]:w-[65%] items-center">
-          {[
-            "Assurance 👪",
-            "Electricité ⚡",
-            "Loyers 🔑",
-            "Logiciels 🖥️",
-            "Comptable 📈",
-            "Frais bancaires 🏦",
-            "Coworking 💪",
-            "Véhicule 🚗",
-            "Ménage 👨‍👩‍👧‍👦",
-          ].map((tag, index) => (
+        <div className="flex flex-wrap gap-[14px] mt-[23px] mb-[25px] w-full items-center">
+          {initialTags.map((tag, index) => (
             <button
               key={index}
-              className="px-[8px] py-[8px] border-[1px] border-[#DDC8F1] 
-              bg-foundation-purple-light-hover rounded-[8px] text-[#914FD2] 
+              className={`px-[8px] py-[8px] border-[1px] ${
+                usedTags.has(tag) ? '' : ''
+              }  
+              border-[#DDC8F1] bg-foundation-purple-light-hover rounded-[8px] text-[#914FD2] 
               font-plus-jakarta-sans text-[16px] font-medium leading-[24px] cursor-pointer
-              hover:bg-purple-light active:ring-2 active:ring-[#DDC8F1] active:ring-opacity-50"
+              hover:bg-purple-light active:ring-2 active:ring-[#DDC8F1] active:ring-opacity-50`}
+              disabled={usedTags.has(tag)}
               onClick={() => handleAddRow(tag)}
             >
               {tag}
             </button>
           ))}
+
+          <Dropdown overlay={dropdownMenu} trigger={['click']}>
+            <Button
+              className="ant-dropdown-link"
+              onClick={(e) => e.preventDefault()}
+            >
+              Autres <DownOutlined />
+            </Button>
+          </Dropdown>
         </div>
 
         {/* ... Rest of the component ... */}
@@ -134,15 +197,17 @@ const CFTable: React.FC<CFTableProps> = ({ handleNext }) => {
                           className={`px-2 text-center w-full h-[45px] border-[1px] border-foundation-purple-light-active rounded-[8px] focus:outline-none text-[14px] text-[#41245eeb]
                           ${
                             rowIndex === 0
-                              ? "bg-light-p-hover text-start px-[18px]"
+                              ? 'bg-light-p-hover text-start px-[18px]'
                               : rowIndex === 3 || rowIndex === 4
-                              ? "text-start px-[18px] bg-white"
-                              : "bg-white"
+                              ? 'text-start px-[18px] bg-white'
+                              : 'bg-white'
                           }
                           `}
                           readOnly={rowIndex === 0}
                           value={text}
-                          onChange={(e) => handleCellChange(index, rowIndex, e.target.value)}
+                          onChange={(e) =>
+                            handleCellChange(index, rowIndex, e.target.value)
+                          }
                         />
                       </div>
                     ))}
