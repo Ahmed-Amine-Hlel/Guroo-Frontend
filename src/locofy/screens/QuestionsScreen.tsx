@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { HiMiniArrowRight } from 'react-icons/hi2';
 import {
   // useAppDispatch,
@@ -7,6 +7,8 @@ import {
 import MSTable from '../../components/MSTable';
 import CFTable from '../../components/CFTable';
 import ActiveSection from '../../components/ActiveSection';
+import MSTableSiege from '../../components/MSTableSiege';
+import CFTableSiege from '../../components/CFTableSiege';
 // import {
 //   submitAnswersAsync,
 // updateProgress
@@ -40,6 +42,28 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
   setActiveBusinessType,
   handleBack,
 }) => {
+  const [shouldSetupHeadquarters, setShouldSetupHeadquarters] = useState(() => {
+    return localStorage.getItem('shouldSetupHeadquarters') === 'true';
+  });
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const value = localStorage.getItem('shouldSetupHeadquarters') === 'true';
+      setShouldSetupHeadquarters(value);
+    };
+
+    window.addEventListener(
+      'shouldSetupHeadquartersChanged',
+      handleStorageChange
+    );
+
+    return () => {
+      window.removeEventListener(
+        'shouldSetupHeadquartersChanged',
+        handleStorageChange
+      );
+    };
+  }, []);
   // const dispatch = useAppDispatch();
   // const navigate = useNavigate();
   // const businessPlanService = new GurooBusinessPlanService(
@@ -135,6 +159,21 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
         return;
       }
     }
+
+    if (activeSection === 12) {
+      if (!shouldSetupHeadquarters) {
+        setActiveSection(activeSection + 3);
+        return;
+      }
+      if (shouldSetupHeadquarters && !IS_REVENUE_PERCENTAGE_BASED) {
+        setActiveSection(activeSection + 1);
+        return;
+      }
+      if (shouldSetupHeadquarters && IS_REVENUE_PERCENTAGE_BASED) {
+        setActiveSection(activeSection + 2);
+        return;
+      }
+    }
     setActiveSection(activeSection + 1);
     // dispatch(
     //   updateProgress({
@@ -173,6 +212,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
 
   const isPayrollBasedOnTurnover = answers['334'] === 'true';
   const isRentBasedOnRevenue = answers['410'] === 'true';
+  const IS_REVENUE_PERCENTAGE_BASED = answers['474'] === 'true';
 
   useEffect(() => {
     if (isRestaurantSelected) {
@@ -221,7 +261,7 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
 
   console.log(activeSection);
 
-  return activeSection === 9 ? (
+  return activeSection === 9 && !isPayrollBasedOnTurnover ? (
     <>
       <ActiveSection
         activeSection={activeSection}
@@ -254,6 +294,40 @@ const QuestionsScreen: React.FC<QuestionsScreenProps> = ({
         handleBack={handleBack}
       />
       <CFTable handleNext={handleNext} />
+    </>
+  ) : activeSection === 13 && !IS_REVENUE_PERCENTAGE_BASED ? (
+    <>
+      <ActiveSection
+        activeSection={activeSection}
+        activeBusinessType={activeBusinessType}
+        currentBusinessPlanId={currentBusinessPlanId}
+        subStep={subStep}
+        isBeachClubSelected={isBeachClubSelected}
+        isBarSelected={isBarSelected}
+        isClubSelected={isClubSelected}
+        isLoungeSelected={isLoungeSelected}
+        isRestaurantSelected={isRestaurantSelected}
+        setIsCompact={setIsCompact}
+        handleBack={handleBack}
+      />
+      <MSTableSiege handleNext={handleNext} />
+    </>
+  ) : activeSection === 14 && shouldSetupHeadquarters ? (
+    <>
+      <ActiveSection
+        activeSection={activeSection}
+        activeBusinessType={activeBusinessType}
+        currentBusinessPlanId={currentBusinessPlanId}
+        subStep={subStep}
+        isBeachClubSelected={isBeachClubSelected}
+        isBarSelected={isBarSelected}
+        isClubSelected={isClubSelected}
+        isLoungeSelected={isLoungeSelected}
+        isRestaurantSelected={isRestaurantSelected}
+        setIsCompact={setIsCompact}
+        handleBack={handleBack}
+      />
+      <CFTableSiege handleNext={handleNext} />
     </>
   ) : (
     <div className="flex flex-col w-full sm:w-[470px] lg:w-[560px] min-[1864px]:w-[650px] h-full px-2">

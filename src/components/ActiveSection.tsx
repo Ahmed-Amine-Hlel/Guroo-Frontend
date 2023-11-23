@@ -11,6 +11,8 @@ import SectionTwoStep1 from './SectionTwoStep1';
 import SectionTwoStep2 from './SectionTwoStep2';
 import SectionTwoStep3 from './SectionTwoStep3';
 import SectionTwoStep4 from './SectionTwoStep4';
+import SectionTwoStep5 from './SectionTwoStep5';
+import SectionTwoStep6 from './SectionTwoStep6';
 
 type ActiveSectionProps = {
   activeSection: number;
@@ -154,7 +156,26 @@ const ActiveSection = ({
 
     case 12:
       setIsCompact(false);
-      return <div> hello world</div>;
+      return (
+        <SectionTwoStep5
+          currentBusinessPlanId={currentBusinessPlanId}
+          handleBack={handleBack}
+        />
+      );
+    case 13:
+      setIsCompact(true);
+      return null;
+    case 14: // Charge fixe Siege
+      setIsCompact(true);
+      return null;
+    case 15:
+      setIsCompact(false);
+      return (
+        <SectionTwoStep6
+          currentBusinessPlanId={currentBusinessPlanId}
+          handleBack={handleBack}
+        />
+      );
   }
 };
 

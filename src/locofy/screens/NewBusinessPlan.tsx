@@ -1,7 +1,7 @@
 import Stepper from '../../components/Stepper';
 // import Questions from "../../components/Questions";
 import ChatBot from '../../components/ChatBot';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import QuestionsScreen from './QuestionsScreen';
 import { useAppSelector } from '../../hooks/hooks';
 
@@ -20,6 +20,29 @@ const NewBusinessPlan = () => {
 
   const isPayrollBasedOnTurnover = answers['334'] === 'true';
   const isRentBasedOnRevenue = answers['410'] === 'true';
+  const IS_REVENUE_PERCENTAGE_BASED = answers['474'] === 'true';
+  const [shouldSetupHeadquarters, setShouldSetupHeadquarters] = useState(() => {
+    return localStorage.getItem('shouldSetupHeadquarters') === 'true';
+  });
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const value = localStorage.getItem('shouldSetupHeadquarters') === 'true';
+      setShouldSetupHeadquarters(value);
+    };
+
+    window.addEventListener(
+      'shouldSetupHeadquartersChanged',
+      handleStorageChange
+    );
+
+    return () => {
+      window.removeEventListener(
+        'shouldSetupHeadquartersChanged',
+        handleStorageChange
+      );
+    };
+  }, []);
 
   const handleBack = () => {
     if (activeSection === 6) {
@@ -92,6 +115,20 @@ const NewBusinessPlan = () => {
     if (activeSection === 12) {
       if (isRentBasedOnRevenue) {
         setActiveSection(activeSection - 2);
+        return;
+      }
+    }
+
+    if (activeSection === 14) {
+      if (IS_REVENUE_PERCENTAGE_BASED) {
+        setActiveSection(activeSection - 2);
+        return;
+      }
+    }
+
+    if (activeSection === 15) {
+      if (!shouldSetupHeadquarters) {
+        setActiveSection(activeSection - 3);
         return;
       }
     }
